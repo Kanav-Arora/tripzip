@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,92 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/** Landing Page */
+
+.landing {
+  width: 100%;
+  background-color: white;
+}
+
+.landing-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  color: white;
+}
+
+.landing-signup {
+  padding: 0.5rem 1rem;
+  background-color: #DF6951;
+  color: white;
+}
+
+.landing-section-title {
+  color: #DF6951;
+}
+
+.landing-section-heading {
+  font-size: 2rem;
+}
+
+.landing-section-content {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/** Landing Page - Section A */
+
+.landing-section-a-card-container {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.landing-section-a-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.landing-section-a-price-label {
+  position: absolute;
+  border-radius: 15px;
+  top: 10px;
+  right: 10px;
+  background-color: #DF6951;
+  color: #fff;
+  padding: 5px 10px;
+}
+
+/** Landing Page - Section A */
+
+.landing-section-b-card {
+  position: relative;
+}
+
+.landing-section-b-card-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.landing-section-b-bordered-button {
+  border: 2px solid white;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.landing-section-b-bordered-button:hover {
+  background-color: #fff;
+  color: #000;
 }
