@@ -3,6 +3,7 @@ import SectionA from './SectionA'
 import SectionB from './SectionB';
 import Header from './Header';
 import Footer from './Footer';
+import SectionC from './SectionC';
 
 export default function Landing() {
     useEffect(() => {
@@ -13,6 +14,7 @@ export default function Landing() {
             <Header />
             <SectionA />
             <SectionB />
+            <SectionC />
             <Footer />
         </div >
     )

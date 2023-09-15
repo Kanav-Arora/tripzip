@@ -12,7 +12,7 @@ export default function SectionA() {
                     </div>
                     <div className='landing-section-content block w-full tablet:w-3/6'>Home to majestic mountain ranges, captivating coastlines, and idyllic islands, Europe boasts some of the most beautiful scenery on Earth. While its world-class capitals of London, Paris, and Rome attract the most visitors, the continent's 44 countries each have delightfully different cities and attractions to explore.
                     </div>
-                    <button className='landing-signup rounded-md'>
+                    <button className='py-2 px-4 text-white bg-orange-accent rounded-md'>
                         View Packages
                     </button>
                     <div className='py-10 mobile:py-0'>

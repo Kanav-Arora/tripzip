@@ -13,7 +13,11 @@ module.exports = {
       'laptop': { 'min': '769px', 'max': '1024px' },
       'xlaptop': { 'min': '1025px', 'max': '1441px' },
     },
-    extend: {},
+    extend: {
+      colors: {
+        'orange-accent': '#DF6951',
+      },
+    },
   },
   darkMode: "class",
   plugins: [],
