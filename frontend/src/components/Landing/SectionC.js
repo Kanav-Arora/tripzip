@@ -19,7 +19,7 @@ export default function SectionC() {
             people: 20,
         },
         {
-            place: "Greece",
+            place: "Ooty",
             url: "https://media1.thrillophilia.com/filestore/yd4e9agzzc1wmwwhsocexspozned_1589380868_shutterstock_1373319851.jpg?w=576&h=650",
             desc: `The country’s unique light, the endless blue color of Greece and 
             the islands have made Greece synonymous with summer holidays.`,

@@ -4,6 +4,7 @@ import SectionB from './SectionB';
 import Header from './Header';
 import Footer from './Footer';
 import SectionC from './SectionC';
+import './index.css'
 
 export default function Landing() {
     useEffect(() => {

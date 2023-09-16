@@ -1,0 +1,104 @@
+.landing {
+    width: 100%;
+    background-color: white;
+}
+
+.landing-navbar {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    color: white;
+}
+
+.overlay-text {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    font-family: 'Noto Sans Mono', monospace;
+}
+
+.landing-section-title {
+    color: #DF6951;
+}
+
+.landing-section-heading {
+    font-size: 2rem;
+}
+
+.landing-section-content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/** Landing Page - Section A */
+
+.landing-section-a-card-container {
+    position: relative;
+    width: 200px;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.landing-section-a-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.landing-section-a-price-label {
+    position: absolute;
+    border-radius: 15px;
+    top: 10px;
+    right: 10px;
+    background-color: #DF6951;
+    color: #fff;
+    padding: 5px 10px;
+}
+
+/** Landing Page - Section A */
+
+.landing-section-b-card {
+    position: relative;
+}
+
+.landing-section-b-card-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.landing-section-b-bordered-button {
+    border: 2px solid white;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.landing-section-b-bordered-button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/** Landing Page - Section C */
+
+.landing-section-a-card-container {
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.landing-section-a-card-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
