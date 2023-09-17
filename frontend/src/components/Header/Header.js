@@ -1,7 +1,7 @@
 import React from 'react'
-import NavBar from '../NavBar/NavBar'
 import { ImgWithFallback } from '../../assets/utilities'
-import InputDialog from './InputDialog'
+import InputDialog from '../Home/InputDialog'
+import NavBar from '../NavBar/NavBar'
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@600&display=swap');

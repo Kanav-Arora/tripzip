@@ -1,6 +1,7 @@
 import React from 'react'
 import { LocationPinMini as LocationIcon, CalendarMini as CalendarIcon, CalendarFilledMini as CalendarFilledIcon } from '../../assets/ext-icon'
 
+
 export default function InputDialog() {
     return (
         <div className='mobile:hidden absolute rounded-xl bottom-0 mb-10 left-1/2 transform -translate-x-1/2 w-fit'>

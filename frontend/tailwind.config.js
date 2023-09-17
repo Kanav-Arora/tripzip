@@ -1,5 +1,4 @@
 // tailwind.config.js
-const { nextui } = require("@nextui-org/react");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -11,7 +10,7 @@ module.exports = {
       'mobile': { 'min': '320px', 'max': '480px' },
       'tablet': { 'min': '481px', 'max': '768px' },
       'laptop': { 'min': '769px', 'max': '1024px' },
-      'xlaptop': { 'min': '1025px', 'max': '1441px' },
+      'xlaptop': { 'min': '1025px', 'max': '1920px' },
     },
     extend: {
       colors: {
