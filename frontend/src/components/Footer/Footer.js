@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -175,15 +176,10 @@ export default function Footer() {
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
-                    About
-                  </a>
+                  <NavLink to="/about" exact activeClassName="active" className="text-gray-700 transition hover:opacity-75">About</NavLink>
                 </li>
-
                 <li>
-                  <a href="#" className="text-gray-700 transition hover:opacity-75">
-                    Meet the Team
-                  </a>
+                  <NavLink to="/team" exact activeClassName="active" className="text-gray-700 transition hover:opacity-75">Meet the Team</NavLink>
                 </li>
               </ul>
             </div>
