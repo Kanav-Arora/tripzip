@@ -1,6 +1,6 @@
 import React from 'react'
-import { LocationPinMini as LocationIcon, CalendarMini as CalendarIcon, CalendarFilledMini as CalendarFilledIcon } from '../../assets/ext-icon'
 
+import { LocationPinMini as LocationIcon, CalendarMini as CalendarIcon, CalendarFilledMini as CalendarFilledIcon } from '../../assets/ext-icon'
 
 export default function InputDialog() {
     return (

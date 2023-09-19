@@ -1,3 +1,3 @@
-import Home from './Landing'
+import Home from './Home'
 
 export default Home;

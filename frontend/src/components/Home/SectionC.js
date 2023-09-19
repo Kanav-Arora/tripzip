@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { CalendarMini as Calendar, PersonMini as Person } from '../../assets/ext-icon.jsx'
 
 export default function SectionC() {

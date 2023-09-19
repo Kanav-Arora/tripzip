@@ -1,10 +1,11 @@
 import { React, useEffect } from 'react'
+
 import SectionA from './SectionA'
 import SectionB from './SectionB';
 import SectionC from './SectionC';
 import './index.css'
 
-export default function Landing() {
+export default function Home() {
     useEffect(() => {
         document.title = "Travel Buddy"
     }, []);
