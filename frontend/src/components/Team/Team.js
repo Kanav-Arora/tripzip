@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { ImgWithFallback } from '../../assets/utilities';
 
 export default function Team() {

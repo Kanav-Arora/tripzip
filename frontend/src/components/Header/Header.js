@@ -1,6 +1,8 @@
 import React from 'react'
-import { ImgWithFallback } from '../../assets/utilities'
+
 import { useLocation } from 'react-router-dom'
+
+import { ImgWithFallback } from '../../assets/utilities'
 import InputDialog from '../Home/InputDialog'
 import NavBar from '../NavBar/NavBar'
 
@@ -18,7 +20,7 @@ export default function Header() {
             <div className="relative overlay-text top-1/2 left-1/2">
                 <p className="text-white text-center text-3xl mobile:text-xl">Embark on Adventures Together</p>
             </div>
-            <isHome InputDialog />
+            {isHome && <InputDialog />}
         </div>
     )
 }
