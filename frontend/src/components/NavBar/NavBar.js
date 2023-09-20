@@ -1,6 +1,9 @@
-import { React, useState } from 'react'
-import { Hamburger as Hamburger, Cross as Cross } from '../../assets/ext-icon';
+import React, { useContext, useState } from 'react'
+
 import { Link } from 'react-router-dom';
+
+import { loginAction, logoutAction } from '../../context/Auth/authAction'
+import { Hamburger as Hamburger, Cross as Cross } from '../../assets/ext-icon';
 
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);

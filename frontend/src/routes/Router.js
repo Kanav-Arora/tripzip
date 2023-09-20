@@ -6,6 +6,7 @@ import Home from '../components/Home'
 import Landing from '../layout/Landing';
 import PageNotFound from '../components/PageNotFound'
 import Team from '../components/Team';
+import { useEffect } from "react";
 
 export default function Router() {
     return (
