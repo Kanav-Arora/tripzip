@@ -2,18 +2,24 @@ const jwt = require('jsonwebtoken');
 
 function validateUser(req, res, next) {
   try {
-    const token = req.session.jwt;
+    const token = req.cookies.access_token;
 
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-    const decodedToken = jwt.verify(token, "secretKey");
 
-    req.userId = decodedToken.indexOf;
-    next();
+    jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+      if (err) {
+        return res.status(403).json('Invalid Token');
+      }
+      req.user = {
+        id: payload.id
+      }
+      next();
+    })
   } catch (error) {
     console.log(error);
-    return res.status(401).send({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized" });
   }
 }
 

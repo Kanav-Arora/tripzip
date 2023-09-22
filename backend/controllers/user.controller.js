@@ -8,28 +8,21 @@ async function signUpUser(req, res) {
 
   // validation
   try {
-    if(!user.name || !user.email || !user.password){
+    if (!user.name || !user.email || !user.password) {
       return res.status(400).send({ message: "Invalid or missing params" });;
     }
 
     // Checking if user already exists
     const userExists = await ifUserExists(user);
     if (userExists) {
-      return res.status(400).send({ message: "User already exists"});
+      return res.status(400).send({ message: "User already exists" });
     }
 
     // add new user
-    const savedUser= await addNewUser(user);
-    // Generate token for user
-    const token = jwt.sign({ id: savedIser._id}, "secretKey");
-    req.session = {
-      jwt: token,
-    };
-    console.log("Hold on, we are signing you in!");
+    const savedUser = await addNewUser(user);
 
-    // return token
     return res.status(201).json(savedUser._id);
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     return res.status(500).send({ message: "Internal Server Error :(" });
   }
@@ -49,17 +42,20 @@ async function signInUser(req, res) {
       user.password
     );
 
-    if(!isPasswordCorrect) {
-      return res.status(400).send({ message: "Umm, Invalid cfredentials" });      
+    if (!isPasswordCorrect) {
+      return res.status(400).send({ message: "Umm, Invalid cfredentials" });
     }
 
     // Generate token for user
-    const token = jwt.sign({ id: userExists._id }, "secretKey");
-    req.session = {
-      jwt: token,
-    };
-    console.log("Hold on, we are signing you in!");
-    return res.status(200).json(userExists._id);
+    const payload = {
+      id: userExists._id
+    }
+    const token = jwt.sign(payload, 'secret', { expiresIn: '1d' });
+    res.cookie('access_token', token, {
+      httpOnly: true
+    }).status(200).json({
+      username: userExists.username
+    })
   } catch (error) {
     console.log(error);
     return res.status(500).send({ message: "Internal Server Error :(" })
@@ -68,8 +64,8 @@ async function signInUser(req, res) {
 
 async function signOutUser(req, res) {
   console.log("Signing you out, looking forward to see you again");
-  req.session = null;
-  res.send({});
+  res.clearCookie('access_token');
+  res.status(200).json('Logout successful');
 }
 
 module.exports = { signUpUser, signInUser, signOutUser };
