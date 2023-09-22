@@ -5,7 +5,7 @@ import { authReducer } from "./authReducer";
 const AuthContext = createContext();
 
 const initialState = {
-    authorised: false,
+    isAuthenticated: false,
     user: null
 }
 

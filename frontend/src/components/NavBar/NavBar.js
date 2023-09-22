@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 
 import { loginAction, logoutAction } from '../../context/Auth/authAction'
+import { AuthContext } from '../../context/Auth/authContext'
 import { Hamburger as Hamburger, Cross as Cross } from '../../assets/ext-icon';
 
 export default function NavBar() {
