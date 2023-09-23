@@ -5,9 +5,13 @@ import { Link } from 'react-router-dom';
 import { loginAction, logoutAction } from '../../context/Auth/authAction'
 import { AuthContext } from '../../context/Auth/authContext'
 import { Hamburger as Hamburger, Cross as Cross } from '../../assets/ext-icon';
+import Dropdown from './Dropdown';
 
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
+    const { state, dispatch } = useContext(AuthContext);
+
+    const isAuth = state.isAuthenticated;
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -47,11 +51,18 @@ export default function NavBar() {
                 <Link to="#" className='text-white'>Upcoming Trips</Link>
             </div>
 
-            <div className="mobile:hidden flex items-center space-x-2">
-                <button className="text-white bg-transparent pr-3 py-2">Login</button>
-                <button className="bg-white text-black border rounded-full px-4 py-2">Sign Up</button>
-            </div>
-
+            {
+                isAuth == true
+                    ?
+                    <div className="mobile:hidden flex items-center space-x-2">
+                        <Dropdown name={state.name} />
+                    </div>
+                    :
+                    <div className="mobile:hidden flex items-center space-x-2">
+                        <button className="text-white bg-transparent pr-3 py-2">Login</button>
+                        <button className="bg-white text-black border rounded-full px-4 py-2">Sign Up</button>
+                    </div>
+            }
         </nav>
     )
 }

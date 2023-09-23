@@ -1,7 +1,10 @@
 const loginAction = (user) => {
     return {
         type: 'LOGIN',
-        payload: user,
+        payload: {
+            uid: user.id,
+            name: user.name
+        },
     };
 };
 

@@ -6,15 +6,17 @@ const AuthContext = createContext();
 
 const initialState = {
     isAuthenticated: false,
-    user: null
+    uid: null,
+    name: null
 }
 
 const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, initialState);
-
-    <AuthContext.Provider value={{ state, dispatch }}>
-        {children}
-    </AuthContext.Provider>
+    return (
+        <AuthContext.Provider value={{ state, dispatch }}>
+            {children}
+        </AuthContext.Provider>
+    );
 }
 
 export { AuthProvider, AuthContext };
