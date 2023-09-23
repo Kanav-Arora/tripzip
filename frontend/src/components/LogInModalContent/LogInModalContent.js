@@ -1,35 +1,96 @@
-import React from 'react';
+import { React } from 'react';
 
-function SignUpModalContent() {
+// import Modal from '../../components/Modal';
+// import SignUpModalContent from '../SignUpModalContent';
+
+function LogInModalContent() {
+  // const [showSignUpModal, setShowSignUpModal] = useState(false);
+  // const [showLogInModal, setShowLogInModal] = useState(false);
+
   return (
-    <div className="container flex-1 flex flex-col items-center justify-center px-2">
-      <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-        <h1 className="mb-8 text-3xl text-center">Log In</h1>
-        <input
-          type="text"
-          className="block border border-grey-light w-full p-3 rounded mb-4"
-          name="email"
-          placeholder="Email" />
-
-        <input
-          type="password"
-          className="block border border-grey-light w-full p-3 rounded mb-4"
-          name="password"
-          placeholder="Password" />
-
+    <div className='py-6 px-6 lg:px-8 text-left'>
+      <h3 className='mb-4 text-xl font-medium text-gray-900'>
+        Log In to Travel Buddy
+      </h3>
+      <form className='space-y-6' action='#'>
+        <div>
+          <label
+            for='email'
+            className='block mb-2 text-sm font-medium text-gray-900'
+          >
+            Enter Registered Email
+          </label>
+          <input
+            type='email'
+            name='email'
+            id='email'
+            className='bg-gray-50 border border-gray-300 text-gray-900 
+            text-sm rounded-lg focus:ring-blue-500 
+            focus:border-blue-500 w-full p-2.5'
+            placeholder='name@gmail.com'
+            required
+          />
+        </div>
+        <div>
+          <label
+            for='password'
+            className='block mb-2 text-sm font-medium text-gray-900'
+          >
+            Enter your Password
+          </label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder='**********'
+            className='bg-gray-50 border border-gray-300 text-gray-900 
+            text-sm rounded-lg focus:ring-blue-500 
+            focus:border-blue-500 w-full p-2.5'
+            required
+          />
+        </div>
+        <div className='flex justify-between'>
+          <div className='flex items-start'>
+            <div className='flex items-center h-5'>
+              <input
+                id='remember'
+                type='checkbox'
+                value=''
+                className='w-4 h-4 bg-gray-50 rounded border
+                border-gray-300 focus:ring-3 focus:ring-blue-300'
+                required
+              />
+            </div>
+            <label
+              for='remember'
+              className='ml-2 text-sm font-medium text-gray-900'
+            >
+              Remember Me
+            </label>
+          </div>
+          <a href='/' className='text-sm text-blue-700 hover:underline'>Forget Passowrd?</a>
+        </div>
         <button
           type="submit"
-          className="w-full text-center py-3 rounded bg-green text-white hover:bg-green-dark focus:outline-none my-1"
-        >Submit</button>
-      </div>
-
-      <div className="text-grey-dark mt-6">
-        Already have an account?
-        <a className="no-underline border-b border-blue text-blue" href="../login/">
-          Log in
-        </a>.
-      </div>
+          className='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+          focus:outline-none focus:ring-blue-300
+          font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+        >
+          Log In
+        </button>
+        <label
+          for='remember'
+          className='ml-2 text-sm font-medium text-gray-900'
+        >
+          Not Registered? &nbsp;
+        </label>
+        <a href='/' className='text-sm font-bold text-blue-700 hover:underline'>Create Account</a>
+        {/* <button className="text-sm font-bold text-blue-700 hover:underline" onClick={() =>{setShowSignUpModal(true); setShowLoginModal(false);}}>Create Account</button> */}
+        {/* <Modal isVisible={showSignUpModal} onClose={() => setShowSignUpModal(false)}>
+          <SignUpModalContent />
+        </Modal> */}
+      </form>
     </div>
   )
 }
-export default SignUpModalContent;
+export default LogInModalContent;
