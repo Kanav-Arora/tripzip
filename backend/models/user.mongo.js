@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
   email: {
     type: String,
     required: true,
@@ -17,9 +13,9 @@ const userSchema = new Schema({
     required: [true, 'Please provide a password'],
     minlength: 8
   },
-  last_signin_at: {
-    type: Date,
-    required: false
+  name: {
+    type: String,
+    required: true
   },
   status: {
     type: String,
@@ -33,7 +29,11 @@ const userSchema = new Schema({
   updated_at: {
     type: Date,
     default: Date.now
-  }
+  },
+  last_signin_at: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const User = mongoose.model('User', userSchema);

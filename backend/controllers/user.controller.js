@@ -1,7 +1,8 @@
-const jwt = require("jsonwebtoken");
-const { PasswordManager } = require("../services/passwordManager");
+import { sign } from "jsonwebtoken";
 
-const { ifUserExists, addNewUser } = require("../models/user.model");
+import { PasswordManager } from "../services/passwordManager";
+
+import { ifUserExists, addNewUser } from "../models/user.model";
 
 async function signUpUser(req, res) {
   const user = req.body;
@@ -50,7 +51,7 @@ async function signInUser(req, res) {
     const payload = {
       id: userExists._id
     }
-    const token = jwt.sign(payload, 'secret', { expiresIn: '1d' });
+    const token = sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
     res.cookie('access_token', token, {
       httpOnly: true
     }).status(200).json({
@@ -68,4 +69,4 @@ async function signOutUser(req, res) {
   res.status(200).json('Logout successful');
 }
 
-module.exports = { signUpUser, signInUser, signOutUser };
+export default { signUpUser, signInUser, signOutUser };

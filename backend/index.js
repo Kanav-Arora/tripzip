@@ -1,14 +1,16 @@
 const connectToMongo = require('./db');
-const express = require('express')
+
+const express = require('express');
+const { port } = require('../backend/config')
 
 connectToMongo();
-const app = express()
-const port = 5000
 
-app.use(express.json())
+const app = express()
+
+app.use(json())
 
 // Available Routes
-app.use('/api/users', require('./routes/users'))
+app.use('/users', require('./routes/users'))
 
 
 app.get('/', (req, res) => {
