@@ -1,16 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import NavBar from './components/NavBar/NavBar';
-import Landing from './components/Landing/';
-import { NextUIProvider } from "@nextui-org/react";
-import Modal from './components/Modal';
+import Router from './routes/Router'
+
 function App() {
   return (
-    <NextUIProvider>
-      <div className="App">
-        <Landing />
-      </div>
-    </NextUIProvider>
+    <Router />
   );
 }
 
