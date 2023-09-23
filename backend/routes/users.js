@@ -1,11 +1,20 @@
-import { signUpUser, signInUser, signOutUser } from "../controllers/user.controller";
+const { Router } = require("express");
+const bodyParser = require('body-parser')
 
-import { Router } from "express";
+const {
+    signUpUser,
+    signInUser,
+    signOutUser,
+} = require("../controllers/user.controller");
+
 
 const userRouter = Router();
+
+userRouter.use(bodyParser.json());
+userRouter.use(bodyParser.urlencoded({ extended: true }));
 
 userRouter.post("/signup", signUpUser);
 userRouter.post("/signin", signInUser);
 userRouter.post("/signout", signOutUser);
 
-export default userRouter;
+module.exports = userRouter;

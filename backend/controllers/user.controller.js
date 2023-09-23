@@ -1,8 +1,9 @@
-import { sign } from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
+const { PasswordManager } = require("../services/passwordManager");
 
-import { PasswordManager } from "../services/passwordManager";
+const { ifUserExists, addNewUser } = require("../models/user.model");
 
-import { ifUserExists, addNewUser } from "../models/user.model";
+const { jwt_scret, jwt_expires_in } = require("../config")
 
 async function signUpUser(req, res) {
   const user = req.body;
@@ -51,9 +52,11 @@ async function signInUser(req, res) {
     const payload = {
       id: userExists._id
     }
-    const token = sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+    const token = jwt.sign(payload, jwt_scret, { expiresIn: jwt_expires_in });
     res.cookie('access_token', token, {
-      httpOnly: true
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      expires: new Date(Date.now() + (5184000)),
     }).status(200).json({
       u_id: userExists._id
     })
@@ -69,4 +72,4 @@ async function signOutUser(req, res) {
   res.status(200).json('Logout successful');
 }
 
-export default { signUpUser, signInUser, signOutUser };
+module.exports = { signUpUser, signInUser, signOutUser };
