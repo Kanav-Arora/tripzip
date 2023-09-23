@@ -33,7 +33,7 @@ async function signInUser(req, res) {
   try {
     const userExists = await ifUserExists(user);
     if (!userExists) {
-      return res.status(400).send({ message: "Oops, Invalid Credentails" });
+      return res.status(400).send({ message: "Invalid Credentails" });
     }
 
     // verifying password with given and original
@@ -43,7 +43,7 @@ async function signInUser(req, res) {
     );
 
     if (!isPasswordCorrect) {
-      return res.status(400).send({ message: "Umm, Invalid cfredentials" });
+      return res.status(400).send({ message: "Umm, Invalid credentials" });
     }
 
     // Generate token for user
@@ -54,7 +54,7 @@ async function signInUser(req, res) {
     res.cookie('access_token', token, {
       httpOnly: true
     }).status(200).json({
-      username: userExists.username
+      u_id: userExists._id
     })
   } catch (error) {
     console.log(error);

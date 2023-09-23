@@ -2,14 +2,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-// todo - add validations and checks
-function generateUniqueUserName(name) {
-  // For simplicity, this example generates a username by concatenating the first three letters of the name and a random number.
-  // todo can be more better
-  const randomSuffix = Math.floor(Math.random() * 10000);
-  return name.slice(0, 3).toLowerCase() + randomSuffix;
-}
-
 const userSchema = new Schema({
   name: {
     type: String,
@@ -25,16 +17,8 @@ const userSchema = new Schema({
     required: [true, 'Please provide a password'],
     minlength: 8
   },
-  user_name: {
-    type: String,
-    unique: true,
-    default: function () {
-      // Generating a unique username based on the user's name
-      return generateUniqueUserName(this.name);
-    }
-  },
-  sing_in_count: {
-    type: Number,
+  last_signin_at: {
+    type: Date,
     required: false
   },
   status: {
@@ -46,7 +30,10 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now
   },
-
+  updated_at: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const User = mongoose.model('User', userSchema);
