@@ -1,12 +1,17 @@
-const express = require("express");
-
-const userRouter = express.Router();
+const { Router } = require("express");
+const bodyParser = require('body-parser')
 
 const {
-	signUpUser,
-	signInUser,
-	signOutUser,
+    signUpUser,
+    signInUser,
+    signOutUser,
 } = require("../controllers/user.controller");
+
+
+const userRouter = Router();
+
+userRouter.use(bodyParser.json());
+userRouter.use(bodyParser.urlencoded({ extended: true }));
 
 userRouter.post("/signup", signUpUser);
 userRouter.post("/signin", signInUser);

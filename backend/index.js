@@ -1,14 +1,18 @@
+const express = require('express');
+const bodyParser = require('body-parser')
+
+const config = require('../backend/config')
 const connectToMongo = require('./db');
-const express = require('express')
 
 connectToMongo();
-const app = express()
-const port = 5000
 
-app.use(express.json())
+const app = express()
+const port = config.port;
+
+app.use(bodyParser.json())
 
 // Available Routes
-app.use('/api/users', require('./routes/users'))
+app.use('/users', require('./routes/users'))
 
 
 app.get('/', (req, res) => {
