@@ -58,7 +58,8 @@ async function signInUser(req, res) {
       secure: process.env.NODE_ENV !== "development",
       expires: new Date(Date.now() + (5184000)),
     }).status(200).json({
-      u_id: userExists._id
+      uid: userExists._id,
+      name: userExists.name
     })
   } catch (error) {
     console.log(error);
