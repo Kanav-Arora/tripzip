@@ -30,36 +30,37 @@ export default function NavBar() {
               <Cross />
             ) : (
               <Hamburger />
+            )}
           </button>
         </div>
         Travel Buddy
       </div>
 
       {/* In mobile view: SideBar is open */}
-            {isOpen && (
+      {isOpen && (
 
-                <div class="hidden mobile:block absolute top-full text-gray-700 pt-1" style={{ width: document.getElementById("navbar-sidebar").offsetWidth }}>
-                    <div className='flex flex-col'>
-                        <Link to="/" className='rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Home</Link>
-                        <Link to="/about" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>About</Link>
-                        <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Upcoming Trips</Link>
-                        {
-                            isAuth == true
-                                ?
-                                <>
-                                    <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>My Trips</Link>
-                                    <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Setting</Link>
-                                    <Link to="#" className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Sign Out</Link>
-                                </>
-                                :
-                                <>
-                                    <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Login</Link>
-                                    <Link to="#" className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Sign Up</Link>
-                                </>
-                        }
-                    </div>
-                </div>
-            )}
+        <div class="hidden mobile:block absolute top-full text-gray-700 pt-1" style={{ width: document.getElementById("navbar-sidebar").offsetWidth }}>
+          <div className='flex flex-col'>
+            <Link to="/" className='rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Home</Link>
+            <Link to="/about" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>About</Link>
+            <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Upcoming Trips</Link>
+            {
+              isAuth == true
+                ?
+                <>
+                  <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>My Trips</Link>
+                  <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Setting</Link>
+                  <Link to="#" className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Sign Out</Link>
+                </>
+                :
+                <>
+                  <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Login</Link>
+                  <Link to="#" className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Sign Up</Link>
+                </>
+            }
+          </div>
+        </div>
+      )}
 
       <div className="mobile:hidden flex-grow flex justify-center space-x-6">
         <Link to="/" className='text-white'>Home</Link>
@@ -79,7 +80,7 @@ export default function NavBar() {
             <Modal isVisible={showLogInModal} onClose={() => setShowLogInModal(false)}>
               <LogInModalContent />
             </Modal>
-            <button className="bg-white text-black border rounded-full px-4 py-2" onClick={() => setShowSignUpModal(true)}>Sign Up</button>
+            <button className="bg-white text-black border rounded-full px-4 py-1" onClick={() => setShowSignUpModal(true)}>Sign Up</button>
             <Modal isVisible={showSignUpModal} onClose={() => setShowSignUpModal(false)}>
               <SignUpModalContent />
             </Modal>
