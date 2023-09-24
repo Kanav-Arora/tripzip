@@ -25,9 +25,11 @@ const userDetailSchema = new Schema({
     },
     age: {
         type: Number,
+        max: 100,
     },
     gender: {
         type: Schema.Types.String,
+        enum: ['male', 'female', 'other'],
     },
     tripsCreated: [{
         type: Schema.Types.ObjectId,
