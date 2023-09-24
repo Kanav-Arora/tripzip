@@ -30,7 +30,7 @@ function SignUpModalContent() {
   return (
     <div className='py-6 px-6 lg:px-8 text-left'>
       <h3 className='mb-4 text-xl font-medium text-gray-900'>
-        Sign in to Travel Buddy
+        Sign Up, and plan your next destination!
       </h3>
       <form className='space-y-6' action='#'>
         <div className='flex space-x-4'>
@@ -46,8 +46,8 @@ function SignUpModalContent() {
               name='first_name'
               id='first_name'
               className='bg-gray-50 border border-gray-300 text-gray-900 
-              text-sm rounded-lg focus:ring-blue-500 
-              focus:border-blue-500 w-full p-2.5'
+              text-sm rounded-lg focus:ring-orange-500 
+              focus:border-orange-500 w-full p-2.5 outline-none'
               placeholder='First Name'
               required
             />
@@ -64,8 +64,8 @@ function SignUpModalContent() {
               name='last_name'
               id='last_name'
               className='bg-gray-50 border border-gray-300 text-gray-900 
-              text-sm rounded-lg focus:ring-blue-500 
-              focus:border-blue-500 w-full p-2.5'
+              text-sm rounded-lg focus:ring-orange-500 
+              focus:border-orange-500 w-full p-2.5 outline-none'
               placeholder='Last Name'
               required
             />
@@ -83,8 +83,8 @@ function SignUpModalContent() {
             name='email'
             id='email'
             className='bg-gray-50 border border-gray-300 text-gray-900 
-            text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 w-full p-2.5'
+            text-sm rounded-lg focus:ring-orange-500 
+            focus:border-orange-500 w-full p-2.5 outline-none'
             placeholder='name@gmail.com'
             required
           />
@@ -102,8 +102,8 @@ function SignUpModalContent() {
             id="password"
             placeholder='**********'
             className='bg-gray-50 border border-gray-300 text-gray-900 
-            text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 w-full p-2.5 outline-none'
+            text-sm rounded-lg focus:ring-orange-500 
+            focus:border-orange-500 w-full p-2.5 outline-none'
             value={password}
             onChange={handlePasswordChange}
             required
@@ -122,8 +122,8 @@ function SignUpModalContent() {
             id='passwordConfirmation'
             placeholder='**********'
             className={`bg-gray-50 border ${passwordsMatch ? 'border-green-500' : 'border-red-500'
-              } text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-            focus:border-blue-500 w-full p-2.5  outline-none`}
+              } text-gray-900 text-sm rounded-lg focus:ring-orange-500 
+            focus:border-orange-500 w-full p-2.5  outline-none`}
             value={passwordConfirmation}
             onChange={handlePasswordConfirmationChange}
             required
@@ -137,7 +137,7 @@ function SignUpModalContent() {
                 type='checkbox'
                 value=''
                 className='w-4 h-4 bg-gray-50 rounded border
-                border-gray-300 focus:ring-3 focus:ring-blue-300'
+                border-gray-300 focus:ring-3 focus:ring-orange-300'
                 required
               />
             </div>
@@ -152,8 +152,8 @@ function SignUpModalContent() {
         </div>
         <button
           type="submit"
-          className='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
-          focus:outline-none focus:ring-blue-300
+          className='w-full text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 
+          focus:outline-none focus:ring-orange-300
           font-medium rounded-lg text-sm px-5 py-2.5 text-center'
           disabled={!passwordsMatch}
         >
