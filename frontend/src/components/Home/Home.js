@@ -6,9 +6,6 @@ import SectionC from './SectionC';
 import './index.css'
 
 export default function Home() {
-    useEffect(() => {
-        document.title = "Travel Buddy"
-    }, []);
     return (
         < div className="landing" >
             <SectionA />
