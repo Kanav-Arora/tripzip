@@ -19,7 +19,7 @@ export default function NavBar() {
 
     return (
         <nav className="absolute w-full top-0 bg-transparent py-4 flex justify-between items-center z-50 px-10 mobile:px-5">
-            <div className="flex items-center text-white leading-3">
+            <div id="navbar-sidebar" className="flex items-center text-white leading-3">
                 <div className="hidden mobile:block pr-5 ">
                     <button onClick={toggleMenu}>
                         {isOpen ? (
@@ -34,13 +34,26 @@ export default function NavBar() {
 
             {/* In mobile view: SideBar is open */}
             {isOpen && (
-                <div className="hidden mobile:block absolute w-[200px] top-full bg-white py-2 shadow-xl rounded-lg">
-                    <div className="flex flex-col items-start space-y-4 pl-4">
-                        <Link to="/" className='text-black'>Home</Link>
-                        <Link to="/about" className='text-black'>About</Link>
-                        <Link to="#" className='text-black'>Upcoming Trips</Link>
-                        <button className="text-black">Login</button>
-                        <button className="text-white border px-2 py-2 bg-orange-accent rounded-md">Sign Up</button>
+
+                <div class="hidden mobile:block absolute top-full text-gray-700 pt-1" style={{ width: document.getElementById("navbar-sidebar").offsetWidth }}>
+                    <div className='flex flex-col'>
+                        <Link to="/" className='rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Home</Link>
+                        <Link to="/about" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>About</Link>
+                        <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Upcoming Trips</Link>
+                        {
+                            isAuth == true
+                                ?
+                                <>
+                                    <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>My Trips</Link>
+                                    <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Setting</Link>
+                                    <Link to="#" className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Sign Out</Link>
+                                </>
+                                :
+                                <>
+                                    <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Login</Link>
+                                    <Link to="#" className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Sign Up</Link>
+                                </>
+                        }
                     </div>
                 </div>
             )}

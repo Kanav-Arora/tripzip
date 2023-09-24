@@ -5,9 +5,9 @@ import { authReducer } from "./authReducer";
 const AuthContext = createContext();
 
 const initialState = {
-    isAuthenticated: false,
+    isAuthenticated: true,
     uid: null,
-    name: null
+    name: "Kanav Arora"
 }
 
 const AuthProvider = ({ children }) => {
