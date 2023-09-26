@@ -7,7 +7,6 @@ const { jwt_scret, jwt_expires_in } = require("../config")
 
 async function signUpUser(req, res) {
   const user = req.body;
-
   // validation
   try {
     if (!user.name || !user.email || !user.password) {
@@ -55,7 +54,8 @@ async function signInUser(req, res) {
     const token = jwt.sign(payload, jwt_scret, { expiresIn: jwt_expires_in });
     res.cookie('access_token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV !== "development",
+      secure: true,
+      SameSite: 'None',
       expires: new Date(Date.now() + (5184000)),
     }).status(200).json({
       uid: userExists._id,

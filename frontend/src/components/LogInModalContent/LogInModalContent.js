@@ -1,18 +1,36 @@
 import { React } from 'react';
+import axios from 'axios';
 
-// import Modal from '../../components/Modal';
-// import SignUpModalContent from '../SignUpModalContent';
+import { backendOrigin } from '../../frontend.config.js'
+
+axios.defaults.withCredentials = true;
+
+const handleLogin = (e) => {
+  e.preventDefault();
+
+  const formData = {
+    email: e.target.elements.email.value,
+    password: e.target.elements.password.value,
+    remember: e.target.elements.remember.value
+  };
+
+  axios.post(backendOrigin + '/users/signin', formData)
+    .then(response => {
+      console.log('Response:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+};
 
 function LogInModalContent() {
-  // const [showSignUpModal, setShowSignUpModal] = useState(false);
-  // const [showLogInModal, setShowLogInModal] = useState(false);
-
   return (
     <div className='py-6 px-6 lg:px-8 text-left'>
       <h3 className='mb-4 text-xl font-medium text-gray-900'>
         Log In, and plan your next destination!
       </h3>
-      <form className='space-y-6' action='#'>
+      <form className='space-y-6' onSubmit={handleLogin}>
         <div>
           <label
             for='email'
@@ -54,11 +72,11 @@ function LogInModalContent() {
             <div className='flex items-center h-5'>
               <input
                 id='remember'
+                name='remember'
                 type='checkbox'
                 value=''
                 className='w-4 h-4 bg-gray-50 rounded border
                 border-gray-300 focus:ring-3 focus:ring-orange-300'
-                required
               />
             </div>
             <label
@@ -85,10 +103,6 @@ function LogInModalContent() {
           Not Registered? &nbsp;
         </label>
         <a href='/' className='text-sm font-bold text-blue-700 hover:underline'>Create Account</a>
-        {/* <button className="text-sm font-bold text-blue-700 hover:underline" onClick={() =>{setShowSignUpModal(true); setShowLoginModal(false);}}>Create Account</button> */}
-        {/* <Modal isVisible={showSignUpModal} onClose={() => setShowSignUpModal(false)}>
-          <SignUpModalContent />
-        </Modal> */}
       </form>
     </div>
   )

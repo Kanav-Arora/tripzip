@@ -13,14 +13,14 @@ import LogInModalContent from '../LogInModalContent';
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { state, dispatch } = useContext(AuthContext);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showLogInModal, setShowLogInModal] = useState(false);
 
   const isAuth = state.isAuthenticated;
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const [showLogInModal, setShowLogInModal] = useState(false);
   return (
     <nav className="absolute w-full top-0 bg-transparent py-4 flex justify-between items-center z-50 px-10 mobile:px-5">
       <div className="flex items-center text-white leading-3">
