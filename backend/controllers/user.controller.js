@@ -10,7 +10,7 @@ async function signUpUser(req, res) {
   // validation
   try {
     if (!user.name || !user.email || !user.password) {
-      return res.status(400).send({ message: "Invalid or missing params" });;
+      return res.status(400).send({ message: "Invalid or missing params" });
     }
 
     // Checking if user already exists
@@ -21,7 +21,6 @@ async function signUpUser(req, res) {
 
     // add new user
     const savedUser = await addNewUser(user);
-
     return res.status(201).json(savedUser._id);
   } catch (error) {
     console.log(error);
@@ -49,12 +48,13 @@ async function signInUser(req, res) {
 
     // Generate token for user
     const payload = {
-      id: userExists._id
+      id: userExists._id,
+      name: userExists.name,
     }
     const token = jwt.sign(payload, jwt_scret, { expiresIn: jwt_expires_in });
     res.cookie('access_token', token, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       SameSite: 'None',
       expires: new Date(Date.now() + (5184000)),
     }).status(200).json({

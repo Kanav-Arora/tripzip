@@ -15,7 +15,7 @@ async function addNewUser(user) {
       password: hashedPassword,
     };
     const savedUser = await usersDatabase.create(newUser);
-
+    console.log(savedUser);
     console.log("New User Added, Congrats!!");
     return savedUser;
   } catch (error) {

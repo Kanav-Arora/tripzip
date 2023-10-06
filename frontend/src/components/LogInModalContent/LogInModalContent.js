@@ -1,30 +1,38 @@
-import { React } from 'react';
+import { React, useContext } from 'react';
 import axios from 'axios';
 
+import { AuthContext } from '../../context/Auth/authContext'
 import { backendOrigin } from '../../frontend.config.js'
+import { loginAction, logoutAction } from '../../context/Auth/authAction.js';
 
 axios.defaults.withCredentials = true;
 
-const handleLogin = (e) => {
-  e.preventDefault();
+function LogInModalContent() {
+  const { state, dispatch } = useContext(AuthContext);
 
-  const formData = {
-    email: e.target.elements.email.value,
-    password: e.target.elements.password.value,
-    remember: e.target.elements.remember.value
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      email: e.target.elements.email.value,
+      password: e.target.elements.password.value,
+      remember: e.target.elements.remember.value
+    };
+
+    try {
+      const result = await axios.post(backendOrigin + '/users/signin', formData, { headers: { "Content-Type": "application/json" } })
+      if (result.status >= 200 && result.status < 300) {
+        dispatch(loginAction(result.data));
+      } else {
+        console.error('Unexpected status code:', result.status);
+      }
+    }
+    catch (error) {
+      console.log(error);
+
+    }
   };
 
-  axios.post(backendOrigin + '/users/signin', formData)
-    .then(response => {
-      console.log('Response:', response.data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-
-};
-
-function LogInModalContent() {
   return (
     <div className='py-6 px-6 lg:px-8 text-left'>
       <h3 className='mb-4 text-xl font-medium text-gray-900'>
