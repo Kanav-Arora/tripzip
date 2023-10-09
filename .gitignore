@@ -26,3 +26,6 @@ yarn-error.log*
 package-lock.json
 
 Changelog.txt
+
+/backend/utils/logger/error.log
+/backend/utils/logger/server.log

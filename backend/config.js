@@ -1,12 +1,12 @@
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 
-dotenv.config()
+dotenv.config();
 
 module.exports = {
-    node_env: process.env.NODE_ENV,
-    port: process.env.PORT,
-    mongodb_uri: process.env.MONGODB_URI,
-    jwt_scret: process.env.JWT_SECRET,
-    jwt_expires_in: process.env.JWT_EXPIRES_IN,
-    frontend_origin: process.env.FRONTEND_ORIGIN,
+    NodeEnv: process.env.NODE_ENV,
+    Port: process.env.PORT,
+    MongodbUri: process.env.MONGODB_URI,
+    JwtSecret: process.env.JWT_SECRET,
+    JwtExpiresIn: process.env.JWT_EXPIRES_IN,
+    FrontendOrigin: process.env.FRONTEND_ORIGIN,
 };

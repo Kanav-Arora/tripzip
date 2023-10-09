@@ -3,12 +3,12 @@ import axios from 'axios';
 
 import { AuthContext } from '../../context/Auth/authContext'
 import { backendOrigin } from '../../frontend.config.js'
-import { loginAction, logoutAction } from '../../context/Auth/authAction.js';
+import { loginAction } from '../../context/Auth/authAction.js';
 
 axios.defaults.withCredentials = true;
 
 function LogInModalContent() {
-  const { state, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ function LogInModalContent() {
 
     try {
       const result = await axios.post(backendOrigin + '/users/signin', formData, { headers: { "Content-Type": "application/json" } })
-      if (result.status >= 200 && result.status < 300) {
+      if (result.status === 201) {
         dispatch(loginAction(result.data));
       } else {
         console.error('Unexpected status code:', result.status);

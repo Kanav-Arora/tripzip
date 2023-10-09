@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 
 import { AuthContext } from '../../context/Auth/authContext'
 import { backendOrigin } from '../../frontend.config.js'
-import { loginAction, logoutAction } from '../../context/Auth/authAction.js';
+import { loginAction } from '../../context/Auth/authAction.js';
 
 function SignUpModalContent() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const { state, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -34,16 +34,14 @@ function SignUpModalContent() {
 
     try {
       const result = await axios.post(backendOrigin + '/users/signup', data, { headers: { "Content-Type": "application/json" } })
-      if (result.status >= 200 && result.status < 300) {
-        // console.log("My result" + result);
-        // dispatch(loginAction())
+      if (result.status === 201) {
+        dispatch(loginAction(result.data));
       } else {
         console.error('Unexpected status code:', result.status);
       }
     }
     catch (error) {
       console.error('Error:', error);
-
       if (error.response) {
         console.error('Response data:', error.response.data);
         console.error('Response status:', error.response.status);

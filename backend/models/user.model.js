@@ -1,5 +1,6 @@
-const usersDatabase = require("./user.mongo");
-const { PasswordManager } = require("../services/passwordManager");
+const usersDatabase = require('./user.mongo');
+const { PasswordManager } = require('../services/passwordManager');
+const logger = require('../utils/logger/logger');
 
 async function ifUserExists(user) {
   const existingUser = await usersDatabase.findOne({ email: user.email });
@@ -15,11 +16,10 @@ async function addNewUser(user) {
       password: hashedPassword,
     };
     const savedUser = await usersDatabase.create(newUser);
-    console.log(savedUser);
-    console.log("New User Added, Congrats!!");
+    logger.debug(savedUser);
     return savedUser;
   } catch (error) {
-    console.log(`Couldn't save the user ${error}`);
+    logger.error(`Couldn't save the user ${error}`);
   }
 }
 

@@ -1,12 +1,13 @@
 // Creating User Detail Schema
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
 const { Schema } = mongoose;
 
 const userDetailSchema = new Schema({
     uid: {
         type: Schema.Types.ObjectId,
         required: [true, 'No UID found'],
-        unique: true
+        unique: true,
     },
     address: {
         type: Schema.Types.String,
@@ -33,21 +34,21 @@ const userDetailSchema = new Schema({
     },
     tripsCreated: [{
         type: Schema.Types.ObjectId,
-        ref: 'Trips'
+        ref: 'Trips',
     }],
     tripsInterested: [{
         type: Schema.Types.ObjectId,
-        ref: 'Trips'
+        ref: 'Trips',
     }],
     status: {
         type: Schema.Types.String,
         enum: ['active', 'inactive', 'deleted'],
-        default: 'active'
+        default: 'active',
     },
     updatedAt: {
         type: Schema.Types.Date,
-        default: Date.now
-    }
+        default: Date.now,
+    },
 });
 
 const UserDetails = mongoose.model('UserDetails', userDetailSchema);
