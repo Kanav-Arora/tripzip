@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
+import { backendOrigin } from '../../frontend.config.js'
 
 function SignUpModalContent() {
   const [password, setPassword] = useState('');
@@ -15,24 +18,31 @@ function SignUpModalContent() {
     setPasswordsMatch(e.target.value === password);
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
+  const handleSignup = (e) => {
+    e.preventDefault();
 
-  //   // Check if the passwords match before submitting the form
-  //   if (password === passwordConfirmation) {
-  //     // todo Perform form submission logic here
-  //   } else {
-  //     // todo: alert show an error message
-  //     console.log('Passwords do not match');
-  //   }
-  // };
+    const formData = {
+      name: e.target.first_name.value + " " + e.target.last_name.value,
+      email: e.target.elements.email.value,
+      password: e.target.elements.password.value,
+    };
+
+    axios.post(backendOrigin + '/users/signup', formData)
+      .then(response => {
+        console.log('Response:', response.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+  };
 
   return (
     <div className='py-6 px-6 lg:px-8 text-left'>
       <h3 className='mb-4 text-xl font-medium text-gray-900'>
         Sign Up, and plan your next destination!
       </h3>
-      <form className='space-y-6' action='#'>
+      <form className='space-y-6' onSubmit={handleSignup}>
         <div className='flex space-x-4'>
           <div className='w-1/2'>
             <label

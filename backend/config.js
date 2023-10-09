@@ -8,4 +8,5 @@ module.exports = {
     mongodb_uri: process.env.MONGODB_URI,
     jwt_scret: process.env.JWT_SECRET,
     jwt_expires_in: process.env.JWT_EXPIRES_IN,
+    frontend_origin: process.env.FRONTEND_ORIGIN,
 };

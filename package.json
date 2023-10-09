@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "kill-port": "^2.0.1"
+  },
+  "scripts": {
+    "prestart": "npm run kill-ports",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm start",
+    "client": "cd frontend && npm start",
+    "kill-ports": "sh -c 'kill $(lsof -t -i:8000) || true && kill $(lsof -t -i:3000) || true'"
+  }
+}
