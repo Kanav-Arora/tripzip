@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import { AuthContext } from '../../context/Auth/authContext'
 import { backendOrigin } from '../../frontend.config.js'
+import { loginAction, logoutAction } from '../../context/Auth/authAction.js';
 
 function SignUpModalContent() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const { state, dispatch } = useContext(AuthContext);
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -18,7 +21,7 @@ function SignUpModalContent() {
     setPasswordsMatch(e.target.value === password);
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     const formData = {
@@ -27,14 +30,29 @@ function SignUpModalContent() {
       password: e.target.elements.password.value,
     };
 
-    axios.post(backendOrigin + '/users/signup', formData)
-      .then(response => {
-        console.log('Response:', response.data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    const data = JSON.stringify(formData);
 
+    try {
+      const result = await axios.post(backendOrigin + '/users/signup', data, { headers: { "Content-Type": "application/json" } })
+      if (result.status >= 200 && result.status < 300) {
+        // console.log("My result" + result);
+        // dispatch(loginAction())
+      } else {
+        console.error('Unexpected status code:', result.status);
+      }
+    }
+    catch (error) {
+      console.error('Error:', error);
+
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+      } else if (error.request) {
+        console.error('Request data:', error.request);
+      } else {
+        console.error('Error message:', error.message);
+      }
+    }
   };
 
   return (

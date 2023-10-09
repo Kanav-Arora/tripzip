@@ -21,6 +21,11 @@ export default function NavBar() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleSignOut = async () => {
+
+  };
+
   return (
     <nav className="absolute w-full top-0 bg-transparent py-4 flex justify-between items-center z-50 px-10 mobile:px-5">
       <div className="flex items-center text-white leading-3">
@@ -50,7 +55,7 @@ export default function NavBar() {
                 <>
                   <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>My Trips</Link>
                   <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Setting</Link>
-                  <Link to="#" className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Sign Out</Link>
+                  <button onClick={handleSignOut} className='rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Sign Out</button>
                 </>
                 :
                 <>
