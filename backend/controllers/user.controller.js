@@ -54,8 +54,7 @@ async function signInUser(req, res) {
     const token = jwt.sign(payload, jwt_scret, { expiresIn: jwt_expires_in });
     res.cookie('access_token', token, {
       httpOnly: true,
-      secure: false,
-      SameSite: 'None',
+      secure: process.env.NODE_ENV !== "development",
       expires: new Date(Date.now() + (5184000)),
     }).status(200).json({
       uid: userExists._id,

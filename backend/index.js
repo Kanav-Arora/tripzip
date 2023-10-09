@@ -19,8 +19,8 @@ const corsOptions = {
 };
 
 app.use(bodyParser.json())
-app.use(cors(corsOptions))
-app.use(cookieParser())
+app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(validateUser);
 
 // Available Routes
