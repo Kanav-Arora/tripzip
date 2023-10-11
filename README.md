@@ -123,3 +123,11 @@
 - **eslint** (v7.32.0): A tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
 
 - **nodemon** (v2.0.15): A utility that monitors for changes in files and automatically restarts the server.
+
+## License
+
+This project is licensed under the [GNU AFFERO GENERAL PUBLIC LICENSE Version 3](LICENSE).
+
+## Contributing
+
+Please read [Contribution Guide](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
