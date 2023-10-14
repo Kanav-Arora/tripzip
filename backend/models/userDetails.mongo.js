@@ -35,10 +35,12 @@ const userDetailSchema = new Schema({
     tripsCreated: [{
         type: Schema.Types.ObjectId,
         ref: 'Trips',
+        default: [],
     }],
     tripsInterested: [{
         type: Schema.Types.ObjectId,
         ref: 'Trips',
+        default: [],
     }],
     status: {
         type: Schema.Types.String,

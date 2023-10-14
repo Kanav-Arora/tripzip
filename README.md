@@ -1,8 +1,23 @@
-# Travel Buddy Documentation
+<div align="center">
+
+# Travel Buddy
+[API Documentation](https://documenter.getpostman.com/view/16660574/2s9YR57axm) | [Server](#server)
+</div>
 
 <!-- <iframe width="560" height="315" src='https://dbdiagram.io/embed/650882a802bd1c4a5ecc62da'> </iframe> -->
 
 ## Server
+
+### Request Status Codes
+
+| Status Code              | Type          | Description             |
+|--------------------------|---------------|-------------------------|
+| `204 No Content`         | Success       | No Data Sent            |
+| `200 OK`                 | Success       | Contains Data           |
+| `201 Created`            | Success       | Data Created            |
+| `401 Unauthorized`      | Error         | Unauthorized            |
+| `404 Not Found`          | Error         | Data Not Found          |
+| `500 Internal Server Error` | Error      | Internal Server Error   |
 
 ### API Endpoints
 
@@ -10,6 +25,9 @@
   - [/signup](#post-userssignup)
   - [/signin](#post-userssignin)
   - [/signout](#post-userssignout)
+- /account
+  - [get](#get-account)
+  - [post](#post-account)
 
 #### `POST /users/signup`
 
@@ -49,50 +67,72 @@
 - **Errors**:
   - 500 Internal Server Error: If there's a server-side error during logout.
 
-### Middleware
+#### `GET /account`
 
-#### `validateUser`
+- **Description**: This endpoint retrieves user account details based on the provided UID.
 
-- **Description**: This middleware validates user authorization by verifying JSON Web Tokens (JWTs).
-- **Input**:
-  - `req`: The request object.
-  - `res`: The response object.
-  - `next`: The next middleware function.
-- **Output**:
-  - Modifies `req` object to include user information if valid token is present.
+- **Request Headers**:
+  - `x-uid` (string): The unique identifier of the user.
+
+- **Response Format**:
+  - JSON Object:
+    - `uid` (string): The unique identifier of the user.
+    - `address` (string): The user's address.
+    - `pincode` (number): The user's pincode.
+    - `city` (string): The user's city.
+    - `state` (string): The user's state.
+    - `country` (string): The user's country.
+    - `age` (number): The user's age.
+    - `gender` (string): The user's gender.
+    - `tripsCreated` (array): An array of trip IDs created by the user.
+    - `tripsInterested` (array): An array of trip IDs the user is interested in.
+    - `status` (string): The status of the user.
+    - `updatedAt` (string): The date when the user details were last updated.
+
 - **Errors**:
-  - 403 Forbidden: If the token is invalid or missing.
-  - 401 Unauthorized: If there's an unauthorized request.
-  - 500 Internal Server Error: If there's a server-side error during validation.
+  - 404 Not Found: If user details are not found for the provided UID.
+  - 500 Internal Server Error: If there's a server-side error during the request.
 
-### Models
 
-#### `User Model`
+#### `POST /account`
 
-- **Fields**:
-  - `email` (string): User's email address (required, unique).
-  - `password` (string): User's hashed password (required, min length: 8).
-  - `name` (string): User's name (required).
-  - `status` (string): User status (active, inactive, deleted; default: active).
-  - `created_at` (date): Date of user creation (default: current date).
-  - `updated_at` (date): Date of last user update (default: current date).
-  - `last_signin_at` (date): Date of last signin (default: current date).
+- **Description**: This endpoint either creates a new user's account details or updates existing details based on the provided UID.
 
-#### `UserDetails Model`
+- **Request Headers**:
+  - `x-uid` (string): The unique identifier of the user.
 
-- **Fields**:
-  - `uid` (ObjectId): User's unique identifier (required, unique).
-  - `address` (string): User's address.
-  - `pincode` (number): User's pin code.
-  - `city` (string): User's city.
-  - `state` (string): User's state.
-  - `country` (string): User's country.
-  - `age` (number): User's age (max: 100).
-  - `gender` (string): User's gender (male, female, other).
-  - `tripsCreated` (Array): Array of trip IDs created by the user.
-  - `tripsInterested` (Array): Array of trip IDs the user is interested in.
-  - `status` (string): User status (active, inactive, deleted; default: active).
-  - `updatedAt` (date): Date of last update (default: current date).
+- **Request Body**:
+  - `address` (string): The user's address.
+  - `pincode` (number): The user's pincode.
+  - `city` (string): The user's city.
+  - `state` (string): The user's state.
+  - `country` (string): The user's country.
+  - `age` (number): The user's age.
+  - `gender` (string): The user's gender.
+  - `tripsCreated` (array): An array of trip IDs created by the user.
+  - `tripsInterested` (array): An array of trip IDs the user is interested in.
+  - `status` (string): The status of the user.
+
+- **Response Format**:
+  - JSON Object:
+    - `message` (string): A message indicating whether the user details were created or overwritten.
+
+- **Errors**:
+  - 500 Internal Server Error: If there's a server-side error during the request.
+
+<!-- ### Using Postman
+
+We provide Postman collections to help you interact with our API. To get started:
+
+1. [Download Postman](https://www.getpostman.com/downloads/) if you haven't already.
+2. Import the relevant collection JSON file from the `documentation/postman` folder.
+3. Configure the necessary environment variables (if applicable).
+4. Start making requests!
+
+- [Collection 1](documentation/postman/Collection1.json)
+- [Collection 2](documentation/postman/Collection2.json)
+
+Please refer to the individual collection documentation for detailed usage instructions. -->
 
 ### Logging
 
