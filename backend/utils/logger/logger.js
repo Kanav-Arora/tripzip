@@ -17,7 +17,7 @@ const customFormat = (ts) => {
 };
 
 const serverLogTransport = new transports.File({
-    filename: './utils/logger/server.log',
+    filename: '/backend/utils/logger/server.log',
     level: 'info',
     format: format.combine(
         format.timestamp(),
@@ -26,7 +26,7 @@ const serverLogTransport = new transports.File({
 });
 
 const errorLogTransport = new transports.File({
-    filename: './utils/logger/error.log',
+    filename: '/backend/utils/logger/error.log',
     level: 'error',
     format: format.combine(
         format.timestamp(),
