@@ -12,9 +12,10 @@
 
 | Status Code              | Type          | Description             |
 |--------------------------|---------------|-------------------------|
-| `204 No Content`         | Success       | No Data Sent            |
 | `200 OK`                 | Success       | Contains Data           |
 | `201 Created`            | Success       | Data Created            |
+| `204 No Content`         | Success       | No Data Sent            |
+| `400 Invalid Inputs`      | Error         | Invalid Inputs            |
 | `401 Unauthorized`      | Error         | Unauthorized            |
 | `404 Not Found`          | Error         | Data Not Found          |
 | `500 Internal Server Error` | Error      | Internal Server Error   |
@@ -22,117 +23,27 @@
 ### API Endpoints
 
 - /users
-  - [/signup](#post-userssignup)
-  - [/signin](#post-userssignin)
-  - [/signout](#post-userssignout)
+  - [/signup POST](https://documenter.getpostman.com/view/16660574/2s9YR57axm#eba1cfe7-5c40-4466-8a67-ec986700b33c)
+  - [/signin POST](https://documenter.getpostman.com/view/16660574/2s9YR57axm#c5af9bfe-821a-4a6f-b9f9-1a299c124d09)
+  - [/signout POST](https://documenter.getpostman.com/view/16660574/2s9YR57axm#82b594b0-25e9-4903-a75a-fd1262356d6b)
 - /account
-  - [get](#get-account)
-  - [post](#post-account)
+  - [GET](https://documenter.getpostman.com/view/16660574/2s9YR57axm#9abce0c6-2c09-4f83-aa9a-f0a354c4efb3)
+  - [POST](https://documenter.getpostman.com/view/16660574/2s9YR57axm#9cf196c6-2252-4718-912e-4e5a38d93ba9)
 
-#### `POST /users/signup`
-
-- **Description**: This endpoint handles user registration.
-- **Request Body**:
-  - `name` (string): The user's name.
-  - `email` (string): The user's email address.
-  - `password` (string): The user's password.
-- **Response Format**:
-  - JSON Object:
-    - `uid` (string): The unique identifier of the user.
-    - `name` (string): The user's name.
-- **Errors**:
-  - 400 Bad Request: If any required fields are missing or invalid.
-  - 500 Internal Server Error: If there's a server-side error during registration.
-
-#### `POST /users/signin`
-
-- **Description**: This endpoint handles user login.
-- **Request Body**:
-  - `email` (string): The user's email address.
-  - `password` (string): The user's password.
-- **Response Format**:
-  - JSON Object:
-    - `uid` (string): The unique identifier of the user.
-    - `name` (string): The user's name.
-- **Errors**:
-  - 400 Bad Request: If any required fields are missing or invalid.
-  - 401 Unauthorized: If the provided credentials are incorrect.
-  - 500 Internal Server Error: If there's a server-side error during login.
-
-#### `POST /users/signout`
-
-- **Description**: This endpoint handles user logout.
-- **Response Format**:
-  - Text: "Logout successful".
-- **Errors**:
-  - 500 Internal Server Error: If there's a server-side error during logout.
-
-#### `GET /account`
-
-- **Description**: This endpoint retrieves user account details based on the provided UID.
-
-- **Request Headers**:
-  - `x-uid` (string): The unique identifier of the user.
-
-- **Response Format**:
-  - JSON Object:
-    - `uid` (string): The unique identifier of the user.
-    - `address` (string): The user's address.
-    - `pincode` (number): The user's pincode.
-    - `city` (string): The user's city.
-    - `state` (string): The user's state.
-    - `country` (string): The user's country.
-    - `age` (number): The user's age.
-    - `gender` (string): The user's gender.
-    - `tripsCreated` (array): An array of trip IDs created by the user.
-    - `tripsInterested` (array): An array of trip IDs the user is interested in.
-    - `status` (string): The status of the user.
-    - `updatedAt` (string): The date when the user details were last updated.
-
-- **Errors**:
-  - 404 Not Found: If user details are not found for the provided UID.
-  - 500 Internal Server Error: If there's a server-side error during the request.
-
-
-#### `POST /account`
-
-- **Description**: This endpoint either creates a new user's account details or updates existing details based on the provided UID.
-
-- **Request Headers**:
-  - `x-uid` (string): The unique identifier of the user.
-
-- **Request Body**:
-  - `address` (string): The user's address.
-  - `pincode` (number): The user's pincode.
-  - `city` (string): The user's city.
-  - `state` (string): The user's state.
-  - `country` (string): The user's country.
-  - `age` (number): The user's age.
-  - `gender` (string): The user's gender.
-  - `tripsCreated` (array): An array of trip IDs created by the user.
-  - `tripsInterested` (array): An array of trip IDs the user is interested in.
-  - `status` (string): The status of the user.
-
-- **Response Format**:
-  - JSON Object:
-    - `message` (string): A message indicating whether the user details were created or overwritten.
-
-- **Errors**:
-  - 500 Internal Server Error: If there's a server-side error during the request.
-
-<!-- ### Using Postman
+### Using Postman
 
 We provide Postman collections to help you interact with our API. To get started:
 
 1. [Download Postman](https://www.getpostman.com/downloads/) if you haven't already.
-2. Import the relevant collection JSON file from the `documentation/postman` folder.
+2. Visit the [Documentation](https://documenter.getpostman.com/view/16660574/2s9YR57axm) to run APIs locally.
 3. Configure the necessary environment variables (if applicable).
 4. Start making requests!
 
-- [Collection 1](documentation/postman/Collection1.json)
-- [Collection 2](documentation/postman/Collection2.json)
+<!-- 2. Import the relevant collection JSON file from the `documentation/postman` folder. -->
+<!-- - [Collection 1](documentation/postman/Collection1.json)
+- [Collection 2](documentation/postman/Collection2.json) -->
 
-Please refer to the individual collection documentation for detailed usage instructions. -->
+Please refer to the documentation for detailed usage instructions.
 
 ### Logging
 
