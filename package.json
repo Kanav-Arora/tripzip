@@ -17,12 +17,18 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd backend && npm start",
     "client": "cd frontend && npm start",
-    "kill-ports": "kill-port 3000 8000"
+    "kill-ports": "kill-port 3000 8000",
+    "setup:postman": "node backend/scripts/fetch-postman-collections.js"
   },
   "lint-staged": {
     "{frontend,backend}/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run setup:postman"
+    }
   }
 }

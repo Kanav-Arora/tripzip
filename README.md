@@ -15,8 +15,8 @@
 | `200 OK`                 | Success       | Contains Data           |
 | `201 Created`            | Success       | Data Created            |
 | `204 No Content`         | Success       | No Data Sent            |
-| `400 Invalid Inputs`      | Error         | Invalid Inputs            |
-| `401 Unauthorized`      | Error         | Unauthorized            |
+| `400 Invalid Inputs`      | Error         | Invalid Inputs         |
+| `401 Unauthorized`      | Error         | Unauthorized             |
 | `404 Not Found`          | Error         | Data Not Found          |
 | `500 Internal Server Error` | Error      | Internal Server Error   |
 
@@ -35,7 +35,7 @@
 We provide Postman collections to help you interact with our API. To get started:
 
 1. [Download Postman](https://www.getpostman.com/downloads/) if you haven't already.
-2. Visit the [Documentation](https://documenter.getpostman.com/view/16660574/2s9YR57axm) to run APIs locally.
+2. Visit the [Documentation](https://documenter.getpostman.com/view/16660574/2s9YR57axm) to run APIs locally or import json file from [Collection.json](/documentation/postman/postman-collection.json).
 3. Configure the necessary environment variables (if applicable).
 4. Start making requests!
 
