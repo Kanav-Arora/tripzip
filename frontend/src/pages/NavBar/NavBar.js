@@ -6,9 +6,9 @@ import { AuthContext } from '../../context/Auth/authContext'
 import { Hamburger, Cross } from '../../assets/ext-icon';
 
 import Dropdown from './Dropdown';
-import Modal from '../../components/Modal';
-import SignUpModalContent from '../SignUpModalContent';
-import LogInModalContent from '../LogInModalContent';
+import Modal from '../Modal';
+import SignUpModalContent from '../Modal/SignUpModalContent';
+import LogInModalContent from '../Modal/LogInModalContent';
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);

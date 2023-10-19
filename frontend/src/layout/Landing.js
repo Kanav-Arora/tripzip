@@ -7,8 +7,8 @@ import axios from 'axios';
 import { AuthContext } from '../context/Auth/authContext'
 import { loginAction, logoutAction } from '../context/Auth/authAction.js';
 import { backendOrigin } from '../frontend.config';
-import Footer from '../components/Footer'
-import Header from '../components/Header';
+import Footer from '../pages/Footer'
+import Header from '../pages/Header';
 
 axios.defaults.withCredentials = true;
 
