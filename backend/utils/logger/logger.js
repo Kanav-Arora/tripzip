@@ -1,8 +1,12 @@
+/* eslint-disable import/no-dynamic-require */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { createLogger, transports, format } = require('winston');
+const path = require('path');
+
+const config = require(path.resolve(__dirname, '../../config'));
 
 const colorizer = format.colorize();
-
+const logDir = path.join(__dirname);
 const customFormat = (ts) => {
     const formattedTimestamp = new Date(ts).toLocaleString('en-GB', {
         day: '2-digit',
@@ -17,7 +21,7 @@ const customFormat = (ts) => {
 };
 
 const serverLogTransport = new transports.File({
-    filename: '/backend/utils/logger/server.log',
+    filename: path.join(logDir, 'server.log'),
     level: 'info',
     format: format.combine(
         format.timestamp(),
@@ -26,7 +30,7 @@ const serverLogTransport = new transports.File({
 });
 
 const errorLogTransport = new transports.File({
-    filename: '/backend/utils/logger/error.log',
+    filename: path.join(logDir, 'error.log'),
     level: 'error',
     format: format.combine(
         format.timestamp(),
@@ -42,7 +46,10 @@ const consoleTransport = new transports.Console({
 });
 
 const logger = createLogger({
-    transports: [serverLogTransport, errorLogTransport, consoleTransport],
+    transports: config.NodeEnv === 'development'
+        ? [serverLogTransport, errorLogTransport, consoleTransport]
+        : [consoleTransport]
+    ,
 });
 
 module.exports = logger;

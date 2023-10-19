@@ -15,7 +15,7 @@
     "winston": "^3.11.0"
   },
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
     "start": "nodemon index.js"
   },
   "devDependencies": {

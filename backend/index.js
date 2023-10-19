@@ -1,41 +1,20 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const logger = require('./utils/logger/logger');
-
-const validateUser = require('./middlewares/userAuthorisation');
-const config = require('./config');
 const connectToMongo = require('./db');
+const config = require('./config');
 
-connectToMongo();
-
-const app = express();
 const { Port } = config;
 
-const corsOptions = {
-  origin: config.FrontendOrigin,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-};
+const app = require('./app');
 
-app.use(bodyParser.json());
-app.use(cors(corsOptions));
-app.use(cookieParser());
-app.use(validateUser);
+(async () => {
+  try {
+    await connectToMongo();
+    app.listen(Port, () => {
+      logger.info(`Travel Buddy backend listening at http://localhost:${Port}`);
+    });
+  } catch (error) {
+    logger.error('Failed to connect to MongoDB:', error);
+  }
+})();
 
-// Available Routes
-app.use('/users', require('./routes/users'));
-app.use('/account', require('./routes/userDetails'));
-
-app.get('/', (req, res) => {
-  const isAuthenticated = req.isAuth;
-  res.json({
-    isAuth: isAuthenticated,
-    userData: req.isAuth === true ? req.user : null,
-  });
-});
-
-app.listen(Port, () => {
-  logger.info(`Travel Buddy backend listening at http://localhost:${Port}`);
-});
+module.exports = app;
