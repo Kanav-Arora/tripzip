@@ -3,10 +3,10 @@ import {
 } from "react-router-dom";
 
 
-import Home from '../components/Home'
+import Home from '../pages/Home'
 import Landing from '../layout/Landing';
-import PageNotFound from '../components/PageNotFound'
-import Team from '../components/Team';
+import PageNotFound from '../pages/PageNotFound'
+import Team from '../pages/Team';
 
 export default function Router() {
     return (

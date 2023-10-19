@@ -1,10 +1,35 @@
 const mongoose = require('mongoose');
-require('dotenv').config()
+const config = require('./config');
+const logger = require('./utils/logger/logger');
 
-const mongoURI = process.env.MONGODB_URI;
+const mongoURI = config.MongodbUri;
+
+let db;
+
+// async function clearDatabase() {
+//   const { collections } = mongoose.connection;
+
+//   const clearPromises = Object.values(collections).map(async (collection) => {
+//     await collection.deleteMany({});
+//   });
+
+//   await Promise.all(clearPromises);
+// }
 
 async function connectToMongo() {
-  await mongoose.connect(mongoURI).then(() => console.log("Connected to Mongo Successfully")).catch(err => console.log(err));
+  if (!db) {
+    try {
+      db = await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+      if (config.NodeEnv === 'testing') {
+        logger.info('Connected and Cleared Test DB');
+      } else {
+        logger.info('Connected to Mongo Successfully');
+      }
+    } catch (error) {
+      logger.error(`${error} [db.js]`);
+    }
+  }
+  return db;
 }
 
 module.exports = connectToMongo;
