@@ -13,11 +13,14 @@
     "prettier": "^3.0.3"
   },
   "scripts": {
-    "prestart": "npm run kill-ports",
+    "kill-ports:both": "kill-port 3000 8000",
+    "kill-ports:server": "kill-port 8000",
+    "kill-ports:front": "kill-port 3000",
+    "prestart": "npm run kill-ports:both",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd backend && npm start",
     "client": "cd frontend && npm start",
-    "kill-ports": "kill-port 3000 8000",
+    "test": "kill-port 8000 && cd backend && NODE_ENV=testing npx mocha **/*.test.js",
     "setup:postman": "node backend/scripts/fetch-postman-collections.js",
     "custom-pre-commit": "npm run setup:postman"
   },
@@ -31,5 +34,9 @@
     "hooks": {
       "custom-pre-commit": "npm run setup:postman"
     }
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "jsonwebtoken": "^9.0.2"
   }
 }
