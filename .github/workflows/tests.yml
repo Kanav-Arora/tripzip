@@ -1,0 +1,26 @@
+name: Backend Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies (Root)
+        run: npm ci
+        working-directory: .
+
+      - name: Install Dependencies (Backend)
+        run: npm ci
+        working-directory: backend
+
+      - name: Run Tests (Root)
+        run: npm test
+        working-directory: .
