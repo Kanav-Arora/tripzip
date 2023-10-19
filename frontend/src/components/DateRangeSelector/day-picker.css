@@ -1,0 +1,26 @@
+.rdp {
+    --rdp-cell-size: 40px;
+    /* Size of the day cells. */
+    --rdp-caption-font-size: 18px;
+    /* Font size for the caption labels. */
+    --rdp-accent-color: #DF6951;
+    /* Accent color for the background of selected days. */
+    --rdp-background-color: transparent;
+    /* Background color for the hovered/focused elements. */
+    --rdp-accent-color-dark: white;
+    /* Accent color for the background of selected days (to use in dark-mode). */
+    --rdp-background-color-dark: white;
+    /* Background color for the hovered/focused elements (to use in dark-mode). */
+    --rdp-outline: 2px solid var(--rdp-accent-color);
+    /* Outline border for focused elements */
+    --rdp-outline-selected: 3px solid var(--rdp-accent-color);
+    /* Outline border for focused _and_ selected elements */
+    --rdp-selected-color: white;
+    /* Color of selected day text */
+
+    margin: 1em;
+}
+
+.my-today {
+    border: 2px solid white;
+}
