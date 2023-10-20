@@ -1,9 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-dynamic-require */
 const mongoose = require('mongoose');
 const path = require('path');
 
-const config = require(path.resolve(__dirname, '../config.js'));
-const logger = require('../utils/logger/logger');
+const config = require(path.resolve(__dirname, '../../backend/config'));
+const logger = require('../../backend/utils/logger/logger');
 
 const mongoURI = config.MongodbUri;
 

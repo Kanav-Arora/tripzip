@@ -2,8 +2,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jwt = require('jsonwebtoken');
 
-const app = require('../index');
-const { JwtSecret, JwtExpiresIn, MongodbUri } = require('../config');
+const app = require('../../backend/index');
+const { JwtSecret, JwtExpiresIn, MongodbUri } = require('../../backend/config');
 
 chai.use(chaiHttp);
 
