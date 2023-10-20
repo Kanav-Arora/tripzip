@@ -3,6 +3,9 @@ const logger = require('../utils/logger/logger');
 
 async function getUserDetails(req, res) {
     const uid = req.headers['x-uid'];
+    if (req.isAuth === false || req.user.id !== uid) {
+        res.status(401).send({ message: 'Unauthorised access' });
+    }
     try {
         userDetailSchema.findOne({ uid })
             .then((userDetails) => {
@@ -44,7 +47,9 @@ const checkIfUidExists = async (uid) => {
 
 async function postUserDetails(req, res) {
     const uid = req.headers['x-uid'];
-    logger.info(uid);
+    if (req.isAuth === false || req.user.id !== uid) {
+        res.status(401).send({ message: 'Unauthorised access' });
+    }
     const userDetails = req.body;
     userDetails.uid = uid;
     userDetails.updatedAt = new Date();

@@ -1,15 +1,17 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../index');
+const app = require('../../backend/index');
 const { expect, assert } = chai;
 
 chai.use(chaiHttp);
 
-console.log("user test starts");
+let testUID;
+let testToken;
 
 describe('Signup and Signin Route', async () => {
     it('signup | signin -> should create a new user if input is valid', async () => {
         const signupData = {
+            _id: "t1",
             name: 'John Doe',
             email: 'john.doe@example.com',
             password: 'password123',
@@ -17,7 +19,7 @@ describe('Signup and Signin Route', async () => {
         const signupResponse = await chai.request(app)
             .post('/users/signup')
             .send(signupData);
-        console.log("sign up response");
+
         expect(signupResponse).to.have.status(201);
         expect(signupResponse).to.be.json;
 
@@ -25,6 +27,7 @@ describe('Signup and Signin Route', async () => {
         expect(signupResponse.body).to.have.property('name');
 
         const signinData = {
+            _id: "t1",
             name: 'John Doe',
             email: 'john.doe@example.com',
             password: 'password123',
