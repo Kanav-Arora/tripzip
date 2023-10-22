@@ -22,6 +22,7 @@ app.use(validateUser);
 // Available Routes
 app.use('/users', require('./routes/users'));
 app.use('/account', require('./routes/userDetails'));
+app.use('/trips', require('./routes/trips'));
 
 app.get('/', (req, res) => {
     const isAuthenticated = req.isAuth;
