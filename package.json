@@ -20,7 +20,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd backend && npm start",
     "client": "cd frontend && npm start",
-    "test": "cd infra && cd scripts && NODE_ENV=testing node cleardb.js && kill-port 8000 && cd .. && NODE_ENV=testing npx mocha --config mocha.config.js --exit",
+    "test": "cd infra && cd scripts && NODE_ENV=testing node test-setup.js && kill-port 8000 && cd .. && NODE_ENV=testing npx mocha --config mocha.config.js --exit",
     "setup:postman": "node backend/scripts/fetch-postman-collections.js",
     "custom-pre-commit": "npm run setup:postman"
   },
