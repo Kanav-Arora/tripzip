@@ -9,14 +9,21 @@ import Dropdown from './Dropdown';
 import Modal from '../Modal';
 import SignUpModalContent from '../Modal/SignUpModalContent';
 import LogInModalContent from '../Modal/LogInModalContent';
+import AddTripButton from '../../components/NavBar/AddTripButton';
+import AddTripModal from '../Add Trip/AddTripModal';
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { state, dispatch } = useContext(AuthContext);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLogInModal, setShowLogInModal] = useState(false);
+  const [addTripModalVisible, toggleAddTripModal] = useState(false);
 
   const isAuth = state.isAuthenticated;
+
+  const toggleAddTripModalHandler = () => {
+    toggleAddTripModal(!addTripModalVisible);
+  }
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -27,7 +34,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="absolute w-full top-0 bg-transparent py-4 flex justify-between items-center z-50 px-10 mobile:px-5">
+    <nav className="absolute w-full top-0 bg-transparent py-4 flex justify-between items-center z-50 px-5 mobile:px-5">
       <div className="flex items-center text-white leading-3">
         <div className="hidden mobile:block pr-5 ">
           <button onClick={toggleMenu}>
@@ -73,10 +80,15 @@ export default function NavBar() {
         <Link to="#" className='text-white'>Upcoming Trips</Link>
       </div>
 
+      {addTripModalVisible &&
+        <AddTripModal onClose={toggleAddTripModalHandler} />
+      }
+
       {
         isAuth === true
           ?
-          <div className="mobile:hidden flex items-center space-x-2">
+          <div className="mobile:hidden flex gap-5">
+            <AddTripButton onClick={toggleAddTripModalHandler} />
             <Dropdown name={state.name} />
           </div>
           :
