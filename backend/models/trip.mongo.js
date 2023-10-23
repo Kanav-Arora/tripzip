@@ -9,7 +9,7 @@ const tripSchema = new Schema({
     },
     tripDetails: {
         type: Schema.Types.ObjectId,
-        ref: 'tripDetails',
+        ref: 'tripdetails',
     },
     createdBy: {
         type: Schema.Types.ObjectId,
@@ -20,6 +20,10 @@ const tripSchema = new Schema({
         ref: 'trips',
         default: [],
     }],
+    views: {
+        type: Schema.Types.Number,
+        default: 0,
+    },
     status: {
         type: Schema.Types.String,
         enum: ['active', 'inactive', 'deleted'],

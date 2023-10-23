@@ -7,6 +7,14 @@ const tripDetailsSchema = new Schema({
         type: Schema.Types.ObjectId,
         default: () => new mongoose.Types.ObjectId(),
     },
+    startDate: {
+        type: Schema.Types.Date,
+        required: true,
+    },
+    endDate: {
+        type: Schema.Types.Date,
+        required: true,
+    },
     city: {
         type: Schema.Types.String,
         required: true,
@@ -22,11 +30,6 @@ const tripDetailsSchema = new Schema({
     itinerary: {
         type: Schema.Types.String,
         required: true,
-    },
-    status: {
-        type: Schema.Types.String,
-        enum: ['active', 'inactive', 'deleted'],
-        default: 'active',
     },
     created_at: {
         type: Schema.Types.Date,

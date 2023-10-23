@@ -21,6 +21,10 @@ async function createTrip(req, res) {
         });
     } catch (error) {
         logger.error(error);
+        res.status(500).send({
+            status: 500,
+            message: 'Internal Server Error',
+        });
     }
 }
 
