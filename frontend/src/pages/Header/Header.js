@@ -41,7 +41,7 @@ export default function Header() {
             </div>
             {isHome && <InputDialog togglePicker={handleDateClick} date={range} />}
             {showDateRangePicker &&
-                <div className="absolute left-1/2 transform -translate-x-1/2 text-white z-9999">
+                <div className="absolute left-1/2 transform -translate-x-1/2 text-white z-80">
                     <DateRangeSelector range={range} setRange={setRange} />
                 </div>
             }
