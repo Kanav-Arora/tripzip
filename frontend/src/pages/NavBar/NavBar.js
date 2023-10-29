@@ -9,7 +9,7 @@ import Dropdown from './Dropdown';
 import Modal from '../Modal';
 import SignUpModalContent from '../Modal/SignUpModalContent';
 import LogInModalContent from '../Modal/LogInModalContent';
-import AddTripButton from '../../components/NavBar/AddTripButton';
+import AddTripButton from '../../components/feature/NavBar/AddTripButton';
 import AddTripModal from '../Add Trip/AddTripModal';
 
 export default function NavBar() {

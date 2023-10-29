@@ -6,7 +6,7 @@ import { ImgWithFallback } from "../../assets/utilities";
 import { motion } from "framer-motion";
 import InputDialog from "./InputDialog";
 import NavBar from "../NavBar/NavBar";
-import DateRangeSelector from "../../components/DateRangeSelector/DateRangeSelector"
+import DateRangeSelector from "../../components/ui/DateRangeSelector/DateRangeSelector"
 
 <style>
     @import

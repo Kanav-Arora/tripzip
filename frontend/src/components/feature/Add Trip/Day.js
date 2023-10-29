@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from '../Heading';
+import Heading from '../../ui/Heading';
 
 export default function Day({ dayNo, onDelete, textInput, updateText }) {
     const handleDelete = () => {

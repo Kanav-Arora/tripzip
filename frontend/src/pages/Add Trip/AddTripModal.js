@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import './index.css';
 
-import ProgressBar from '../../components/Add Trip/ProgressBar';
+import ProgressBar from '../../components/feature/Add Trip/ProgressBar';
 import Page1 from './Page 1/Page1';
 import Page2 from './Page 2/Page2';
 

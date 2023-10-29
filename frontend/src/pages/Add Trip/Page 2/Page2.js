@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Day from '../../../components/Add Trip/Day'
-import Title from '../../../components/Title';
-import Heading from '../../../components/Heading';
+import Day from '../../../components/feature/Add Trip/Day';
+import Title from '../../../components/ui/Title';
+import Heading from '../../../components/ui/Heading';
 
 export default function Page2(props) {
 
