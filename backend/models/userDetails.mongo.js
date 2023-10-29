@@ -4,11 +4,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userDetailSchema = new Schema({
-    uid: {
-        type: Schema.Types.ObjectId,
-        required: [true, 'No UID found'],
-        unique: true,
-    },
     address: {
         type: Schema.Types.String,
     },
@@ -34,12 +29,12 @@ const userDetailSchema = new Schema({
     },
     tripsCreated: [{
         type: Schema.Types.ObjectId,
-        ref: 'Trips',
+        ref: 'trips',
         default: [],
     }],
     tripsInterested: [{
         type: Schema.Types.ObjectId,
-        ref: 'Trips',
+        ref: 'trips',
         default: [],
     }],
     status: {
@@ -53,5 +48,5 @@ const userDetailSchema = new Schema({
     },
 });
 
-const UserDetails = mongoose.model('UserDetails', userDetailSchema);
+const UserDetails = mongoose.model('userdetails', userDetailSchema);
 module.exports = UserDetails;

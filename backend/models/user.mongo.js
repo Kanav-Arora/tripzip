@@ -4,6 +4,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId(),
+  },
+  userDetails: {
+    type: Schema.Types.ObjectId,
+    ref: 'userdetails',
+  },
   email: {
     type: Schema.Types.String,
     required: true,
@@ -37,5 +45,5 @@ const userSchema = new Schema({
   },
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('users', userSchema);
 module.exports = User;
