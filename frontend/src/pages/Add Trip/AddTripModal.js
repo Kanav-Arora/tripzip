@@ -8,13 +8,20 @@ import Page2 from './Page 2/Page2';
 
 import { motion } from 'framer-motion';
 
-const steps = [
-    Page1,
-    Page2,
-];
-
 
 export default function AddTripModal(props) {
+    const [page1Input, setPage1Input] = useState({
+        location: '',
+        description: '',
+    });
+
+    const [page2Input, setPage2Input] = useState([]);
+
+    const steps = [
+        <Page1 inputs={page1Input} handler={setPage1Input} />,
+        <Page2 inputs={page2Input} handler={setPage2Input} />,
+    ];
+
     const [currentStep, setCurrentStep] = useState(0);
 
     const handleNext = () => {
@@ -35,7 +42,7 @@ export default function AddTripModal(props) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                 >
-                    <CurrentStepComponent />
+                    {CurrentStepComponent}
                 </motion.div>
                 <div className="mt-6">
                     <div className='flex flex-row justify-between mx-5'>

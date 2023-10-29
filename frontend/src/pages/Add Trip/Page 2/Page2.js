@@ -1,23 +1,33 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import Day from '../../../components/Add Trip/Day'
 import Title from '../../../components/Title';
 import Heading from '../../../components/Heading';
 
-export default function Page2() {
-    const [days, setDays] = useState([]);
+export default function Page2(props) {
 
     const handleAddDay = () => {
-        setDays(prevDays => [...prevDays, { key: prevDays.length + 1, dayNo: prevDays.length + 1 }]);
+        props.handler(prevDays => [...prevDays, [prevDays.length + 1, '']]);
     };
 
     const handleDeleteDay = (dayNo) => {
-        setDays(prevDays => {
-            const updatedDays = prevDays.filter((day) => day.dayNo !== dayNo);
-            return updatedDays.map((day, index) => ({ ...day, dayNo: index + 1 }));
+        props.handler(prevDays => {
+            const updatedDays = prevDays.filter(([day]) => day !== dayNo);
+            return updatedDays.map(([day, content], index) => [index + 1, content]);
         });
     };
 
+    const updateText = (dayNo, newText) => {
+        props.handler(prevDays => {
+            for (let i = 0; i < prevDays.length; i++) {
+                const [prevDayNo, newText] = prevDays[i];
+                if (prevDayNo === dayNo) {
+                    prevDays[i] = [prevDayNo, newText];
+                    return;
+                }
+            }
+        });
+    };
 
     return (
         <>
@@ -34,9 +44,9 @@ export default function Page2() {
                 </div>
             </div>
             <div className="h-[calc(100%-60px)] overflow-y-auto max-h-[calc(100vh-500px)]">
-                {days.map((object) => {
-                    return <Day key={object.key} dayNo={object.dayNo} onDelete={handleDeleteDay} />;
-                })}
+                {props.inputs.map(([dayNo, textInput]) => (
+                    <Day key={dayNo} dayNo={dayNo} onDelete={handleDeleteDay} textInput={textInput} updateText={updateText} />
+                ))}
             </div >
         </>
     )
