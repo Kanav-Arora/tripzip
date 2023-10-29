@@ -3,7 +3,8 @@ import {
 } from "react-router-dom";
 
 
-import Home from '../pages/Home'
+import Home from '../pages/Home';
+import Trip from '../pages/Trip';
 import Landing from '../layout/Landing';
 import PageNotFound from '../pages/PageNotFound'
 import Team from '../pages/Team';
@@ -14,6 +15,7 @@ export default function Router() {
             <Routes>
                 <Route exact path="/" element={<Landing />}>
                     <Route exact path='/' element={<Home />} />
+                    <Route exact path='/trip' element={<Trip />} />
                     <Route exact path='/team' element={<Team />} />
                 </Route>
                 <Route path='*' element={<PageNotFound />} />

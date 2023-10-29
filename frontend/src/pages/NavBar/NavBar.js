@@ -48,7 +48,7 @@ export default function NavBar() {
           <div className='flex flex-col'>
             <Link to="/" className='rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Home</Link>
             <Link to="/about" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>About</Link>
-            <Link to="#" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Upcoming Trips</Link>
+            <Link to="/trip" className='bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm'>Upcoming Trips</Link>
             {
               isAuth === true
                 ?
@@ -70,7 +70,7 @@ export default function NavBar() {
       <div className="mobile:hidden flex-grow flex justify-center space-x-6">
         <Link to="/" className='text-white'>Home</Link>
         <Link to="/about" className='text-white'>About</Link>
-        <Link to="#" className='text-white'>Upcoming Trips</Link>
+        <Link to="/trip" className='text-white'>Upcoming Trips</Link>
       </div>
 
       {
