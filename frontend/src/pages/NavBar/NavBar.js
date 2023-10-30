@@ -12,6 +12,8 @@ import LogInModalContent from '../Modal/LogInModalContent';
 import AddTripButton from '../../components/feature/NavBar/AddTripButton';
 import AddTripModal from '../Add Trip/AddTripModal';
 
+import { AddTripProvider } from '../../context/Add Trip/addTripContext';
+
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { state, dispatch } = useContext(AuthContext);
@@ -81,7 +83,9 @@ export default function NavBar() {
       </div>
 
       {addTripModalVisible &&
-        <AddTripModal onClose={toggleAddTripModalHandler} />
+        <AddTripProvider>
+          <AddTripModal onClose={toggleAddTripModalHandler} />
+        </AddTripProvider>
       }
 
       {

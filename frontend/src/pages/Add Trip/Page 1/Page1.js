@@ -1,27 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Heading from '../../../components/ui/Heading';
 import Title from '../../../components/ui/Title';
+import { AddTripContext } from '../../../context/Add Trip/addTripContext';
+import { updateLocationAction, updateDescriptionAction } from '../../../context/Add Trip/addTripAction';
 
 import './Page1.css'
 
 export default function Page1(props) {
+    const { state, dispatch } = useContext(AddTripContext);
 
     const inputValueHandler = (e) => {
-        props.handler(
-            {
-                location: e.target.value,
-                description: props.inputs.description,
-            }
-        )
+        dispatch(updateLocationAction(e.target.value));
     }
 
     const textAreaValueHandler = (e) => {
-        props.handler(
-            {
-                location: props.inputs.location,
-                description: e.target.value,
-            }
-        )
+        dispatch(updateDescriptionAction(e.target.value));
     }
 
     return (
@@ -31,7 +24,7 @@ export default function Page1(props) {
             <input
                 type="text"
                 className="w-1/2 border border-gray-300 p-2 rounded-md mb-8 text-sm location-input"
-                value={props.inputs.location}
+                value={state.location}
                 onChange={inputValueHandler}
             />
             <Heading text="Description" className='font-medium mb-2' subText="- Optional" subTextStyle="text-gray-400" />
@@ -39,7 +32,7 @@ export default function Page1(props) {
                 <textarea
                     className="w-full h-full p-2 resize-none outline-none text-sm overflow-y-scroll"
                     style={{ resize: 'none' }}
-                    value={props.inputs.description}
+                    value={state.description}
                     onChange={textAreaValueHandler}
                 />
             </div>

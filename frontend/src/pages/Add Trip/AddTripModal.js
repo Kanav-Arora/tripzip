@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 
 import './index.css';
 
@@ -8,31 +8,26 @@ import Page2 from './Page 2/Page2';
 
 import { motion } from 'framer-motion';
 
+import { AddTripContext } from '../../context/Add Trip/addTripContext';
+import { nextPageAction, prevPageAction } from '../../context/Add Trip/addTripAction';
 
 export default function AddTripModal(props) {
-    const [page1Input, setPage1Input] = useState({
-        location: '',
-        description: '',
-    });
-
-    const [page2Input, setPage2Input] = useState([]);
+    const { state, dispatch } = useContext(AddTripContext);
 
     const steps = [
-        <Page1 inputs={page1Input} handler={setPage1Input} />,
-        <Page2 inputs={page2Input} handler={setPage2Input} />,
+        <Page1 />,
+        <Page2 />,
     ];
 
-    const [currentStep, setCurrentStep] = useState(0);
-
     const handleNext = () => {
-        setCurrentStep(currentStep + 1);
+        dispatch(nextPageAction());
     };
 
     const handlePrevious = () => {
-        setCurrentStep(currentStep - 1);
+        dispatch(prevPageAction());
     };
 
-    const CurrentStepComponent = steps[currentStep];
+    const CurrentStepComponent = steps[state.currentStep];
 
     return (
         <div className='fixed top-0 left-0 w-full h-full blur-bg'>
@@ -50,7 +45,7 @@ export default function AddTripModal(props) {
                         <div>
                             <button className='mb-4 px-2 py-1 border shadow-sm border-gray-300 rounded-md' onClick={props.onClose}>Close</button>
                             <button className='bg-orangeaccent text-white w-20 ml-2 mb-4 px-3 py-1 shadow-sm rounded-md ' onClick={handleNext}>
-                                {currentStep === steps.length - 1 ?
+                                {state.currentStep === steps.length - 1 ?
                                     <>Submit</>
                                     :
                                     <>Next</>
@@ -58,7 +53,7 @@ export default function AddTripModal(props) {
                             </button>
                         </div>
                     </div>
-                    <ProgressBar percentage={currentStep === 0 ? 0 : (currentStep / steps.length).toFixed(2) * 100} />
+                    <ProgressBar percentage={state.currentStep === 0 ? 0 : (state.currentStep / steps.length).toFixed(2) * 100} />
                 </div>
             </div>
         </div>
