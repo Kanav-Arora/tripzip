@@ -21,12 +21,31 @@ export default function Page1(props) {
         <div className="flex flex-col h-full">
             <Title text="Create a trip" isBold fontSize={"1.25rem"} classname="mb-8" />
             <Heading text="Location" className='mb-2 font-medium' />
-            <input
-                type="text"
-                className="w-1/2 border border-gray-300 p-2 rounded-md mb-8 text-sm location-input"
-                value={state.location}
-                onChange={inputValueHandler}
-            />
+            <div className='flex flex-row justify-between'>
+                <input
+                    type="text"
+                    className="w-2/4 border border-gray-300 p-2 rounded-md mb-8 text-sm location-input"
+                    value={state.location}
+                    onChange={inputValueHandler}
+                    placeholder='Delhi'
+                />
+                <div>
+                    <input
+                        type="text"
+                        placeholder="From date"
+                        className="min-w-[150px] border border-gray-300 p-2 rounded-md text-sm location-input mx-2"
+                        readOnly
+                    />
+                    -
+                    <input
+                        type="text"
+                        placeholder="To date"
+                        className="min-w-[150px] border border-gray-300 p-2 rounded-md text-sm location-input mx-2"
+                        readOnly
+                    />
+                </div>
+
+            </div>
             <Heading text="Description" className='font-medium mb-2' subText="- Optional" subTextStyle="text-gray-400" />
             <div className="flex-1  relative w-full rounded-md overflow-hidden description-input">
                 <textarea

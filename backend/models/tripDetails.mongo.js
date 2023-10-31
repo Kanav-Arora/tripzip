@@ -15,6 +15,9 @@ const tripDetailsSchema = new Schema({
         type: Schema.Types.Date,
         required: true,
     },
+    description: {
+        type: Schema.Types.String,
+    },
     city: {
         type: Schema.Types.String,
         required: true,
