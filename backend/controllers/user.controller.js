@@ -1,28 +1,48 @@
 const jwt = require('jsonwebtoken');
 
 const { JwtSecret, JwtExpiresIn } = require('../config');
+const Users = require('../models/user.mongo');
+const UserDetails = require('../models/userDetails.mongo');
 const logger = require('../utils/logger/logger');
 const { PasswordManager } = require('../services/passwordManager');
-const { ifUserExists, addNewUser } = require('../models/user.model');
+
+async function ifUserExists(user) {
+  const existingUser = await Users.findOne({ email: user.email });
+  return existingUser;
+}
+
+async function addNewUser(user) {
+  try {
+    const hashedPassword = await PasswordManager.toHash(user.password);
+    const userDetailResponse = await UserDetails.create({});
+    const newUser = {
+      userDetails: userDetailResponse._id,
+      email: user.email,
+      password: hashedPassword,
+      name: user.name,
+    };
+    const savedUser = await Users.create(newUser);
+    return savedUser;
+  } catch (error) {
+    logger.error(`Couldn't save the user ${error}`);
+  }
+}
 
 async function signUpUser(req, res) {
   const user = req.body;
-  // validation
+
   try {
     if (!user.name || !user.email || !user.password) {
       return res.status(400).send({ message: 'Invalid or missing params' });
     }
 
-    // Checking if user already exists
     const userExists = await ifUserExists(user);
     if (userExists) {
       return res.status(400).send({ message: 'User already exists' });
     }
 
-    // add new user
     const savedUser = await addNewUser(user);
 
-    // Generate token for user
     const payload = {
       id: savedUser._id,
       name: savedUser.name,
@@ -52,7 +72,6 @@ async function signInUser(req, res) {
       return res.status(400).send({ message: 'Invalid Credentails' });
     }
 
-    // verifying password with given and original
     const isPasswordCorrect = await PasswordManager.compare(
       userExists.password,
       user.password,
@@ -62,7 +81,6 @@ async function signInUser(req, res) {
       return res.status(400).send({ message: 'Umm, Invalid credentials' });
     }
 
-    // Generate token for user
     const payload = {
       id: userExists._id,
       name: userExists.name,

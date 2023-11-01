@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useLocation } from "react-router-dom";
 
 import { ImgWithFallback } from "../../assets/utilities";
+import { motion } from "framer-motion";
 import InputDialog from "./InputDialog";
 import NavBar from "../NavBar/NavBar";
-import DateRangeSelector from "../../components/DateRangeSelector/DateRangeSelector"
+import DateRangeSelector from "../../components/ui/DateRangeSelector/DateRangeSelector"
 
 <style>
     @import
@@ -24,6 +25,25 @@ export default function Header() {
     const [range, setRange] = useState(defaultSelected);
     const location = useLocation();
     const isHome = location.pathname === "/";
+    const textVariants = [
+        "Discover Together",
+        "Buddy Up!",
+        "Embark on Adventures Together"
+    ];
+
+    const [currentTextIndex, setCurrentTextIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setCurrentTextIndex((prevIndex) =>
+                prevIndex === textVariants.length - 1 ? 0 : prevIndex + 1
+            );
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [currentTextIndex, textVariants.length]);
+
+
     return (
         <div className="relative">
             <ImgWithFallback
@@ -34,14 +54,27 @@ export default function Header() {
                 alt="Nature Image"
             />
             <NavBar />
-            <div className="relative overlay-text top-1/2 left-1/2">
-                <p className="text-white text-center text-3xl mobile:text-xl">
-                    Embark on Adventures Together
-                </p>
-            </div>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="relative overlay-text top-1/2 left-1/2"
+            >
+                <motion.p
+                    key={textVariants[currentTextIndex]}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-white text-center text-3xl mobile:text-xl"
+                >
+                    {textVariants[currentTextIndex]}
+                </motion.p>
+            </motion.div>
+
             {isHome && <InputDialog togglePicker={handleDateClick} date={range} />}
             {showDateRangePicker &&
-                <div className="absolute left-1/2 transform -translate-x-1/2 text-white z-9999">
+                <div className="absolute left-1/2 transform -translate-x-1/2 text-white z-80">
                     <DateRangeSelector range={range} setRange={setRange} />
                 </div>
             }

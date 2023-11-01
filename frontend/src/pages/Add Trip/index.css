@@ -1,0 +1,12 @@
+.blur-bg {
+    backdrop-filter: blur(2px);
+    z-index: 1;
+}
+
+.centered-modal {
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    height: 65%;
+}

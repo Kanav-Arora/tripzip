@@ -9,6 +9,7 @@ userDetailsRouter.use(bodyParser.json());
 userDetailsRouter.use(bodyParser.urlencoded({ extended: true }));
 
 userDetailsRouter.get('/', getUserDetails);
+userDetailsRouter.get('/:uid', getUserDetails);
 userDetailsRouter.post('/', postUserDetails);
 
 module.exports = userDetailsRouter;
