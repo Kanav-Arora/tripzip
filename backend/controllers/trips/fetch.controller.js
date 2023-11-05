@@ -7,6 +7,11 @@ async function filteredTrips(req, res) {
             startDate, endDate, destination, uid,
         } = req.query;
 
+        const page = req.body.page || 1;
+        const limit = req.body.limit || 20;
+
+        const startIndex = (page - 1) * limit;
+
         const filter = {
             status: 'active',
         };
@@ -23,11 +28,19 @@ async function filteredTrips(req, res) {
             filter.tripDetails.endDate = { $lte: new Date(endDate) };
         }
 
-        const trips = await Trips.find(filter).populate('tripDetails');
+        const trips = await Trips.find(filter)
+            .populate('tripDetails')
+            .sort({ views: -1 })
+            .skip(startIndex)
+            .limit(limit);
+
+        const currentLoad = trips.slice(0, limit / 2);
+        const nextLoad = trips.slice(limit / 2, limit);
+
         res.status(200).json({
             status: 200,
             message: 'Trips fetched successfully',
-            data: trips,
+            data: { currentLoad, nextLoad },
         });
     } catch (error) {
         logger.error(error);
