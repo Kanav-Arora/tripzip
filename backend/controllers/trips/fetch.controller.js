@@ -1,6 +1,44 @@
 const logger = require('../../utils/logger/logger');
 const Trips = require('../../models/trip.mongo');
 
+async function countTrips(req, res) {
+    try {
+        const {
+            startDate, endDate, destination, uid,
+        } = req.query;
+
+        const filter = {
+            status: 'active',
+        };
+        if (uid) {
+            filter.createdBy = uid;
+        }
+        if (destination) {
+            filter.tripDetails.city = destination.replace(/-/g, ' ');
+        }
+        if (startDate) {
+            filter.tripDetails.startDate = { $gte: new Date(startDate) };
+        }
+        if (endDate) {
+            filter.tripDetails.endDate = { $lte: new Date(endDate) };
+        }
+
+        const tripsCount = await Trips.count(filter);
+
+        res.status(200).json({
+            status: 200,
+            message: 'Trips Results Fetched successfully',
+            data: { tripsCount },
+        });
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send({
+            status: 500,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
 async function filteredTrips(req, res) {
     try {
         const {
@@ -34,13 +72,10 @@ async function filteredTrips(req, res) {
             .skip(startIndex)
             .limit(limit);
 
-        const currentLoad = trips.slice(0, limit / 2);
-        const nextLoad = trips.slice(limit / 2, limit);
-
         res.status(200).json({
             status: 200,
             message: 'Trips fetched successfully',
-            data: { currentLoad, nextLoad },
+            data: { trips },
         });
     } catch (error) {
         logger.error(error);
@@ -73,4 +108,4 @@ async function fetchTripByID(req, res) {
     }
 }
 
-module.exports = { filteredTrips, fetchTripByID };
+module.exports = { countTrips, filteredTrips, fetchTripByID };
