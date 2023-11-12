@@ -1,5 +1,5 @@
-const logger = require('../../utils/logger/logger');
 const Trips = require('../../models/trip.mongo');
+const logger = require('../../utils/logger/logger');
 
 async function countTrips(req, res) {
     try {

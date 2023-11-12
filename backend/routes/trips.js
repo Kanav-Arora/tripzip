@@ -1,5 +1,5 @@
-const { Router } = require('express');
 const bodyParser = require('body-parser');
+const { Router } = require('express');
 
 const createTrip = require('../controllers/trips/create.controller');
 const deleteTrip = require('../controllers/trips/delete.controller');
