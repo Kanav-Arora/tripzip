@@ -48,7 +48,7 @@ export default function Header() {
         <div className="relative">
             <ImgWithFallback
                 className="w-full max-h-50 object-cover"
-                style={{ maxHeight: isHome ? "450px" : "250px" }}
+                style={{ maxHeight: isHome ? "375px" : "250px" }}
                 src="/images/src/landing_main.webp"
                 fallback="/images/fallback/landing_main.jpg"
                 alt="Nature Image"
