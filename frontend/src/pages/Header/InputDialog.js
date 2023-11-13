@@ -33,7 +33,7 @@ export default function InputDialog(props) {
     }, [range]);
 
     return (
-        <div className='mobile:hidden absolute shadow-xl rounded-xl bottom-0 -mb-10 left-1/2 transform -translate-x-1/2 w-fit z-20'>
+        <div className='mobile:hidden absolute shadow-xl rounded-xl bottom-0 -mb-10 left-1/2 transform -translate-x-1/2 w-fit z-10'>
             <div className='flex justify-center bg-white text-black p-3 rounded-xl'>
                 <div className='px-3 border-r border-gray-300'>
                     <div className='flex items-center space-x-2 leading-5 pb-2'>
@@ -83,7 +83,7 @@ export default function InputDialog(props) {
                 <button className="bg-black text-white rounded-lg px-4 py-2 my-auto">Search</button>
             </div>
             {showDateRangePicker &&
-                <div className="absolute mt-12 left-1/2 transform -translate-x-1/2 text-white">
+                <div className="absolute mt-6 left-[57%] transform -translate-x-1/2 text-white z-10">
                     <DateRangeSelector range={range} setRange={setRange} />
                 </div>
             }

@@ -36,7 +36,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="absolute w-full top-0 bg-transparent flex justify-between items-center z-10 pt-2 px-4 mobile:px-5">
+    <nav className="absolute w-full top-0 bg-transparent flex justify-between items-center z-10 pt-4 px-6 mobile:px-5">
       <div className="flex items-center text-white leading-3">
         <div className="hidden mobile:block pr-5 ">
           <button onClick={toggleMenu}>

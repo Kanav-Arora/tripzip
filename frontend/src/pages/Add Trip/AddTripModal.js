@@ -57,8 +57,8 @@ export default function AddTripModal(props) {
     const CurrentStepComponent = steps[state.currentStep < steps.length ? state.currentStep : steps.length - 1];
 
     return (
-        <div className='fixed top-0 left-0 w-full h-full blur-bg'>
-            <div className='absolute top-1/2 left-1/2 bg-white border rounded-xl flex flex-col flex-start justify-between centered-modal'>
+        <div className='fixed top-0 left-0 w-full h-full blur-bg z-70'>
+            <div className='absolute top-1/2 left-1/2 z-70 bg-white border rounded-xl flex flex-col flex-start justify-between centered-modal'>
                 <motion.div className="flex-1 mx-5 mt-5"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
