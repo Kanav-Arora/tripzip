@@ -42,6 +42,7 @@
     height: 300px;
     overflow: hidden;
     border-radius: 10px;
+    z-index: 1;
 }
 
 .landing-section-a-card-image {

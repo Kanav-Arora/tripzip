@@ -34,7 +34,7 @@ export default function Landing() {
     useEffect(() => {
         document.title = "Travel Buddy"
         init();
-    }, []);
+    });
     return (
         <>
             <Header />

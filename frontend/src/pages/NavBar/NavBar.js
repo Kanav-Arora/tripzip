@@ -36,7 +36,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="absolute w-full top-0 bg-transparent py-4 flex justify-between items-center z-50 px-5 mobile:px-5">
+    <nav className="absolute w-full top-0 bg-transparent flex justify-between items-center z-10 pt-2 px-4 mobile:px-5">
       <div className="flex items-center text-white leading-3">
         <div className="hidden mobile:block pr-5 ">
           <button onClick={toggleMenu}>
@@ -101,7 +101,7 @@ export default function NavBar() {
             <Modal isVisible={showLogInModal} onClose={() => setShowLogInModal(false)}>
               <LogInModalContent />
             </Modal>
-            <button className="bg-white text-black border rounded-full px-4 py-1" onClick={() => setShowSignUpModal(true)}>Sign Up</button>
+            <button className="bg-transparent text-white border rounded-full px-4 py-1" onClick={() => setShowSignUpModal(true)}>Sign Up</button>
             <Modal isVisible={showSignUpModal} onClose={() => setShowSignUpModal(false)}>
               <SignUpModalContent />
             </Modal>

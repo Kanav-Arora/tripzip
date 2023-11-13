@@ -14,7 +14,6 @@ export default function DateRangeSelector(props) {
                 mode="range"
                 defaultMonth={currDate}
                 selected={props.range}
-                numberOfMonths={2}
                 onSelect={props.setRange}
                 modifiersClassNames={{
                     today: 'my-today'
