@@ -20,7 +20,7 @@ const Card = ({ Icon, title, description }) => {
             initial={{ opacity: 0, x: 50 }}
             animate={controls}
             transition={{ duration: 0.5 }}
-            className={'my-4 gap-x-4 rounded-xl p-6 flex flex-row bg-gray-100 shadow-md'}
+            className={'my-4 gap-x-4 rounded-2xl p-6 flex flex-row bg-gray-100 shadow-md'}
         >
             <div className={'p-2 rounded-lg h-fit bg-white'}>
                 <Icon />
@@ -52,7 +52,7 @@ export default function SectionB() {
         },
         {
             title: 'Enjoy your trip',
-            description: 'You\'ll be immersed in a captivating tapestry of sights, sounds and tastes, as you wind your way through the ancient streets.',
+            description: 'You\'ll be immersed in a captivating tapestry of sights, sounds and tastes',
         }
     ];
 

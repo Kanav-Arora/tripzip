@@ -3,7 +3,7 @@ import React from 'react'
 export default function SectionLayout({ subheading, title, description, children }) {
     return (
         <div className='my-28 mx-40 flex flex-col z-0'>
-            <div className='justify-between items-start flex flex-row'>
+            <div className='justify-between flex flex-row items-end'>
                 <div className='flex flex-col'>
                     <div className='text-gray-500 text-sm'>
                         {subheading}

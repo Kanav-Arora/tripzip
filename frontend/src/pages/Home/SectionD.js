@@ -5,7 +5,7 @@ import { RightIcon, LeftIcon } from '../../assets/ext-icon';
 const Card = ({ title, imageSrc, onClick }) => {
     return (
         <div className="flex flex-col items-center text-center" onClick={onClick}>
-            <div className="rounded-t-lg overflow-hidden w-40">
+            <div className="rounded-t-full overflow-hidden w-40">
                 <img src={imageSrc} alt={title} className="w-40 h-40 object-cover" />
             </div>
             <div className="bg-white p-4 rounded-b-lg">
