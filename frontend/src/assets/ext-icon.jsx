@@ -78,3 +78,23 @@ export const WriteMini = (props) => {
 
     );
 }
+
+export const ShareMini = (props) => {
+    return (
+        <div className={props.className}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+            <path d="M13 4.5a2.5 2.5 0 11.702 1.737L6.97 9.604a2.518 2.518 0 010 .792l6.733 3.367a2.5 2.5 0 11-.671 1.341l-6.733-3.367a2.5 2.5 0 110-3.475l6.733-3.366A2.52 2.52 0 0113 4.5z" />
+            </svg>
+        </div>
+    );
+}
+
+export const HeartIcon = (props) => {
+    return (
+        <div className={props.className}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill={props.fill ? props.fill : "none"} viewBox="0 0 24 24" strokeWidth={props.stroke} stroke="currentColor" className="w-4 h-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+            </svg>
+        </div>
+    );
+}

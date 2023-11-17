@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
-import Day from '../../../components/feature/Add Trip/Day';
+import Day from '../../../modules/AddTrip/Day';
 
-import Title from '../../../components/ui/Title';
-import Heading from '../../../components/ui/Heading';
+import Title from '../../../modules/ui/Title';
+import Heading from '../../../modules/ui/Heading';
 import { AddTripContext } from '../../../context/Add Trip/addTripContext';
 import {
     addDayAction,

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { WriteMini } from '../../../assets/ext-icon'
+import { WriteMini } from '../../assets/ext-icon'
 
 export default function AddTripButton(props) {
     return (

@@ -7,6 +7,7 @@ import Home from '../pages/Home'
 import Landing from '../layout/Landing';
 import PageNotFound from '../pages/PageNotFound'
 import Team from '../pages/Team';
+import Trip from "../pages/Trip/Trip";
 
 export default function Router() {
     return (
@@ -16,6 +17,7 @@ export default function Router() {
                     <Route exact path='/' element={<Home />} />
                     <Route exact path='/team' element={<Team />} />
                 </Route>
+                <Route path="/trips/:tripID" element={<Trip />} />
                 <Route path='*' element={<PageNotFound />} />
             </Routes>
         </>
