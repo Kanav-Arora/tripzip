@@ -2,6 +2,7 @@ import React from "react";
 import AboutTrip from "./AboutTrip";
 import SectionContainer from "../../styles/SectionContainer";
 import RequestCard from "./RequestCard";
+import AboutHost from "./AboutHost";
 
 function formatDate(inputDate) {
     const date = new Date(inputDate);
@@ -44,15 +45,21 @@ export default function TripBody({ tripData }) {
     return (
         <div className="flex flex-row gap-10">
             <div className="w-3/5 overflow-y-scroll">
-                <div className="py-10 flex flex-row justify-between">
-                    <div className="flex flex-row gap-2 text-base">
-                        From <div className="font-semibold">{startDate}</div> to{" "}
-                        <div className="font-semibold">{endDate}</div>
+                <SectionContainer border={true}>
+                    <div className="flex flex-row justify-between">
+                        <div className="flex flex-row gap-2 text-base">
+                            From{" "}
+                            <div className="font-semibold">{startDate}</div> to{" "}
+                            <div className="font-semibold">{endDate}</div>
+                        </div>
+                        <div className="border px-1 rounded-full">A</div>
                     </div>
-                    <div className="border px-1 rounded-full">A</div>
-                </div>
+                </SectionContainer>
                 <SectionContainer border={true}>
                     <AboutTrip description={desc} />
+                </SectionContainer>
+                <SectionContainer border={true}>
+                    <AboutHost />
                 </SectionContainer>
             </div>
             <div className="w-2/5">

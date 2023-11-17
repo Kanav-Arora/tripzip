@@ -1,4 +1,5 @@
 import React from "react";
+import { FlagIcon } from "../../../../assets/ext-icon";
 
 const ExpenseItem = ({ title, cost }) => {
     return (
@@ -36,8 +37,8 @@ export default function RequestCard({ startDate, endDate, views, cost }) {
                     We'll not charge anything
                 </div>
             </div>
-            <div className="mt-4 text-xs flex flex-row justify-center underline">
-                Report this trip
+            <div className="mt-4 text-xs flex flex-row justify-center underline items-center gap-1">
+                <FlagIcon /> Report this trip
             </div>
         </div>
     );
