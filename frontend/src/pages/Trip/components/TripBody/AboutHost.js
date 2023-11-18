@@ -1,11 +1,13 @@
 import React from "react";
-import { StarMini } from "../../../../assets/ext-icon";
+import { StarMini, CakeIcon, MapIcon, LanguageIcon, AcademicCapIcon, MapPinIcon } from "../../../../assets/ext-icon";
+import UserAvatar from '../../../../modules/ui/UserAvatar'
 
 const UserCard = ({ name, stars, yearsHosting, numberOfTrips, image }) => {
     return (
         <div className="h-fit bg-white rounded-lg px-6 py-4 flex flex-row gap-10">
             <div className="basis-3/4">
-                <div className="h-full flex flex-col justify-center items-center">
+                <div className="h-full flex flex-col justify-center items-center gap-y-1">
+                    <UserAvatar image='/images/src/kanav.webp' letter='KA' size={5} />
                     <div className="text-lg font-bold">{name}</div>
                     <div className="text-sm">Host</div>
                 </div>
@@ -30,19 +32,45 @@ const UserCard = ({ name, stars, yearsHosting, numberOfTrips, image }) => {
     );
 };
 
-export default function AboutHost() {
+const AboutItem = ({ Icon, Text }) => {
+    return (<div className="flex flex-row gap-2 items-center my-3">
+        <Icon />
+        {Text}
+    </div>);
+}
+
+export default function AboutHost({ userData }) {
+    let location = `${userData.state}, ${userData.country}`;
+    let hobbies = 'Likes';
+    userData.hobbies.forEach((hobby) => {
+        hobbies += ` ${hobby},`;
+    });
+    let languages = 'Speaks';
+    userData.language_speak.forEach((language) => {
+        languages += ` ${language},`;
+    });
     return (
         <div className="flex flex-col gap-8">
             <div className="text-xl font-bold">Meet your host</div>
             <div className="flex flex-col justify-center">
-                <div className="w-full bg-[#f0efe9] rounded-lg px-28 py-10 text-black flex flex-col">
+                <div className="w-full bg-[#f0efe9] gap-8 rounded-lg px-28 py-10 text-black flex flex-col">
                     <UserCard
                         name="Kanav"
-                        stars={4.6}
+                        stars={userData.stars}
                         yearsHosting={2}
-                        numberOfTrips={10}
+                        numberOfTrips={userData.tripsCreated.length}
                     />
-                    <button className="w-fit rounded-md bg-matteBlack text-white font-bold my-6 py-2 px-4">
+                    <div className="flex flex-col justify-items-start">
+                        <AboutItem Icon={CakeIcon} Text={`Born in ${userData.year_of_birth}`} />
+                        <AboutItem Icon={MapIcon} Text={`From ${userData.birth_place}`} />
+                        <AboutItem Icon={MapPinIcon} Text={`Located at ${location}`} />
+                        <AboutItem Icon={AcademicCapIcon} Text={hobbies} />
+                        <AboutItem Icon={LanguageIcon} Text={languages} />
+                    </div>
+                    <div>
+                        {userData.about_yourself}
+                    </div>
+                    <button className="w-fit rounded-md bg-matteBlack text-white font-bold py-2 px-4">
                         Message Host
                     </button>
                     <div className="text-xs font-extralight pt-6 border-t border-gray-300">
