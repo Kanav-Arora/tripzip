@@ -1,10 +1,10 @@
-const express = require('express');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const express = require('express');
 
-const validateUser = require('./middlewares/userAuthorisation');
 const config = require('./config');
+const validateUser = require('./middlewares/userAuthorisation');
 
 const app = express();
 
@@ -22,6 +22,7 @@ app.use(validateUser);
 // Available Routes
 app.use('/users', require('./routes/users'));
 app.use('/account', require('./routes/userDetails'));
+app.use('/trips', require('./routes/trips'));
 
 app.get('/', (req, res) => {
     const isAuthenticated = req.isAuth;

@@ -1,19 +1,25 @@
-const userDetailSchema = require('../models/userDetails.mongo');
+/* eslint-disable max-len */
+const Users = require('../models/user.mongo');
+const UserDetails = require('../models/userDetails.mongo');
 const logger = require('../utils/logger/logger');
 
 async function getUserDetails(req, res) {
-    const uid = req.headers['x-uid'];
-    if (req.isAuth === false || req.user.id !== uid) {
-        res.status(401).send({ message: 'Unauthorised access' });
+    let uid;
+    if (req.route.path === '/') {
+        uid = req.user.id;
+    } else if (req.route.path === '/:uid') {
+        uid = req.params.uid;
     }
     try {
-        userDetailSchema.findOne({ uid })
+        const user = await Users.findById(uid);
+        const userDetailRef = user.userDetails;
+        UserDetails.findById(userDetailRef)
             .then((userDetails) => {
                 if (userDetails) {
-                    const data = {
+                    const responseData = {
                         uid: userDetails.uid,
                         address: userDetails.address,
-                        pincode: userDetails,
+                        pincode: userDetails.pincode,
                         city: userDetails.city,
                         state: userDetails.state,
                         country: userDetails.country,
@@ -23,10 +29,17 @@ async function getUserDetails(req, res) {
                         tripsInterested: userDetails.tripsInterested,
                         status: userDetails.status,
                     };
-                    res.status(200).json(data);
+                    res.status(200).send({
+                        status: 200,
+                        message: 'User Details Fetched',
+                        data: responseData,
+                    });
                 } else {
                     logger.warn(`UserDetails not found: ${uid}`);
-                    return res.status(404).send({ message: 'Data not found' });
+                    return res.status(404).send({
+                        status: 404,
+                        message: 'Data not found',
+                    });
                 }
             });
     } catch (error) {
@@ -35,33 +48,23 @@ async function getUserDetails(req, res) {
     }
 }
 
-const checkIfUidExists = async (uid) => {
-    try {
-        const user = await userDetailSchema.findOne({ uid });
-        return !!user;
-    } catch (error) {
-        logger.error(error);
-        return false;
-    }
-};
-
 async function postUserDetails(req, res) {
-    const uid = req.headers['x-uid'];
-    if (req.isAuth === false || req.user.id !== uid) {
+    if (req.isAuth === false) {
         res.status(401).send({ message: 'Unauthorised access' });
     }
-    const userDetails = req.body;
-    userDetails.uid = uid;
-    userDetails.updatedAt = new Date();
     try {
-        const exists = await checkIfUidExists(uid);
-        if (exists === true) {
-            await userDetailSchema.updateOne({ uid }, { $set: userDetails });
-            res.status(201).send({ message: `UserDetails overwritten ${uid}` });
-        } else {
-            await userDetailSchema.create(userDetails);
-            res.status(201).send({ message: `UserDetails created ${uid}` });
-        }
+        const uid = req.user.id;
+        const userDetails = req.body;
+        userDetails.updatedAt = new Date();
+        const user = await Users.findById(uid);
+        const userDetailRef = user.userDetails;
+        const updatedUserDetails = await UserDetails.findByIdAndUpdate(userDetailRef, userDetails, { new: true });
+        res.status(201).send({
+            status: 201,
+            message: 'User Details overwritten',
+            _id: user._id,
+            detailId: updatedUserDetails._id,
+        });
     } catch (error) {
         logger.error(error);
         return res.status(500).send({ message: 'Internal Server Error :(' });
