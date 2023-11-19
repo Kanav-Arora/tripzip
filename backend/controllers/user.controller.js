@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 
-const { JwtSecret, JwtExpiresIn } = require('../config');
+const { JwtSecret, JwtExpiresIn, NodeEnv } = require('../config');
 const Users = require('../models/user.mongo');
 const UserDetails = require('../models/userDetails.mongo');
-const logger = require('../utils/logger/logger');
 const { PasswordManager } = require('../services/passwordManager');
+const logger = require('../utils/logger/logger');
 
 async function ifUserExists(user) {
   const existingUser = await Users.findOne({ email: user.email });
@@ -51,7 +51,7 @@ async function signUpUser(req, res) {
     const token = jwt.sign(payload, JwtSecret, { expiresIn: JwtExpiresIn });
     res.cookie('access_token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV !== 'development',
+      secure: NodeEnv !== 'development',
       expires: new Date(Date.now() + (5184000)),
     }).status(201).json({
       uid: savedUser._id,
@@ -91,7 +91,7 @@ async function signInUser(req, res) {
     const token = jwt.sign(payload, JwtSecret, { expiresIn: JwtExpiresIn });
     res.cookie('access_token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV !== 'development',
+      secure: NodeEnv !== 'development',
       expires: new Date(Date.now() + (5184000)),
     }).status(201).json({
       uid: userExists._id,

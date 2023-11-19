@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const logger = require('../utils/logger/logger');
+const { JwtSecret } = require('../config');
 
 const validateUser = (req, res, next) => {
   try {
@@ -7,7 +8,7 @@ const validateUser = (req, res, next) => {
     if (!token) {
       req.isAuth = false;
     } else {
-      jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+      jwt.verify(token, JwtSecret, (err, payload) => {
         if (err) {
           req.isAuth = false;
           return res.status(403).json('Invalid Token');

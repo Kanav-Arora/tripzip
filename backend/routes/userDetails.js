@@ -1,5 +1,5 @@
-const { Router } = require('express');
 const bodyParser = require('body-parser');
+const { Router } = require('express');
 
 const { getUserDetails, postUserDetails } = require('../controllers/userDetails.controller');
 

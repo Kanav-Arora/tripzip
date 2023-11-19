@@ -1,7 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 // eslint-disable-next-line import/no-extraneous-dependencies
-const { createLogger, transports, format } = require('winston');
 const path = require('path');
+const { createLogger, transports, format } = require('winston');
 
 const config = require(path.resolve(__dirname, '../../config'));
 
