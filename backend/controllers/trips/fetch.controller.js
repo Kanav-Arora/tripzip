@@ -14,13 +14,13 @@ async function countTrips(req, res) {
             filter.createdBy = uid;
         }
         if (destination) {
-            filter.tripDetails.city = destination.replace(/-/g, ' ');
+            filter['tripDetails.city'] = destination.replace(/-/g, ' ');
         }
         if (startDate) {
-            filter.tripDetails.startDate = { $gte: new Date(startDate) };
+            filter['tripDetails.startDate'] = { $gte: new Date(startDate) };
         }
         if (endDate) {
-            filter.tripDetails.endDate = { $lte: new Date(endDate) };
+            filter['tripDetails.endDate'] = { $lte: new Date(endDate) };
         }
 
         const tripsCount = await Trips.count(filter);

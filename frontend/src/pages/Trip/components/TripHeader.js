@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
+import { useParams } from "react-router-dom";
+
 import Heading from '../../../modules/ui/Heading'
 import { ShareMini, HeartIcon } from '../../../assets/ext-icon'
 import { motion } from 'framer-motion';
+import { backendOrigin } from "../../../frontend.config";
+
+import axios from 'axios';
 
 const popAnimation = {
     pop: { scale: [1, 1.4, 1], transition: { duration: 0.3 } },
@@ -9,12 +14,29 @@ const popAnimation = {
 };
 
 
-export default function TripHeader({ title, city, state, views }) {
-    const [interested, setInterested] = useState(false);
+export default function TripHeader({ title, city, state, views, isInterested }) {
+    const { tripID } = useParams();
+    const instance = axios.create({
+        withCredentials: true,
+        baseURL: backendOrigin,
+    });
+    const [interested, setInterested] = useState(isInterested);
+    const interestedHandler = async () => {
+        try {
+            setInterested((prevInterested) => !prevInterested);
+            const response = await instance.patch(`/trips/interested/${tripID}`);
+            if (response.status === 201) {
+                console.log('Trip interest toggled successfully');
+            } else {
+                setInterested((prevInterested) => !prevInterested);
+                console.error('Trip interest toggle failed:', response);
+            }
+        } catch (error) {
+            setInterested((prevInterested) => !prevInterested);
+            console.error('Error toggling trip interest:', error.message);
+        }
+    };
 
-    const interestedHandler = () => {
-        interested === true ? setInterested(false) : setInterested(true);
-    }
 
     return (
         <div className='flex flex-col justify-center my-6'>

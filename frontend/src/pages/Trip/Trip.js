@@ -1,11 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 import { backendOrigin } from "../../frontend.config";
 import TripHeader from "./components/TripHeader";
 import TripBody from "./components/TripBody/TripBody";
+
+import { AuthContext } from "../../context/Auth/authContext"
+
+import init from "../../services/authService"
 
 export default function Trip() {
     const { tripID } = useParams();
@@ -14,99 +18,53 @@ export default function Trip() {
         baseURL: backendOrigin,
     });
 
-    const tripData = {
-        "_id": "6559a84ccb41eb90cba93ea5",
-        "tripDetails": {
-            "_id": "6559a84ccb41eb90cba93ea3",
-            "title": "Trip to somewhere",
-            "description": "Something",
-            "startDate": "2023-10-25T08:00:00.000Z",
-            "endDate": "2023-10-30T18:00:00.000Z",
-            "city": "New York",
-            "state": "NY",
-            "pincode": "10001",
-            "itinerary": "Day 1: Visit Central Park...",
-            "created_at": "2023-11-19T06:16:44.868Z",
-            "updated_at": "2023-11-19T06:16:44.868Z",
-            "__v": 0
-        },
-        "createdBy": "6549b47b4717a8e976d580d9",
-        "tripsInterested": [],
-        "views": 1,
-        "status": "active",
-        "created_at": "2023-11-19T06:16:44.938Z",
-        "updated_at": "2023-11-19T06:16:44.938Z",
-        "__v": 0
-    };
+    const { state, dispatch } = useContext(AuthContext);
+    const authUID = state.uid;
 
-    const userData = {
-        "_id": "6549b47a4717a8e976d580d7",
-        "tripsCreated": [],
-        "tripsInterested": [],
-        "status": "active",
-        "updatedAt": "2023-11-18T08:09:27.460Z",
-        "__v": 0,
-        "address": "Old school road, Javascript Nagar",
-        "age": 10,
-        "city": "MongoDB",
-        "country": "Web Dev",
-        "gender": "male",
-        "pincode": 151009,
-        "state": "React",
-        "about_yourself": "I am a young and passionate developer who loves to explore new technologies and build innovative solutions. Coding is not just my profession; it's my passion. I enjoy reading about the latest trends in web development and spend my free time gaming and experimenting with new coding projects.",
-        "birth_place": "Coder's Land",
-        "hobbies": [
-            "coding",
-            "reading",
-            "gaming"
-        ],
-        "language_speak": [
-            "JavaScript",
-            "Python",
-            "HTML",
-            "CSS"
-        ],
-        "stars": 5,
-        "year_of_birth": 1990
-    };
+    const [tripData, setTripData] = useState(null);
+    const [userData, setUserData] = useState(null);
 
-    // const [tripData, setTripData] = useState(null);
-    // const [userData, setUserData] = useState(null);
+    useEffect(() => {
+        init(dispatch);
+        const fetchData = async () => {
+            try {
+                const tripResponse = await instance.get(`/trips/${tripID}`);
+                setTripData(tripResponse.data.data);
 
-    // useEffect(() => {
-    //     const fetchTripData = async () => {
-    //         try {
-    //             const response = await instance.get(`/trips/${tripID}`);
-    //             setTripData(response.data.data);
-    //         } catch (error) {
-    //             console.error('Error fetching trip data:', error);
-    //         }
-    //     };
+                if (tripResponse.data.data && tripResponse.data.data.createdBy) {
+                    const userDetailResponse = await instance.get(
+                        `/account/${tripResponse.data.data.createdBy}`
+                    );
+                    setUserData(userDetailResponse.data.data);
+                }
+            } catch (error) {
+                console.error('Error fetching trip data:', error);
+            }
+        }
 
-    // const fetchUserData = async () => {
-    //     try {
-    //         const response = await instance.get(
-    //             `/account/${tripData.createdBy}`
-    //         );
-    //         setUserData(response.data.data);
-    //     } catch (error) {
-    //         console.error("Error fetching user data:", error);
-    //     }
-    // };
-
-    // fetchTripData();
-
-    // }, [tripID]);
+        fetchData();
+    }, [tripID]);
 
     return (
         <div className="mx-40">
-            <TripHeader
-                title={tripData.tripDetails.title}
-                city={tripData.tripDetails.city}
-                state={tripData.tripDetails.state}
-                views={tripData.views}
-            />
-            <TripBody tripData={tripData} userData={userData} />
+            {
+                tripData !== null && userData !== null
+                    ?
+                    (
+                        <div>
+                            <TripHeader
+                                title={tripData.tripDetails.title}
+                                city={tripData.tripDetails.city}
+                                state={tripData.tripDetails.state}
+                                views={tripData.views}
+                                isInterested={tripData.tripsInterested.includes(authUID)}
+                            />
+                            <TripBody tripData={tripData} userData={userData} />
+                        </div>
+                    )
+                    :
+                    <div></div>
+            }
         </div>
     );
 }

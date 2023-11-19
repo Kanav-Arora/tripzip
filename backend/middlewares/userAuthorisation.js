@@ -16,7 +16,7 @@ const validateUser = (req, res, next) => {
         req.user = {
           uid: payload.id,
           name: payload.name,
-          userDetailsID: payload.userDetailsID,
+          userDetailsId: payload.userDetailsId,
         };
         req.isAuth = true;
       });

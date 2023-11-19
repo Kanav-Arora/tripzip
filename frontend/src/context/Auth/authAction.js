@@ -4,7 +4,7 @@ const loginAction = (user) => {
         payload: {
             uid: user.uid,
             name: user.name,
-            userDetailsID: user.userDetailsID,
+            userDetailsId: user.userDetailsId,
         },
     };
 };

@@ -12,19 +12,19 @@ import { useEffect, useRef } from "react";
 import PageNotFound from '../pages/PageNotFound'
 
 export default function Router() {
-    const location = useLocation();
-    const ref = useRef();
+    // const location = useLocation();
+    // const ref = useRef();
 
-    useEffect(() => {
-        ref.current.continuousStart();
-        setTimeout(() => {
-            ref.current.complete();
-        }, 500);
-    }, [location.pathname]);
+    // useEffect(() => {
+    //     ref.current.continuousStart();
+    //     setTimeout(() => {
+    //         ref.current.complete();
+    //     }, 500);
+    // }, [location.pathname]);
 
     return (
         <>
-            <LoadingBar color="#DF6951" ref={ref} />
+            {/* <LoadingBar color="#DF6951" ref={ref} /> */}
             <Routes>
                 <Route exact path="/" element={<Landing />}>
                     <Route exact path='/' element={<Home />} />
