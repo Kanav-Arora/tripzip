@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const dotenv = require('dotenv');
-const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
+const dotenv = require('dotenv');
 const logger = require('../utils/logger/logger');
 
-dotenv.config({ path: path.join(__dirname, '../', '.env') });
+dotenv.config({ path: path.join(__dirname, '../../', '.env') });
 const apiKey = `${process.env.POSTMAN_API}access_key=${process.env.POSTMAN_ACCESS_KEY}`;
 
 axios.get(apiKey)

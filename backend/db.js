@@ -22,6 +22,8 @@ async function connectToMongo() {
       db = await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
       if (config.NodeEnv === 'testing') {
         logger.info('Connected and Cleared Test DB');
+      } else if (config.NodeEnv === 'development') {
+        logger.info('Connected with Development DB');
       } else {
         logger.info('Connected to Mongo Successfully');
       }

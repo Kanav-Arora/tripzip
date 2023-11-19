@@ -5,6 +5,10 @@ import { AuthContext } from '../../context/Auth/authContext'
 import { backendOrigin } from '../../frontend.config.js'
 import { loginAction } from '../../context/Auth/authAction.js';
 
+import { environment, testLoginId, testPassword } from '../../frontend.config';
+
+console.log(environment);
+
 axios.defaults.withCredentials = true;
 
 function LogInModalContent() {
@@ -47,6 +51,7 @@ function LogInModalContent() {
             Enter Registered Email
           </label>
           <input
+            defaultValue={environment === 'development' ? testLoginId : ''}
             type='email'
             name='email'
             id='email'
@@ -65,6 +70,7 @@ function LogInModalContent() {
             Enter your Password
           </label>
           <input
+            defaultValue={environment === 'development' ? testPassword : ''}
             type="password"
             name="password"
             id="password"

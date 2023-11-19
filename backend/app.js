@@ -1,10 +1,10 @@
-const express = require('express');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const express = require('express');
 
-const validateUser = require('./middlewares/userAuthorisation');
 const config = require('./config');
+const validateUser = require('./middlewares/userAuthorisation');
 
 const app = express();
 
