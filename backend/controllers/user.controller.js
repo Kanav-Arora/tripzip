@@ -46,6 +46,7 @@ async function signUpUser(req, res) {
     const payload = {
       id: savedUser._id,
       name: savedUser.name,
+      userDetailsId: savedUser.userDetails,
     };
     const token = jwt.sign(payload, JwtSecret, { expiresIn: JwtExpiresIn });
     res.cookie('access_token', token, {
@@ -55,6 +56,7 @@ async function signUpUser(req, res) {
     }).status(201).json({
       uid: savedUser._id,
       name: savedUser.name,
+      userDetailsId: savedUser.userDetails,
     });
 
     return true;
@@ -84,6 +86,7 @@ async function signInUser(req, res) {
     const payload = {
       id: userExists._id,
       name: userExists.name,
+      userDetailsId: userExists.userDetails,
     };
     const token = jwt.sign(payload, JwtSecret, { expiresIn: JwtExpiresIn });
     res.cookie('access_token', token, {
@@ -93,6 +96,7 @@ async function signInUser(req, res) {
     }).status(201).json({
       uid: userExists._id,
       name: userExists.name,
+      userDetailsId: userExists.userDetails,
     });
   } catch (error) {
     logger.error(error);

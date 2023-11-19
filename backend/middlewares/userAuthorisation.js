@@ -13,8 +13,9 @@ const validateUser = (req, res, next) => {
           return res.status(403).json('Invalid Token');
         }
         req.user = {
-          id: payload.id,
+          uid: payload.id,
           name: payload.name,
+          userDetailsID: payload.userDetailsID,
         };
         req.isAuth = true;
       });

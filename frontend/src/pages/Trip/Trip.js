@@ -15,27 +15,28 @@ export default function Trip() {
     });
 
     const tripData = {
-        _id: "6549b4914717a8e976d580dd",
-        tripDetails: {
-            _id: "6549b4914717a8e976d580db",
-            startDate: "2023-11-07T03:52:49.720Z",
-            endDate: "2023-11-07T03:52:49.720Z",
-            description: "Desc",
-            city: "Delhi",
-            state: "Delhi",
-            pincode: "Delhi",
-            itinerary: "Something",
-            created_at: "2023-11-07T03:52:49.743Z",
-            updated_at: "2023-11-07T03:52:49.743Z",
-            __v: 0,
+        "_id": "6559a84ccb41eb90cba93ea5",
+        "tripDetails": {
+            "_id": "6559a84ccb41eb90cba93ea3",
+            "title": "Trip to somewhere",
+            "description": "Something",
+            "startDate": "2023-10-25T08:00:00.000Z",
+            "endDate": "2023-10-30T18:00:00.000Z",
+            "city": "New York",
+            "state": "NY",
+            "pincode": "10001",
+            "itinerary": "Day 1: Visit Central Park...",
+            "created_at": "2023-11-19T06:16:44.868Z",
+            "updated_at": "2023-11-19T06:16:44.868Z",
+            "__v": 0
         },
-        createdBy: "6549b47b4717a8e976d580d9",
-        tripsInterested: [],
-        views: 31,
-        status: "active",
-        created_at: "2023-11-07T03:52:49.800Z",
-        updated_at: "2023-11-07T03:52:49.800Z",
-        __v: 0,
+        "createdBy": "6549b47b4717a8e976d580d9",
+        "tripsInterested": [],
+        "views": 1,
+        "status": "active",
+        "created_at": "2023-11-19T06:16:44.938Z",
+        "updated_at": "2023-11-19T06:16:44.938Z",
+        "__v": 0
     };
 
     const userData = {
@@ -100,7 +101,7 @@ export default function Trip() {
     return (
         <div className="mx-40">
             <TripHeader
-                title="Title"
+                title={tripData.tripDetails.title}
                 city={tripData.tripDetails.city}
                 state={tripData.tripDetails.state}
                 views={tripData.views}

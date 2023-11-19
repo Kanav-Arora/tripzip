@@ -2,8 +2,9 @@ const loginAction = (user) => {
     return {
         type: 'LOGIN',
         payload: {
-            uid: user.id,
-            name: user.name
+            uid: user.uid,
+            name: user.name,
+            userDetailsID: user.userDetailsID,
         },
     };
 };

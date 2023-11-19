@@ -13,7 +13,7 @@ import Header from '../pages/Header';
 axios.defaults.withCredentials = true;
 
 export default function Landing() {
-    const { state, dispatch } = useContext(AuthContext);
+    const { dispatch } = useContext(AuthContext);
     const instance = axios.create({
         withCredentials: true,
         baseURL: backendOrigin
@@ -22,7 +22,7 @@ export default function Landing() {
         await instance.get("/")
             .then(response => {
                 console.log(response);
-                response.data.isAuth == true ?
+                response.data.isAuth === true ?
                     dispatch(loginAction(response.data.userData))
                     :
                     dispatch(logoutAction());

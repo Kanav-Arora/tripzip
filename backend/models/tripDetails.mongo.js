@@ -7,6 +7,13 @@ const tripDetailsSchema = new Schema({
         type: Schema.Types.ObjectId,
         default: () => new mongoose.Types.ObjectId(),
     },
+    title: {
+        type: Schema.Types.String,
+        required: true,
+    },
+    description: {
+        type: Schema.Types.String,
+    },
     startDate: {
         type: Schema.Types.Date,
         required: true,
@@ -14,9 +21,6 @@ const tripDetailsSchema = new Schema({
     endDate: {
         type: Schema.Types.Date,
         required: true,
-    },
-    description: {
-        type: Schema.Types.String,
     },
     city: {
         type: Schema.Types.String,
