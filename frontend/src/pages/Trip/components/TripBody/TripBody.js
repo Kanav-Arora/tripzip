@@ -54,7 +54,12 @@ export default function TripBody({ tripData, userData }) {
                             <div className="font-semibold">{startDate}</div> to{" "}
                             <div className="font-semibold">{endDate}</div>
                         </div>
-                        <UserAvatar image='/images/src/kanav.webp' letter='KA' size={1.5} />
+                        <UserAvatar
+                            image="/images/src/kanav.webp"
+                            letter="KA"
+                            size={1.75}
+                            hasShadow={true}
+                        />
                     </div>
                 </SectionContainer>
                 <SectionContainer border={true}>
@@ -69,7 +74,7 @@ export default function TripBody({ tripData, userData }) {
                     <RequestCard
                         startDate={startDate}
                         endDate={endDate}
-                        views={tripData.views}
+                        interested={tripData.tripsInterested.length}
                     />
                 </div>
             </div>

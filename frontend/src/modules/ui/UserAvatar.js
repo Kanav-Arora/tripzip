@@ -1,16 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const AvatarContainer = styled.div`
     width: ${(props) => `${props.size}rem`};
     height: ${(props) => `${props.size}rem`};
-    background-color: ${(props) => props.backgroundColor || 'black'};
-    color: ${(props) => props.textColor || 'white'};
+    background-color: ${(props) => props.backgroundColor || "black"};
+    color: ${(props) => props.textColor || "white"};
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     overflow: hidden;
+    box-shadow: ${(props) =>
+        props.hasShadow
+            ? "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)"
+            : "none"};
 `;
 
 const TextInitials = styled.span`
@@ -18,14 +22,35 @@ const TextInitials = styled.span`
     padding: 0.25em;
 `;
 
-export default function UserAvatar({ image, letter, size, backgroundColor, textColor }) {
+export default function UserAvatar({
+    image,
+    letter,
+    size,
+    backgroundColor,
+    textColor,
+    hasShadow,
+}) {
     return (
-        <AvatarContainer size={size} backgroundColor={backgroundColor} textColor={textColor}>
+        <AvatarContainer
+            size={size}
+            backgroundColor={backgroundColor}
+            textColor={textColor}
+            hasShadow={hasShadow}
+        >
             {image ? (
-                <img src={image} alt="User Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img
+                    src={image}
+                    alt="User Avatar"
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: "50%",
+                    }}
+                />
             ) : (
                 <TextInitials size={size}>
-                    {letter ? letter.slice(0, 2).toUpperCase() : ''}
+                    {letter ? letter.slice(0, 2).toUpperCase() : ""}
                 </TextInitials>
             )}
         </AvatarContainer>

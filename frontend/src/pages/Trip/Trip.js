@@ -7,9 +7,12 @@ import { backendOrigin } from "../../frontend.config";
 import TripHeader from "./components/TripHeader";
 import TripBody from "./components/TripBody/TripBody";
 
-import { AuthContext } from "../../context/Auth/authContext"
+import { AuthContext } from "../../context/Auth/authContext";
 
-import init from "../../services/authService"
+import init from "../../services/authService";
+
+import TripImage from "./components/TripBody/TripImage";
+import SectionContainer from "./styles/SectionContainer";
 
 export default function Trip() {
     const { tripID } = useParams();
@@ -31,40 +34,47 @@ export default function Trip() {
                 const tripResponse = await instance.get(`/trips/${tripID}`);
                 setTripData(tripResponse.data.data);
 
-                if (tripResponse.data.data && tripResponse.data.data.createdBy) {
+                if (
+                    tripResponse.data.data &&
+                    tripResponse.data.data.createdBy
+                ) {
                     const userDetailResponse = await instance.get(
                         `/account/${tripResponse.data.data.createdBy}`
                     );
                     setUserData(userDetailResponse.data.data);
                 }
             } catch (error) {
-                console.error('Error fetching trip data:', error);
+                console.error("Error fetching trip data:", error);
             }
-        }
+        };
 
         fetchData();
     }, [tripID]);
 
+    const image =
+        "https://media.architecturaldigest.com/photos/5da74823d599ec0008227ea8/master/pass/GettyImages-946087016.jpg";
+
     return (
         <div className="mx-40">
-            {
-                tripData !== null && userData !== null
-                    ?
-                    (
-                        <div>
-                            <TripHeader
-                                title={tripData.tripDetails.title}
-                                city={tripData.tripDetails.city}
-                                state={tripData.tripDetails.state}
-                                views={tripData.views}
-                                isInterested={tripData.tripsInterested.includes(authUID)}
-                            />
-                            <TripBody tripData={tripData} userData={userData} />
-                        </div>
-                    )
-                    :
-                    <div></div>
-            }
+            {tripData !== null && userData !== null ? (
+                <div className="flex flex-col gap-y-2">
+                    <TripHeader
+                        title={tripData.tripDetails.title}
+                        city={tripData.tripDetails.city}
+                        state={tripData.tripDetails.state}
+                        views={tripData.views}
+                        isInterested={tripData.tripsInterested.includes(
+                            authUID
+                        )}
+                    />
+                    <SectionContainer>
+                        <TripImage image={image} />
+                    </SectionContainer>
+                    <TripBody tripData={tripData} userData={userData} />
+                </div>
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 }

@@ -10,7 +10,7 @@ const ExpenseItem = ({ title, cost }) => {
     );
 };
 
-export default function RequestCard({ startDate, endDate, views, cost }) {
+export default function RequestCard({ startDate, endDate, interested, cost }) {
     return (
         <div className="ml-4 flex flex-col">
             <div className="p-7 rounded-xl shadow-lg border  border-gray-300">
@@ -19,7 +19,7 @@ export default function RequestCard({ startDate, endDate, views, cost }) {
                         <div className="font-semibold">{startDate}</div>-
                         <div className="font-semibold">{endDate}</div>
                     </div>
-                    <div className="font-semibold text-xs">{`${views} views`}</div>
+                    <div className="font-semibold text-xs">{`${interested} interested`}</div>
                 </div>
                 <div className="flex flex-col py-4 gap-1 border-b">
                     <ExpenseItem title="Stay" cost="-" />

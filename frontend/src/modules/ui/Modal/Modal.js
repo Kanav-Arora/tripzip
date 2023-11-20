@@ -1,61 +1,76 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from "react";
+import styled from "styled-components";
 
-import { Cross } from '../../../assets/ext-icon'
+import { Cross } from "../../../assets/ext-icon";
 
 const ModalWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 `;
 
 const ModalContent = styled.div`
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: ${(props) => props.width || '400px'};
-  height: ${(props) => props.height || 'auto'};
-  min-width: 500px;
-  min-height: 300px; 
-  display:flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 10px;
-  overflow-y: ${(props) => (props.scroll ? 'auto' : 'hidden')};
-  
-  &::-webkit-scrollbar {
-    width: 0 !important;
-  }
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: ${(props) => props.width || "400px"};
+    height: ${(props) => props.height || "auto"};
+    min-width: 500px;
+    min-height: 300px;
+`;
+
+const ModalBody = styled.div`
+    width: 100%;
+    height: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow-y: ${(props) => (props.scroll ? "auto" : "hidden")};
+
+    &::-webkit-scrollbar {
+        width: 0 !important;
+    }
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
 `;
 
 const CloseButton = styled.button`
-  cursor: pointer;
-  color: black;
-  background: none;
-  border: none;
-  padding: 0;
+    cursor: pointer;
+    color: black;
+    background: none;
+    border: none;
+    margin-bottom: 8px;
 `;
 
-const Modal = ({ children, isVisible, width, height, onClose, scroll = false, showDialogCross = true }) => {
+const Modal = ({
+    children,
+    isVisible,
+    width,
+    height,
+    onClose,
+    scroll = false,
+    showDialogCross = true,
+}) => {
     useEffect(() => {
         if (isVisible) {
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = "hidden";
         } else {
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = "auto";
         }
 
         return () => {
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = "auto";
         };
     }, [isVisible]);
 
@@ -69,9 +84,13 @@ const Modal = ({ children, isVisible, width, height, onClose, scroll = false, sh
         <>
             {isVisible && (
                 <ModalWrapper onClick={handleOverlayClick}>
-                    <ModalContent width={width} height={height} scroll={scroll}>
-                        {showDialogCross && <CloseButton onClick={onClose}><Cross size={5} /></CloseButton>}
-                        {children}
+                    <ModalContent width={width} height={height}>
+                        {showDialogCross && (
+                            <CloseButton onClick={onClose}>
+                                <Cross size={5} />
+                            </CloseButton>
+                        )}
+                        <ModalBody scroll={scroll}>{children}</ModalBody>
                     </ModalContent>
                 </ModalWrapper>
             )}
