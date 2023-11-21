@@ -20,10 +20,10 @@ const ModalContent = styled.div`
     background: white;
     padding: 20px;
     border-radius: 12px;
-    width: ${(props) => props.width || "400px"};
-    height: ${(props) => props.height || "auto"};
-    min-width: 500px;
-    min-height: 300px;
+    width: ${(props) => (props.width === 'fit' ? 'fit-content' : props.width || '400px')};
+    height: ${(props) => (props.height === 'fit' ? 'fit-content' : props.height || 'auto')};
+    max-width: ${(props) => (props.width === 'fit' ? '100%' : 'none')};
+    max-height: ${(props) => (props.height === 'fit' ? '100%' : 'none')};
 `;
 
 const ModalBody = styled.div`

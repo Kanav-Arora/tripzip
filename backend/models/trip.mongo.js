@@ -18,7 +18,18 @@ const tripSchema = new Schema({
     tripsInterested: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'trips',
+            ref: 'users',
+            default: [],
+        },
+    ],
+    groupSize: {
+        type: Schema.Types.Number,
+        default: -1,
+    },
+    peopleGoing: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'users',
             default: [],
         },
     ],

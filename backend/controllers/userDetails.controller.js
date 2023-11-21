@@ -6,7 +6,7 @@ const logger = require('../utils/logger/logger');
 async function getUserDetails(req, res) {
     let uid;
     if (req.route.path === '/') {
-        uid = req.user.id;
+        uid = req.user.uid;
     } else if (req.route.path === '/:uid') {
         uid = req.params.uid;
     }
@@ -39,7 +39,7 @@ async function postUserDetails(req, res) {
         res.status(401).send({ message: 'Unauthorised access' });
     }
     try {
-        const uid = req.user.id;
+        const { uid } = req.user;
         const userDetails = req.body;
         userDetails.updatedAt = new Date();
         const user = await Users.findById(uid);

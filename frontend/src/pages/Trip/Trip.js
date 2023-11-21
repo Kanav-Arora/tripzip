@@ -9,8 +9,6 @@ import TripBody from "./components/TripBody/TripBody";
 
 import { AuthContext } from "../../context/Auth/authContext";
 
-import init from "../../services/authService";
-
 import TripImage from "./components/TripBody/TripImage";
 import SectionContainer from "./styles/SectionContainer";
 
@@ -21,14 +19,13 @@ export default function Trip() {
         baseURL: backendOrigin,
     });
 
-    const { state, dispatch } = useContext(AuthContext);
+    const { state } = useContext(AuthContext);
     const authUID = state.uid;
 
     const [tripData, setTripData] = useState(null);
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        init(dispatch);
         const fetchData = async () => {
             try {
                 const tripResponse = await instance.get(`/trips/${tripID}`);
@@ -62,7 +59,8 @@ export default function Trip() {
                         title={tripData.tripDetails.title}
                         city={tripData.tripDetails.city}
                         state={tripData.tripDetails.state}
-                        views={tripData.views}
+                        maxSize={tripData.groupSize}
+                        currentSize={tripData.peopleGoing.length}
                         isInterested={tripData.tripsInterested.includes(
                             authUID
                         )}
