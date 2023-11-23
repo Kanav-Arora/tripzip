@@ -34,9 +34,35 @@ const tripDetailsSchema = new Schema({
         type: Schema.Types.String,
         required: true,
     },
-    itinerary: {
-        type: Schema.Types.String,
-        required: true,
+    itinerary: [
+        {
+            description: {
+                type: Schema.Types.String,
+                required: true,
+            },
+            amount: {
+                type: Schema.Types.Number,
+                required: false,
+            },
+        },
+    ],
+    cost: {
+        stay: {
+            type: Schema.Types.Number,
+            required: false,
+        },
+        travel: {
+            type: Schema.Types.Number,
+            required: false,
+        },
+        food: {
+            type: Schema.Types.Number,
+            required: false,
+        },
+        miscellaneous: {
+            type: Schema.Types.Number,
+            required: false,
+        },
     },
     created_at: {
         type: Schema.Types.Date,

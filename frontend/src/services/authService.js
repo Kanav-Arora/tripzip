@@ -7,7 +7,7 @@ const instance = axios.create({
     baseURL: backendOrigin,
 });
 
-const init = async (dispatch) => {
+const initAuth = async (dispatch) => {
     try {
         const response = await instance.get('/');
         if (response.data.isAuth === true) {
@@ -20,4 +20,4 @@ const init = async (dispatch) => {
     }
 };
 
-export default init;
+export default initAuth;

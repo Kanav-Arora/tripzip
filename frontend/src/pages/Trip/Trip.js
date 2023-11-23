@@ -46,7 +46,7 @@ export default function Trip() {
         };
 
         fetchData();
-    }, [tripID]);
+    }, []);
 
     const image =
         "https://media.architecturaldigest.com/photos/5da74823d599ec0008227ea8/master/pass/GettyImages-946087016.jpg";

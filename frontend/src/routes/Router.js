@@ -8,20 +8,26 @@ import Landing from '../layout/Landing';
 import TripsLayout from "../layout/TripsLayout";
 import Team from '../pages/Team';
 import Trip from "../pages/Trip/Trip";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 
 import PageNotFound from '../pages/PageNotFound'
+
+import initAuth from "../services/authService";
+import { AuthContext } from "../context/Auth/authContext";
 
 export default function Router() {
     const location = useLocation();
     const ref = useRef();
 
+    const { dispatch } = useContext(AuthContext);
+
     useEffect(() => {
+        initAuth(dispatch);
         ref.current.continuousStart();
         setTimeout(() => {
             ref.current.complete();
         }, 500);
-    }, [location.pathname]);
+    }, [location.pathname, dispatch]);
 
     return (
         <>

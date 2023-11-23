@@ -11,6 +11,11 @@ const ExpenseItem = ({ title, cost }) => {
 };
 
 export default function RequestCard({ startDate, endDate, interested, cost }) {
+    const stayCost = cost.stay ? cost.stay : "-";
+    const travelCost = cost.travel ? cost.travel : "-";
+    const foodCost = cost.food ? cost.food : "-";
+    const miscCost = cost.miscellaneous ? cost.miscellaneous : "-";
+    const totalCost = (cost.stay ?? 0) + (cost.travel ?? 0) + (cost.food ?? 0) + (cost.miscellaneous ?? 0);
     return (
         <div className="ml-4 flex flex-col">
             <div className="p-7 rounded-xl shadow-lg border  border-gray-300">
@@ -22,13 +27,13 @@ export default function RequestCard({ startDate, endDate, interested, cost }) {
                     <div className="font-semibold text-xs">{`${interested} interested`}</div>
                 </div>
                 <div className="flex flex-col py-4 gap-1 border-b">
-                    <ExpenseItem title="Stay" cost="-" />
-                    <ExpenseItem title="Travel" cost="-" />
-                    <ExpenseItem title="Food" cost="-" />
-                    <ExpenseItem title="Miscellaneous" cost="-" />
+                    <ExpenseItem title="Stay" cost={stayCost} />
+                    <ExpenseItem title="Travel" cost={travelCost} />
+                    <ExpenseItem title="Food" cost={foodCost} />
+                    <ExpenseItem title="Miscellaneous" cost={miscCost} />
                 </div>
                 <div className="font-bold mt-4">
-                    <ExpenseItem title="Total" cost="-" />
+                    <ExpenseItem title="Total" cost={totalCost === 0 ? "-" : totalCost} />
                 </div>
                 <button className="w-full rounded-md text-white font-bold my-6 py-2 bg-gradient-to-r from-red-600 to-pink-700">
                     Request Join
