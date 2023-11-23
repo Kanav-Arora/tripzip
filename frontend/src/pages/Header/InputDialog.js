@@ -4,9 +4,22 @@ import { LocationPinMini as LocationIcon, CalendarMini as CalendarIcon, Calendar
 
 export default function InputDialog(props) {
     const [showDateRangePicker, toggleDateRangePicker] = useState(false);
+    const [showLocationPicker, toggleLocationPicker] = useState(false);
+
     const handleDateClick = () => {
+        if (showLocationPicker === true) {
+            toggleLocationPicker(false);
+        }
         toggleDateRangePicker(!showDateRangePicker);
     };
+
+    const handleLocationFieldClick = () => {
+        if (showDateRangePicker === true) {
+            toggleDateRangePicker(false);
+        }
+        toggleLocationPicker(!showLocationPicker);
+    }
+
     const defaultSelected = {
         from: null,
         to: null
