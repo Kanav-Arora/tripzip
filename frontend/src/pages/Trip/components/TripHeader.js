@@ -6,9 +6,9 @@ import { ShareMini, HeartIcon } from "../../../assets/ext-icon";
 import { motion } from "framer-motion";
 import { backendOrigin, frontendOrigin } from "../../../frontend.config";
 import Modal from "../../../modules/ui/Modal/Modal";
-import UserAvatar from '../../../modules/ui/UserAvatar'
 
 import ShareModal from "../../../modules/Trip/ShareModal/ShareModal";
+import PeopleGoingModal from "../../../modules/Trip/PeopleGoingModal/PeopleGoingModal";
 
 import axios from "axios";
 
@@ -17,39 +17,13 @@ const popAnimation = {
     default: { scale: 1 },
 };
 
-const PeopleGoingModalItem = ({ name, image }) => {
-    return (
-        <div className="flex flex-row justify-between items-center">
-            <div className="text-base font-normal">
-                {name}
-            </div>
-            <UserAvatar image={image} letter={'KA'} size={1.5} />
-        </div>
-    );
-}
-
-const PeopleGoingModalComponent = ({ peopleGoing }) => {
-    return (
-        <div className="flex flex-col gap-y-8">
-            <div className="text-lg font-bold">Your buddies for the trip</div>
-            <div className="grid grid-cols-2 w-full gap-10">
-                {peopleGoing.map((person, index) => (
-                    <PeopleGoingModalItem key={index} name={person.name} image={person.image} />
-                ))}
-            </div>
-        </div>
-    );
-};
-
-
-
 export default function TripHeader({
     title,
     city,
     state,
     maxSize,
-    currentSize,
     isInterested,
+    peopleGoing,
 }) {
     const { tripID } = useParams();
     const instance = axios.create({
@@ -97,20 +71,7 @@ export default function TripHeader({
         toggleShareModal(false);
     };
 
-    const peopleGoing = [
-        {
-            name: "Kanav",
-            image: "/images/src/kanav.webp"
-        },
-        {
-            name: "Kanav",
-            image: "/images/src/kanav.webp"
-        },
-        {
-            name: "Kanav",
-            image: "/images/src/kanav.webp"
-        },
-    ]
+    const currentSize = peopleGoing.length;
 
     return (
         <>
@@ -120,8 +81,8 @@ export default function TripHeader({
                     <div className="flex flex-row text-sm font-semibold gap-2 items-center">
                         <div>{`${city}, ${state}`}</div>·
                         <div
-                            className={`select-none ${currentSize >= 0 ? 'rounded-lg p-1 hover:bg-gray-100' : ''}`}
-                            onClick={currentSize >= 0 ? openPeopleGoingModal : null}
+                            className={`select-none ${currentSize > 0 ? 'rounded-lg p-1 hover:bg-gray-100' : ''}`}
+                            onClick={currentSize > 0 ? openPeopleGoingModal : null}
                         >
                             {currentSize}{maxSize !== -1 ? `/${maxSize}` : ''} Going
                         </div>
@@ -159,7 +120,7 @@ export default function TripHeader({
                         onClose={closePeopleGoingModal}
                         scroll={true}
                     >
-                        <PeopleGoingModalComponent peopleGoing={peopleGoing} />
+                        <PeopleGoingModal peopleGoing={peopleGoing} />
                     </Modal>
                     :
                     <></>

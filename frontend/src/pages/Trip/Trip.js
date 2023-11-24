@@ -60,10 +60,10 @@ export default function Trip() {
                         city={tripData.tripDetails.city}
                         state={tripData.tripDetails.state}
                         maxSize={tripData.groupSize}
-                        currentSize={tripData.peopleGoing.length}
                         isInterested={tripData.tripsInterested.includes(
                             authUID
                         )}
+                        peopleGoing={tripData.peopleGoing}
                     />
                     <SectionContainer>
                         <TripImage image={image} />
