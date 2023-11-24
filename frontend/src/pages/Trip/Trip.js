@@ -12,12 +12,15 @@ import { AuthContext } from "../../context/Auth/authContext";
 import TripImage from "./components/TripBody/TripImage";
 import SectionContainer from "./styles/SectionContainer";
 
+import { useNavigate } from "react-router-dom";
+
 export default function Trip() {
     const { tripID } = useParams();
     const instance = axios.create({
         withCredentials: true,
         baseURL: backendOrigin,
     });
+    const navigate = useNavigate();
 
     const { state } = useContext(AuthContext);
     const authUID = state.uid;
@@ -42,6 +45,9 @@ export default function Trip() {
                 }
             } catch (error) {
                 console.error("Error fetching trip data:", error);
+                if (error.response.status === 404) {
+                    navigate('*');
+                }
             }
         };
 
