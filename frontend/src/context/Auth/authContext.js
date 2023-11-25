@@ -7,7 +7,8 @@ const AuthContext = createContext();
 const initialState = {
     isAuthenticated: false,
     uid: null,
-    name: null
+    name: null,
+    userDetailsId: null,
 }
 
 const AuthProvider = ({ children }) => {

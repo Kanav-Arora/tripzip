@@ -15,11 +15,24 @@ const tripSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: [true, 'No created by UID found'],
     },
-    tripsInterested: [{
-        type: Schema.Types.ObjectId,
-        ref: 'trips',
-        default: [],
-    }],
+    tripsInterested: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'users',
+            default: [],
+        },
+    ],
+    groupSize: {
+        type: Schema.Types.Number,
+        default: -1,
+    },
+    peopleGoing: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'users',
+            default: [],
+        },
+    ],
     views: {
         type: Schema.Types.Number,
         default: 0,

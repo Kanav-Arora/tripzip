@@ -10,7 +10,7 @@ async function createTrip(req, res) {
         const tripDetailsResponse = await TripDetails.create(req.body);
         const tripData = {
             tripDetails: tripDetailsResponse._id,
-            createdBy: req.user.id,
+            createdBy: req.user.uid,
         };
         const tripResponse = await Trips.create(tripData);
         res.status(201).send({

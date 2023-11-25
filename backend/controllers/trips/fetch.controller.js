@@ -14,13 +14,13 @@ async function countTrips(req, res) {
             filter.createdBy = uid;
         }
         if (destination) {
-            filter.tripDetails.city = destination.replace(/-/g, ' ');
+            filter['tripDetails.city'] = destination.replace(/-/g, ' ');
         }
         if (startDate) {
-            filter.tripDetails.startDate = { $gte: new Date(startDate) };
+            filter['tripDetails.startDate'] = { $gte: new Date(startDate) };
         }
         if (endDate) {
-            filter.tripDetails.endDate = { $lte: new Date(endDate) };
+            filter['tripDetails.endDate'] = { $lte: new Date(endDate) };
         }
 
         const tripsCount = await Trips.count(filter);
@@ -94,11 +94,18 @@ async function fetchTripByID(req, res) {
             { $inc: { views: 1 } },
             { new: true },
         ).populate('tripDetails');
-        res.status(200).json({
-            status: 200,
-            message: 'Trips fetched successfully',
-            data: updatedTrip,
-        });
+        if (!updatedTrip) {
+            res.status(404).json({
+                status: 404,
+                message: `No trip found for TripId: ${tripID}`,
+            });
+        } else {
+            res.status(200).json({
+                status: 200,
+                message: 'Trips fetched successfully',
+                data: updatedTrip,
+            });
+        }
     } catch (error) {
         logger.error(error);
         res.status(500).send({

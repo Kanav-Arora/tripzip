@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import Heading from '../../../components/ui/Heading';
-import Title from '../../../components/ui/Title';
+import Heading from '../../../modules/ui/Heading';
+import Title from '../../../modules/ui/Title';
 import { AddTripContext } from '../../../context/Add Trip/addTripContext';
 import { updateLocationAction, updateDescriptionAction } from '../../../context/Add Trip/addTripAction';
 

@@ -5,7 +5,7 @@ import './index.css';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
-import ProgressBar from '../../components/feature/Add Trip/ProgressBar';
+import ProgressBar from '../../modules/AddTrip/ProgressBar';
 import Page1 from './Page 1/Page1';
 import Page2 from './Page 2/Page2';
 import { AddTripContext } from '../../context/Add Trip/addTripContext';

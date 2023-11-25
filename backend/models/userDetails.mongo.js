@@ -1,4 +1,3 @@
-// Creating User Detail Schema
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
@@ -19,6 +18,9 @@ const userDetailSchema = new Schema({
     country: {
         type: Schema.Types.String,
     },
+    year_of_birth: {
+        type: Schema.Types.Number,
+    },
     age: {
         type: Number,
         max: 100,
@@ -26,6 +28,24 @@ const userDetailSchema = new Schema({
     gender: {
         type: Schema.Types.String,
         enum: ['male', 'female', 'other'],
+    },
+    language_speak: {
+        type: [Schema.Types.String],
+        default: [],
+    },
+    birth_place: {
+        type: Schema.Types.String,
+    },
+    hobbies: {
+        type: [Schema.Types.String],
+        default: [],
+    },
+    about_yourself: {
+        type: Schema.Types.String,
+    },
+    stars: {
+        type: Schema.Types.Number,
+        default: 0,
     },
     tripsCreated: [{
         type: Schema.Types.ObjectId,

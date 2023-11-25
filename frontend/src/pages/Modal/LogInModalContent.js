@@ -7,8 +7,6 @@ import { loginAction } from '../../context/Auth/authAction.js';
 
 import { environment, testLoginId, testPassword } from '../../frontend.config';
 
-console.log(environment);
-
 axios.defaults.withCredentials = true;
 
 function LogInModalContent() {
