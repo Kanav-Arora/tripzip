@@ -11,7 +11,7 @@ import { useContext, useEffect, useRef } from 'react';
 import PageNotFound from '../pages/PageNotFound';
 
 import initAuth from '../services/authService';
-import { AuthContext } from '../context/Auth/authContext';
+import { useAuth } from '../context/Auth/authContext';
 import { AuthModalContext } from '../context/AuthModal/authModalContext';
 import LoginSignupModal from '../modules/ui/LoginSignupModal/LoginSignupModal';
 
@@ -19,16 +19,16 @@ export default function Router() {
     const location = useLocation();
     const ref = useRef();
 
-    const { dispatch } = useContext(AuthContext);
+    const { authDispatch } = useAuth();
     const { authModalState } = useContext(AuthModalContext);
 
     useEffect(() => {
-        initAuth(dispatch);
+        initAuth(authDispatch);
         ref.current.continuousStart();
         setTimeout(() => {
             ref.current.complete();
         }, 500);
-    }, [location.pathname, dispatch]);
+    }, [location.pathname, authDispatch]);
 
     return (
         <>

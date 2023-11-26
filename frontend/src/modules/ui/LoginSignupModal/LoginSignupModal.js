@@ -20,6 +20,7 @@ import {
     showModalAction,
     hideModalAction,
 } from '../../../context/AuthModal/authModalAction';
+import AuthForm from './AuthForm';
 
 const ThirdPartyAuth = ({ title, Icon }) => {
     return (
@@ -38,6 +39,7 @@ const LoginContent = ({ handleToggle }) => (
         </ContentHeader>
         <ContentBody>
             <ThirdPartyAuth title="Google" Icon={GoogleIcon} />
+            <AuthForm isLogin={true} />
             <ToggleText>
                 <div>Don't have an account?</div>
                 <ToggleButton onClick={handleToggle}>Sign Up</ToggleButton>
@@ -54,6 +56,7 @@ const SignupContent = ({ handleToggle }) => (
         </ContentHeader>
         <ContentBody>
             <ThirdPartyAuth title="Google" Icon={GoogleIcon} />
+            <AuthForm isLogin={false} />
             <ToggleText>
                 <div>Have an account?</div>
                 <ToggleButton onClick={handleToggle}>Log In</ToggleButton>
@@ -80,8 +83,8 @@ const LoginSignupModal = ({ isVisible, onClose, type }) => {
     return (
         <Modal
             isVisible={isVisible}
-            width="70%"
-            height="70%"
+            width="65%"
+            height="75%"
             onClose={handleClose}
         >
             <ModalBody>
