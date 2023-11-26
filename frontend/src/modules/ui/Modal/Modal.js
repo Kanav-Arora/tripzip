@@ -18,7 +18,6 @@ const ModalWrapper = styled.div`
 
 const ModalContent = styled.div`
     background: white;
-    padding: 20px;
     border-radius: 12px;
     width: ${(props) => (props.width === 'fit' ? 'fit-content' : props.width || '400px')};
     height: ${(props) => (props.height === 'fit' ? 'fit-content' : props.height || 'auto')};
@@ -26,11 +25,16 @@ const ModalContent = styled.div`
     max-height: ${(props) => (props.height === 'fit' ? '100%' : 'none')};
 `;
 
+const ModalHeader = styled.div`
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: 1px solid #D8D8D8;
+`;
+
 const ModalBody = styled.div`
     width: 100%;
     height: 100%;
-    padding-top: 8px;
-    padding-bottom: 8px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -59,8 +63,8 @@ const Modal = ({
     width,
     height,
     onClose,
+    showDialogCross,
     scroll = false,
-    showDialogCross = true,
 }) => {
     useEffect(() => {
         if (isVisible) {
@@ -80,15 +84,18 @@ const Modal = ({
         }
     };
 
+    console.log(showDialogCross);
     return (
         <>
             {isVisible && (
                 <ModalWrapper onClick={handleOverlayClick}>
                     <ModalContent width={width} height={height}>
-                        {showDialogCross && (
-                            <CloseButton onClick={onClose}>
-                                <Cross size={5} />
-                            </CloseButton>
+                        {(showDialogCross &&
+                            <ModalHeader>
+                                <CloseButton onClick={onClose}>
+                                    <Cross size={5} />
+                                </CloseButton>
+                            </ModalHeader>
                         )}
                         <ModalBody scroll={scroll}>{children}</ModalBody>
                     </ModalContent>

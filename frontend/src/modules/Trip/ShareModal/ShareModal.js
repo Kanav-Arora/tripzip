@@ -15,7 +15,7 @@ const ShareModal = ({ url }) => {
     };
 
     return (
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col gap-y-4 px-5 py-2">
             <div className="text-lg font-bold">Share trip with others</div>
             <div className="text-sm flex items-center">
                 Copy and share below link to share this trip with others.

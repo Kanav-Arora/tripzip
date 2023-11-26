@@ -115,10 +115,11 @@ export default function TripHeader({
                 currentSize >= 0 ?
                     <Modal
                         isVisible={PeopleGoingModalState}
-                        width="fit"
+                        width="30%"
                         height="50%"
                         onClose={closePeopleGoingModal}
                         scroll={true}
+                        showDialogCross={true}
                     >
                         <PeopleGoingModal peopleGoing={peopleGoing} />
                     </Modal>
@@ -131,9 +132,10 @@ export default function TripHeader({
                 height="fit"
                 onClose={closeShareModal}
                 scroll={true}
+                showDialogCross={true}
             >
                 <ShareModal url={currentUrl} />
-            </Modal>
+            </Modal >
         </>
     );
 }
