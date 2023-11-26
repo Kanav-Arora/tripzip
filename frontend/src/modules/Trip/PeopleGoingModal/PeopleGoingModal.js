@@ -41,7 +41,6 @@ export default function PeopleGoingModal({ peopleGoing }) {
             try {
                 const results = await Promise.all(peopleGoing.map(person => fetchData(instance, person)));
                 const successfulFetch = results.filter(result => result.status === 200);
-                console.log(successfulFetch);
                 setSuccessfulResults(successfulFetch);
             } catch (error) {
                 console.error(`Error fetching data for people: ${error.message}`);
@@ -51,7 +50,7 @@ export default function PeopleGoingModal({ peopleGoing }) {
         fetchDataForPeople();
     }, [peopleGoing]);
     return (
-        <div className="flex flex-col gap-y-2 w-full">
+        <div className="flex flex-col gap-y-2 w-full px-5 py-4">
             <div className="text-lg font-bold">Your buddies for the trip</div>
             <div className="flex flex-col w-full divide-y">
                 {successfulResults.length > 0 && successfulResults.map((person, index) => (
