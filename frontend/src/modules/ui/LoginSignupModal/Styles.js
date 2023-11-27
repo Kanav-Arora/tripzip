@@ -20,9 +20,26 @@ export const Image = styled.img`
 `;
 
 export const ImageContainer = styled(motion.div)`
+    position: relative;
     width: 50%;
     background: black;
     border-radius: inherit;
+    overflow: hidden;
+`;
+
+export const ImageOverlayText = styled.div`
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    color: white;
+    margin: ${Theme.spacing(1)};
+    font-size: ${Theme.font.size['3xl']};
+    line-height: ${Theme.font.lineHeight['3xl']};
+    font-weight: ${Theme.font.weight.bold};
+    box-shadow: ${Theme.boxShadow['2xl']};
+    text-align: center;
 `;
 
 export const ContentContainer = styled(motion.div)`

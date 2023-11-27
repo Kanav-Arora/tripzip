@@ -7,6 +7,7 @@ import {
     ModalBody,
     Image,
     ImageContainer,
+    ImageOverlayText,
     ContentContainer,
     ContentHeader,
     ContentHeading,
@@ -106,8 +107,11 @@ const LoginSignupModal = ({ isVisible }) => {
                             animate={{ x: 0 }}
                             transition={{ stiffness: 120 }}
                         >
+                            <ImageOverlayText>
+                                Find Your Travel Buddy
+                            </ImageOverlayText>
                             <Image
-                                src="/images/src/kanav.webp"
+                                src="/images/fallback/AuthModal.jpg"
                                 alt="Background"
                             />
                         </ImageContainer>
@@ -121,8 +125,11 @@ const LoginSignupModal = ({ isVisible }) => {
                             animate={{ x: 0 }}
                             transition={{ stiffness: 120 }}
                         >
+                            <ImageOverlayText>
+                                Find Your Travel Buddy
+                            </ImageOverlayText>
                             <Image
-                                src="/images/src/kanav.webp"
+                                src="/images/fallback/AuthModal.jpg"
                                 alt="Background"
                             />
                         </ImageContainer>
