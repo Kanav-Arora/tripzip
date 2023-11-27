@@ -14,6 +14,7 @@ import {
     AuthServiceContainer,
     ToggleText,
     ToggleButton,
+    TextDivider,
 } from './Styles';
 import { AuthModalContext } from '../../../context/AuthModal/authModalContext';
 import {
@@ -32,13 +33,18 @@ const ThirdPartyAuth = ({ title, Icon }) => {
 };
 
 const LoginContent = ({ handleToggle }) => (
-    <ContentContainer>
+    <ContentContainer
+        initial={{ x: '-100%' }}
+        animate={{ x: 0 }}
+        transition={{ stiffness: 120 }}
+    >
         <ContentHeader>
             <ContentHeading>Log In</ContentHeading>
             <div className="text-gray-500 text-sm">Welcome back!</div>
         </ContentHeader>
         <ContentBody>
             <ThirdPartyAuth title="Google" Icon={GoogleIcon} />
+            <TextDivider>or</TextDivider>
             <AuthForm isLogin={true} />
             <ToggleText>
                 <div>Don't have an account?</div>
@@ -49,13 +55,18 @@ const LoginContent = ({ handleToggle }) => (
 );
 
 const SignupContent = ({ handleToggle }) => (
-    <ContentContainer>
+    <ContentContainer
+        initial={{ x: '100%' }}
+        animate={{ x: 0 }}
+        transition={{ stiffness: 120 }}
+    >
         <ContentHeader>
             <ContentHeading>Sign Up</ContentHeading>
             <div className="text-gray-500 text-sm">Welcome!</div>
         </ContentHeader>
         <ContentBody>
             <ThirdPartyAuth title="Google" Icon={GoogleIcon} />
+            <TextDivider>or</TextDivider>
             <AuthForm isLogin={false} />
             <ToggleText>
                 <div>Have an account?</div>
@@ -65,7 +76,7 @@ const SignupContent = ({ handleToggle }) => (
     </ContentContainer>
 );
 
-const LoginSignupModal = ({ isVisible, onClose, type }) => {
+const LoginSignupModal = ({ isVisible }) => {
     const { authModalState, authModalDispatch } = useContext(AuthModalContext);
 
     const handleToggle = () => {
@@ -88,13 +99,34 @@ const LoginSignupModal = ({ isVisible, onClose, type }) => {
             onClose={handleClose}
         >
             <ModalBody>
-                <ImageContainer>
-                    <Image src="/images/src/kanav.webp" alt="Background" />
-                </ImageContainer>
                 {authModalState.type === 'LOGIN' ? (
-                    <LoginContent handleToggle={handleToggle} />
+                    <>
+                        <ImageContainer
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            transition={{ stiffness: 120 }}
+                        >
+                            <Image
+                                src="/images/src/kanav.webp"
+                                alt="Background"
+                            />
+                        </ImageContainer>
+                        <LoginContent handleToggle={handleToggle} />
+                    </>
                 ) : (
-                    <SignupContent handleToggle={handleToggle} />
+                    <>
+                        <SignupContent handleToggle={handleToggle} />
+                        <ImageContainer
+                            initial={{ x: '-100%' }}
+                            animate={{ x: 0 }}
+                            transition={{ stiffness: 120 }}
+                        >
+                            <Image
+                                src="/images/src/kanav.webp"
+                                alt="Background"
+                            />
+                        </ImageContainer>
+                    </>
                 )}
             </ModalBody>
         </Modal>

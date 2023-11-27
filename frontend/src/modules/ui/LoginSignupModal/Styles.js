@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Theme } from '../Theme/theme';
+import { motion } from 'framer-motion';
 
 export const ModalBody = styled.div`
     width: 100%;
@@ -18,14 +19,14 @@ export const Image = styled.img`
     border-radius: inherit;
 `;
 
-export const ImageContainer = styled.div`
-    width: 40%;
+export const ImageContainer = styled(motion.div)`
+    width: 50%;
     background: black;
     border-radius: inherit;
 `;
 
-export const ContentContainer = styled.div`
-    width: 60%;
+export const ContentContainer = styled(motion.div)`
+    width: 50%;
     padding-left: ${Theme.spacing(20)};
     padding-right: ${Theme.spacing(20)};
     padding-top: ${Theme.spacing(12)};
@@ -41,7 +42,7 @@ export const ContentHeader = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
 `;
 
 export const ContentHeading = styled.div`
@@ -76,6 +77,29 @@ export const AuthServiceContainer = styled.div`
     gap: ${Theme.spacing(2)};
     font-size: ${Theme.font.size.sm};
     font-weight: ${Theme.font.weight.semibold};
+`;
+
+export const TextDivider = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    --text-divider-gap: ${Theme.spacing(3)};
+    color: ${Theme.color.gray50};
+    &::before,
+    &::after {
+        content: '';
+        height: 1px;
+        background-color: silver;
+        flex-grow: 1;
+    }
+
+    &::before {
+        margin-right: var(--text-divider-gap);
+    }
+
+    &::after {
+        margin-left: var(--text-divider-gap);
+    }
 `;
 
 export const ToggleText = styled.div`

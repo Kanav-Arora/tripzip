@@ -136,7 +136,9 @@ export default function AuthForm({ isLogin }) {
                 <FormField>
                     <Input
                         defaultValue={
-                            environment === 'development' ? testLoginId : ''
+                            environment === 'development' && isLogin
+                                ? testLoginId
+                                : ''
                         }
                         name="email"
                         type="email"
@@ -148,7 +150,9 @@ export default function AuthForm({ isLogin }) {
                 <FormField>
                     <Input
                         defaultValue={
-                            environment === 'development' ? testPassword : ''
+                            environment === 'development' && isLogin
+                                ? testPassword
+                                : ''
                         }
                         name="password"
                         type="password"

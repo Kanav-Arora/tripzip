@@ -33,10 +33,7 @@ export default function Router() {
     return (
         <>
             <LoadingBar color="#DF6951" ref={ref} />
-            <LoginSignupModal
-                isVisible={authModalState.visible}
-                type={'login'}
-            />
+            <LoginSignupModal isVisible={authModalState.visible} />
             <Routes>
                 <Route exact path="/" element={<Landing />}>
                     <Route exact path="/" element={<Home />} />
