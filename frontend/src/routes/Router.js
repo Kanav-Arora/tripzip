@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 import LoadingBar from 'react-top-loading-bar';
@@ -28,7 +29,7 @@ export default function Router() {
         setTimeout(() => {
             ref.current.complete();
         }, 500);
-    }, [location.pathname, authDispatch]);
+    }, [location.pathname]);
 
     return (
         <>

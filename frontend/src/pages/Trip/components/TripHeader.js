@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import React, { useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 
-import Heading from "../../../modules/ui/Heading";
-import { ShareMini, HeartIcon } from "../../../assets/ext-icon";
-import { motion } from "framer-motion";
-import { backendOrigin, frontendOrigin } from "../../../frontend.config";
-import Modal from "../../../modules/ui/Modal/Modal";
+import Heading from '../../../modules/ui/Heading';
+import { ShareMini, HeartIcon } from '../../../assets/ext-icon';
+import { motion } from 'framer-motion';
+import { backendOrigin, frontendOrigin } from '../../../frontend.config';
+import Modal from '../../../modules/ui/Modal/Modal';
 
-import ShareModal from "../../../modules/Trip/ShareModal/ShareModal";
-import PeopleGoingModal from "../../../modules/Trip/PeopleGoingModal/PeopleGoingModal";
+import ShareModal from '../../../modules/Trip/ShareModal/ShareModal';
+import PeopleGoingModal from '../../../modules/Trip/PeopleGoingModal/PeopleGoingModal';
 
-import axios from "axios";
+import axios from 'axios';
+import { useAuthModal } from '../../../context/AuthModal/authModalContext';
+import { useAuth } from '../../../context/Auth/authContext';
+import { showModalAction } from '../../../context/AuthModal/authModalAction';
 
 const popAnimation = {
     pop: { scale: [1, 1.4, 1], transition: { duration: 0.3 } },
@@ -31,23 +34,38 @@ export default function TripHeader({
         baseURL: backendOrigin,
     });
     const location = useLocation();
+    const { authState } = useAuth();
+    const { authModalDispatch } = useAuthModal();
+
+    const authRouteHandler = () => {
+        if (authState.isAuthenticated === false) {
+            authModalDispatch(showModalAction('LOGIN'));
+            return false;
+        }
+        return true;
+    };
+
     const currentUrl = `${frontendOrigin}${location.pathname}${location.search}`;
     const [interested, setInterested] = useState(isInterested);
     const interestedHandler = async () => {
+        if (!authRouteHandler()) {
+            return;
+        }
         try {
             setInterested((prevInterested) => !prevInterested);
             const response = await instance.patch(
                 `/trips/interested/${tripID}`
             );
             if (response.status === 201) {
-                console.log("Trip interest toggled successfully");
+                console.log('interest toggled');
+                return;
             } else {
                 setInterested((prevInterested) => !prevInterested);
-                console.error("Trip interest toggle failed:", response);
+                console.error('Trip interest toggle failed:', response);
             }
         } catch (error) {
             setInterested((prevInterested) => !prevInterested);
-            console.error("Error toggling trip interest:", error.message);
+            console.error('Error toggling trip interest:', error.message);
         }
     };
 
@@ -81,14 +99,24 @@ export default function TripHeader({
                     <div className="flex flex-row text-sm font-semibold gap-2 items-center">
                         <div>{`${city}, ${state}`}</div>·
                         <div
-                            className={`select-none ${currentSize > 0 ? 'rounded-lg p-1 hover:bg-gray-100' : ''}`}
-                            onClick={currentSize > 0 ? openPeopleGoingModal : null}
+                            className={`select-none ${
+                                currentSize > 0
+                                    ? 'rounded-lg p-1 hover:bg-gray-100'
+                                    : ''
+                            }`}
+                            onClick={
+                                currentSize > 0 ? openPeopleGoingModal : null
+                            }
                         >
-                            {currentSize}{maxSize !== -1 ? `/${maxSize}` : ''} Going
+                            {currentSize}
+                            {maxSize !== -1 ? `/${maxSize}` : ''} Going
                         </div>
                     </div>
                     <div className="flex flex-row gap-2">
-                        <div className="select-none flex flex-row rounded-lg p-2 text-sm font-semibold justify-center gap-1.5 items-center hover:bg-gray-100" onClick={openShareModal}>
+                        <div
+                            className="select-none flex flex-row rounded-lg p-2 text-sm font-semibold justify-center gap-1.5 items-center hover:bg-gray-100"
+                            onClick={openShareModal}
+                        >
                             <ShareMini />
                             Share
                         </div>
@@ -98,10 +126,12 @@ export default function TripHeader({
                         >
                             <motion.div
                                 variants={popAnimation}
-                                animate={interested ? "pop" : "default"}
+                                animate={interested ? 'pop' : 'default'}
                             >
                                 <HeartIcon
-                                    fill={interested === true ? "#ef4444" : "none"}
+                                    fill={
+                                        interested === true ? '#ef4444' : 'none'
+                                    }
                                     stroke={interested === true ? 0.25 : 1}
                                 />
                             </motion.div>
@@ -111,21 +141,20 @@ export default function TripHeader({
                 </div>
             </div>
 
-            {
-                currentSize >= 0 ?
-                    <Modal
-                        isVisible={PeopleGoingModalState}
-                        width="30%"
-                        height="50%"
-                        onClose={closePeopleGoingModal}
-                        scroll={true}
-                        showDialogCross={true}
-                    >
-                        <PeopleGoingModal peopleGoing={peopleGoing} />
-                    </Modal>
-                    :
-                    <></>
-            }
+            {currentSize >= 0 ? (
+                <Modal
+                    isVisible={PeopleGoingModalState}
+                    width="30%"
+                    height="50%"
+                    onClose={closePeopleGoingModal}
+                    scroll={true}
+                    showDialogCross={true}
+                >
+                    <PeopleGoingModal peopleGoing={peopleGoing} />
+                </Modal>
+            ) : (
+                <></>
+            )}
             <Modal
                 isVisible={ShareModalState}
                 width="40%"
@@ -135,7 +164,7 @@ export default function TripHeader({
                 showDialogCross={true}
             >
                 <ShareModal url={currentUrl} />
-            </Modal >
+            </Modal>
         </>
     );
 }
