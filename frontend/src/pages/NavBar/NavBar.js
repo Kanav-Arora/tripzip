@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { logoutAction } from '../../context/Auth/authAction';
-import { AuthContext } from '../../context/Auth/authContext';
+import { useAuth } from '../../context/Auth/authContext';
 import { Hamburger, Cross } from '../../assets/ext-icon';
 
 import Dropdown from './Dropdown';
@@ -14,13 +14,13 @@ import { useAuthModal } from '../../context/AuthModal/authModalContext';
 import { showModalAction } from '../../context/AuthModal/authModalAction';
 
 export default function NavBar() {
+    const { authState, authDispatch } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
-    const { state, dispatch } = useContext(AuthContext);
     const [addTripModalVisible, toggleAddTripModal] = useState(false);
 
     const { authModalDispatch } = useAuthModal();
 
-    const isAuth = state.isAuthenticated;
+    const isAuth = authState.isAuthenticated;
 
     const toggleAddTripModalHandler = () => {
         toggleAddTripModal(!addTripModalVisible);
@@ -31,7 +31,7 @@ export default function NavBar() {
     };
 
     const handleSignOut = () => {
-        dispatch(logoutAction());
+        authDispatch(logoutAction());
     };
 
     const loginModalHandler = () => {
@@ -143,7 +143,7 @@ export default function NavBar() {
             {isAuth === true ? (
                 <div className="mobile:hidden flex gap-5">
                     <AddTripButton onClick={toggleAddTripModalHandler} />
-                    <Dropdown name={state.name} />
+                    <Dropdown name={authState.name} />
                 </div>
             ) : (
                 <div className="mobile:hidden flex items-center space-x-2">

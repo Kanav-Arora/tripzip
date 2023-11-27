@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-import { backendOrigin } from "../../frontend.config";
-import TripHeader from "./components/TripHeader";
-import TripBody from "./components/TripBody/TripBody";
+import { backendOrigin } from '../../frontend.config';
+import TripHeader from './components/TripHeader';
+import TripBody from './components/TripBody/TripBody';
 
-import { AuthContext } from "../../context/Auth/authContext";
+import { useAuth } from '../../context/Auth/authContext';
 
-import TripImage from "./components/TripBody/TripImage";
-import SectionContainer from "./styles/SectionContainer";
+import TripImage from './components/TripBody/TripImage';
+import SectionContainer from './styles/SectionContainer';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export default function Trip() {
     const { tripID } = useParams();
@@ -22,8 +22,8 @@ export default function Trip() {
     });
     const navigate = useNavigate();
 
-    const { state } = useContext(AuthContext);
-    const authUID = state.uid;
+    const { authState } = useAuth();
+    const authUID = authState.uid;
 
     const [tripData, setTripData] = useState(null);
     const [userData, setUserData] = useState(null);
@@ -44,7 +44,7 @@ export default function Trip() {
                     setUserData(userDetailResponse.data.data);
                 }
             } catch (error) {
-                console.error("Error fetching trip data:", error);
+                console.error('Error fetching trip data:', error);
                 if (error.response.status === 404) {
                     navigate('*');
                 }
@@ -55,7 +55,7 @@ export default function Trip() {
     }, []);
 
     const image =
-        "https://media.architecturaldigest.com/photos/5da74823d599ec0008227ea8/master/pass/GettyImages-946087016.jpg";
+        'https://media.architecturaldigest.com/photos/5da74823d599ec0008227ea8/master/pass/GettyImages-946087016.jpg';
 
     return (
         <div className="mx-40">

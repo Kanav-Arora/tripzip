@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
-import { Cross } from "../../../assets/ext-icon";
+import { Cross } from '../../../assets/ext-icon';
 
 const ModalWrapper = styled.div`
     position: fixed;
@@ -19,8 +19,10 @@ const ModalWrapper = styled.div`
 const ModalContent = styled.div`
     background: white;
     border-radius: 12px;
-    width: ${(props) => (props.width === 'fit' ? 'fit-content' : props.width || '400px')};
-    height: ${(props) => (props.height === 'fit' ? 'fit-content' : props.height || 'auto')};
+    width: ${(props) =>
+        props.width === 'fit' ? 'fit-content' : props.width || '400px'};
+    height: ${(props) =>
+        props.height === 'fit' ? 'fit-content' : props.height || 'auto'};
     max-width: ${(props) => (props.width === 'fit' ? '100%' : 'none')};
     max-height: ${(props) => (props.height === 'fit' ? '100%' : 'none')};
 `;
@@ -29,7 +31,7 @@ const ModalHeader = styled.div`
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
-    border-bottom: 1px solid #D8D8D8;
+    border-bottom: 1px solid #d8d8d8;
 `;
 
 const ModalBody = styled.div`
@@ -40,7 +42,7 @@ const ModalBody = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
     gap: 20px;
-    overflow-y: ${(props) => (props.scroll ? "auto" : "hidden")};
+    overflow-y: ${(props) => (props.scroll ? 'auto' : 'hidden')};
 
     &::-webkit-scrollbar {
         width: 0 !important;
@@ -68,13 +70,13 @@ const Modal = ({
 }) => {
     useEffect(() => {
         if (isVisible) {
-            document.body.style.overflow = "hidden";
+            document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = 'auto';
         }
 
         return () => {
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = 'auto';
         };
     }, [isVisible]);
 
@@ -84,13 +86,12 @@ const Modal = ({
         }
     };
 
-    console.log(showDialogCross);
     return (
         <>
             {isVisible && (
                 <ModalWrapper onClick={handleOverlayClick}>
                     <ModalContent width={width} height={height}>
-                        {(showDialogCross &&
+                        {showDialogCross && (
                             <ModalHeader>
                                 <CloseButton onClick={onClose}>
                                     <Cross size={5} />

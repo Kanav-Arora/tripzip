@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Theme } from '../Theme/theme';
+import { motion } from 'framer-motion';
 
 export const ModalBody = styled.div`
     width: 100%;
@@ -7,6 +8,7 @@ export const ModalBody = styled.div`
     display: flex;
     flex-direction: row;
     border-radius: ${Theme.border.radius.xl};
+    padding: ${Theme.spacing(1)};
 `;
 
 export const Image = styled.img`
@@ -17,21 +19,19 @@ export const Image = styled.img`
     border-radius: inherit;
 `;
 
-export const ImageContainer = styled.div`
-    width: 40%;
+export const ImageContainer = styled(motion.div)`
+    width: 50%;
     background: black;
-    border-top-left-radius: inherit;
-    border-bottom-left-radius: inherit;
+    border-radius: inherit;
 `;
 
-export const ContentContainer = styled.div`
-    width: 60%;
+export const ContentContainer = styled(motion.div)`
+    width: 50%;
     padding-left: ${Theme.spacing(20)};
     padding-right: ${Theme.spacing(20)};
     padding-top: ${Theme.spacing(12)};
     padding-bottom: ${Theme.spacing(12)};
-    border-top-right-radius: inherit;
-    border-bottom-right-radius: inherit;
+    border-radius: inherit;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -42,7 +42,7 @@ export const ContentHeader = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
 `;
 
 export const ContentHeading = styled.div`
@@ -56,14 +56,14 @@ export const ContentBody = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: ${Theme.spacing(2)};
+    gap: ${Theme.spacing(10)};
     margin-top: ${Theme.spacing(3)};
     margin-bottom: ${Theme.spacing(3)};
 `;
 
 export const AuthServiceContainer = styled.div`
-    margin-left: auto;
-    margin-right: auto;
+    height: ${Theme.spacing(10)};
+    width: 100%;
     border: 1px solid ${Theme.color.gray};
     border-radius: ${Theme.border.radius.md};
     padding-top: ${Theme.spacing(1)};
@@ -77,6 +77,29 @@ export const AuthServiceContainer = styled.div`
     gap: ${Theme.spacing(2)};
     font-size: ${Theme.font.size.sm};
     font-weight: ${Theme.font.weight.semibold};
+`;
+
+export const TextDivider = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    --text-divider-gap: ${Theme.spacing(3)};
+    color: ${Theme.color.gray50};
+    &::before,
+    &::after {
+        content: '';
+        height: 1px;
+        background-color: silver;
+        flex-grow: 1;
+    }
+
+    &::before {
+        margin-right: var(--text-divider-gap);
+    }
+
+    &::after {
+        margin-left: var(--text-divider-gap);
+    }
 `;
 
 export const ToggleText = styled.div`
@@ -93,4 +116,54 @@ export const ToggleText = styled.div`
 export const ToggleButton = styled.button`
     color: ${Theme.color.orange};
     font-weight: ${Theme.font.weight.semibold};
+`;
+
+export const FormContainer = styled.div`
+    width: 100%;
+`;
+
+export const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: ${Theme.spacing(2)};
+`;
+
+export const FormField = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: ${Theme.spacing(2)};
+`;
+
+export const FieldLabel = styled.div`
+    font-weight: ${Theme.font.weight.semibold};
+`;
+
+export const Input = styled.input`
+    width: 100%;
+    height: ${Theme.spacing(10)};
+    padding: ${Theme.spacing(4)};
+    border: 1px solid
+        ${(props) => (props.error ? Theme.color.red : Theme.color.gray)};
+    border-radius: ${Theme.border.radius.md};
+
+    &::placeholder {
+        color: ${Theme.color.gray50};
+        font-size: ${Theme.font.size.sm};
+    }
+`;
+
+export const Error = styled.span`
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+`;
+
+export const Button = styled.button`
+    margin-top: ${Theme.spacing(2)};
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: ${Theme.border.radius.md};
+    cursor: pointer;
 `;
