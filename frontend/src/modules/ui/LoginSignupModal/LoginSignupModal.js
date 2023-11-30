@@ -7,6 +7,7 @@ import {
     ModalBody,
     Image,
     ImageContainer,
+    ImageOverlayText,
     ContentContainer,
     ContentHeader,
     ContentHeading,
@@ -15,6 +16,7 @@ import {
     ToggleText,
     ToggleButton,
     TextDivider,
+    AnimatedSideComponent,
 } from './Styles';
 import { AuthModalContext } from '../../../context/AuthModal/authModalContext';
 import {
@@ -76,6 +78,41 @@ const SignupContent = ({ handleToggle }) => (
     </ContentContainer>
 );
 
+const elements = [
+    {
+        title: 'Paris',
+        icon: <GoogleIcon />,
+        vertical: 'top',
+        verticalPercentage: '10%',
+        horizontal: 'left',
+        horizontalPercentage: '0%',
+    },
+    {
+        title: 'Hawai',
+        icon: <GoogleIcon />,
+        vertical: 'top',
+        verticalPercentage: '20%',
+        horizontal: 'right',
+        horizontalPercentage: '0%',
+    },
+    {
+        title: 'Thailand',
+        icon: <GoogleIcon />,
+        vertical: 'bottom',
+        verticalPercentage: '20%',
+        horizontal: 'left',
+        horizontalPercentage: '0%',
+    },
+    {
+        title: 'Manali',
+        icon: <GoogleIcon />,
+        vertical: 'bottom',
+        verticalPercentage: '30%',
+        horizontal: 'right',
+        horizontalPercentage: '0%',
+    },
+];
+
 const LoginSignupModal = ({ isVisible }) => {
     const { authModalState, authModalDispatch } = useContext(AuthModalContext);
 
@@ -106,8 +143,19 @@ const LoginSignupModal = ({ isVisible }) => {
                             animate={{ x: 0 }}
                             transition={{ stiffness: 120 }}
                         >
+                            {elements.map((element, index) => {
+                                return (
+                                    <AnimatedSideComponent
+                                        element={element}
+                                        index={index}
+                                    />
+                                );
+                            })}
+                            <ImageOverlayText>
+                                Find Your Travel Buddy
+                            </ImageOverlayText>
                             <Image
-                                src="/images/src/kanav.webp"
+                                src="/images/fallback/AuthModal.jpg"
                                 alt="Background"
                             />
                         </ImageContainer>
@@ -121,8 +169,19 @@ const LoginSignupModal = ({ isVisible }) => {
                             animate={{ x: 0 }}
                             transition={{ stiffness: 120 }}
                         >
+                            {elements.map((element, index) => {
+                                return (
+                                    <AnimatedSideComponent
+                                        element={element}
+                                        index={index}
+                                    />
+                                );
+                            })}
+                            <ImageOverlayText>
+                                Find Your Travel Buddy
+                            </ImageOverlayText>
                             <Image
-                                src="/images/src/kanav.webp"
+                                src="/images/fallback/AuthModal.jpg"
                                 alt="Background"
                             />
                         </ImageContainer>
