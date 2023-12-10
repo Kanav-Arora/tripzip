@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Modal from '../Modal/Modal';
 
-import { ModalBody } from './Styles/Styles';
+import { ModalBody, ContentContainer } from './Styles/Styles';
 import { AuthModalContext } from '../../../context/AuthModal/authModalContext';
 import {
     showModalAction,
@@ -37,11 +37,23 @@ const LoginSignupModal = ({ isVisible }) => {
                 {authModalState.type === 'LOGIN' ? (
                     <>
                         <ImageSection position="left" />
-                        <LoginForm handleToggle={handleToggle} />
+                        <ContentContainer
+                            initial={{ x: '-100%' }}
+                            animate={{ x: 0 }}
+                            transition={{ stiffness: 120 }}
+                        >
+                            <LoginForm handleToggle={handleToggle} />
+                        </ContentContainer>
                     </>
                 ) : (
                     <>
-                        <SignupForm handleToggle={handleToggle} />
+                        <ContentContainer
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            transition={{ stiffness: 120 }}
+                        >
+                            <SignupForm handleToggle={handleToggle} />
+                        </ContentContainer>
                         <ImageSection position="right" />
                     </>
                 )}
