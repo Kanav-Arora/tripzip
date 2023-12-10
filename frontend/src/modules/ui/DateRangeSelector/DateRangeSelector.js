@@ -8,18 +8,21 @@ const currDate = new Date();
 
 export default function DateRangeSelector(props) {
     return (
-        <div className='bg-[#333333] text-white h-[350px] pt-1 rounded-lg' style={{ marginTop: '-20px' }}>
+        <div
+            className="bg-white text-black shadow-xl h-[350px] pt-1 rounded-lg"
+            style={{ marginTop: '-20px' }}
+        >
             <DayPicker
                 id="test"
                 mode="range"
                 defaultMonth={currDate}
-                selected={props.range}
                 numberOfMonths={2}
+                selected={props.range}
                 onSelect={props.setRange}
                 modifiersClassNames={{
-                    today: 'my-today'
+                    today: 'my-today',
                 }}
             />
         </div>
     );
-};
+}
