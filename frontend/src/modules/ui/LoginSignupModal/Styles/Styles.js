@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Theme } from '../Theme/theme';
+import { Theme } from '../../Theme/theme';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const ModalBody = styled.div`
@@ -226,6 +226,10 @@ export const Input = styled.input`
     &::placeholder {
         color: ${Theme.color.gray50};
         font-size: ${Theme.font.size.sm};
+    }
+    &:focus {
+        border-color: ${Theme.color.orange};
+        outline: none;
     }
 `;
 

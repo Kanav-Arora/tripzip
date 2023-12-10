@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
 
-import { FormContainer, Form, FormField, Input, Error, Button } from './Styles';
+import {
+    FormContainer,
+    Form,
+    FormField,
+    Input,
+    Error,
+    Button,
+} from '../Styles/Styles';
 import {
     environment,
     backendOrigin,
     testLoginId,
     testPassword,
-} from '../../../frontend.config';
+} from '../../../../frontend.config';
 
-import { useAuth } from '../../../context/Auth/authContext';
-import { useAuthModal } from '../../../context/AuthModal/authModalContext';
-import { hideModalAction } from '../../../context/AuthModal/authModalAction';
-import { loginAction } from '../../../context/Auth/authAction';
+import { useAuth } from '../../../../context/Auth/authContext';
+import { useAuthModal } from '../../../../context/AuthModal/authModalContext';
+import { hideModalAction } from '../../../../context/AuthModal/authModalAction';
+import { loginAction } from '../../../../context/Auth/authAction';
 
 import axios from 'axios';
 
@@ -113,7 +120,6 @@ export default function AuthForm({ isLogin }) {
                     password: password,
                 });
             }
-            console.log('result: ' + result);
             if (result === 'SUCCESS') {
                 authModalDispatch(hideModalAction());
             }
