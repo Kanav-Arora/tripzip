@@ -38,7 +38,7 @@ export default function ImageWithText() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 flex items-center justify-center"
+                className="absolute top-1/2 w-full flex items-center justify-center"
             >
                 <motion.p
                     key={textVariants[currentTextIndex]}
