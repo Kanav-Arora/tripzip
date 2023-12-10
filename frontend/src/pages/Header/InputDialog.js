@@ -5,6 +5,7 @@ import {
     CalendarMini as CalendarIcon,
     CalendarFilledMini as CalendarFilledIcon,
 } from '../../assets/ext-icon';
+import LocationPicker from '../../modules/Header/LocationPicker/LocationPicker';
 
 export default function InputDialog(props) {
     const [showDateRangePicker, toggleDateRangePicker] = useState(false);
@@ -104,6 +105,11 @@ export default function InputDialog(props) {
             {showDateRangePicker && (
                 <div className="absolute mt-6 left-[57%] transform -translate-x-1/2 text-white z-10">
                     <DateRangeSelector range={range} setRange={setRange} />
+                </div>
+            )}
+            {false && (
+                <div className="absolute mt-1 left-[18%] transform -translate-x-1/2 text-white z-10">
+                    <LocationPicker />
                 </div>
             )}
         </div>
