@@ -13,7 +13,6 @@ import PageNotFound from '../pages/PageNotFound';
 
 import initAuth from '../services/authService';
 import { useAuth } from '../context/Auth/authContext';
-import { AuthModalContext } from '../context/AuthModal/authModalContext';
 import LoginSignupModal from '../modules/ui/LoginSignupModal/LoginSignupModal';
 
 export default function Router() {
@@ -21,7 +20,6 @@ export default function Router() {
     const ref = useRef();
 
     const { authDispatch } = useAuth();
-    const { authModalState } = useContext(AuthModalContext);
 
     useEffect(() => {
         initAuth(authDispatch);
@@ -34,7 +32,7 @@ export default function Router() {
     return (
         <>
             <LoadingBar color="#DF6951" ref={ref} />
-            <LoginSignupModal isVisible={authModalState.visible} />
+            <LoginSignupModal />
             <Routes>
                 <Route exact path="/" element={<Landing />}>
                     <Route exact path="/" element={<Home />} />

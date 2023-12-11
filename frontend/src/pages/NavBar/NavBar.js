@@ -10,15 +10,14 @@ import AddTripButton from '../../modules/NavBar/AddTripButton';
 import AddTripModal from '../Add Trip/AddTripModal';
 
 import { AddTripProvider } from '../../context/Add Trip/addTripContext';
-import { useAuthModal } from '../../context/AuthModal/authModalContext';
-import { showModalAction } from '../../context/AuthModal/authModalAction';
+import { useAuthModal } from '../../modules/ui/LoginSignupModal/hooks/useAuthModal';
 
 export default function NavBar() {
     const { authState, authDispatch } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [addTripModalVisible, toggleAddTripModal] = useState(false);
 
-    const { authModalDispatch } = useAuthModal();
+    const { openAuthModal } = useAuthModal();
 
     const isAuth = authState.isAuthenticated;
 
@@ -35,11 +34,11 @@ export default function NavBar() {
     };
 
     const loginModalHandler = () => {
-        authModalDispatch(showModalAction('LOGIN'));
+        openAuthModal({ visible: true, type: 'LOGIN' });
     };
 
     const signupModalHandler = () => {
-        authModalDispatch(showModalAction('SIGNUP'));
+        openAuthModal({ visible: true, type: 'SIGNUP' });
     };
 
     return (

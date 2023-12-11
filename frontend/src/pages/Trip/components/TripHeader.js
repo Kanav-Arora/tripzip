@@ -11,9 +11,8 @@ import ShareModal from '../../../modules/Trip/ShareModal/ShareModal';
 import PeopleGoingModal from '../../../modules/Trip/PeopleGoingModal/PeopleGoingModal';
 
 import axios from 'axios';
-import { useAuthModal } from '../../../context/AuthModal/authModalContext';
 import { useAuth } from '../../../context/Auth/authContext';
-import { showModalAction } from '../../../context/AuthModal/authModalAction';
+import { useAuthModal } from '../../../modules/ui/LoginSignupModal/hooks/useAuthModal';
 
 const popAnimation = {
     pop: { scale: [1, 1.4, 1], transition: { duration: 0.3 } },
@@ -35,11 +34,11 @@ export default function TripHeader({
     });
     const location = useLocation();
     const { authState } = useAuth();
-    const { authModalDispatch } = useAuthModal();
+    const { openAuthModal } = useAuthModal();
 
     const authRouteHandler = () => {
         if (authState.isAuthenticated === false) {
-            authModalDispatch(showModalAction('LOGIN'));
+            openAuthModal({ visible: true, type: 'LOGIN' });
             return false;
         }
         return true;

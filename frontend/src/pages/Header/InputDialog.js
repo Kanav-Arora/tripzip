@@ -63,6 +63,7 @@ export default function InputDialog(props) {
                             type="text"
                             placeholder="Where do you want to go?"
                             className="pl-0.5 w-full min-w-[225px] outline-none focus:border-none"
+                            onClick={handleLocationFieldClick}
                         />
                     </div>
                 </div>
@@ -107,7 +108,7 @@ export default function InputDialog(props) {
                     <DateRangeSelector range={range} setRange={setRange} />
                 </div>
             )}
-            {false && (
+            {showLocationPicker && (
                 <div className="absolute mt-1 left-[18%] transform -translate-x-1/2 text-white z-10">
                     <LocationPicker />
                 </div>

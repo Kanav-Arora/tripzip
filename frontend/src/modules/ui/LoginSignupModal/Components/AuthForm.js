@@ -16,15 +16,14 @@ import {
 } from '../../../../frontend.config';
 
 import { useAuth } from '../../../../context/Auth/authContext';
-import { useAuthModal } from '../../../../context/AuthModal/authModalContext';
-import { hideModalAction } from '../../../../context/AuthModal/authModalAction';
+import { useAuthModal } from '../hooks/useAuthModal';
 import { loginAction } from '../../../../context/Auth/authAction';
 
 import axios from 'axios';
 
 export default function AuthForm({ isLogin }) {
     const { authDispatch } = useAuth();
-    const { authModalDispatch } = useAuthModal();
+    const { closeAuthModal } = useAuthModal();
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
@@ -121,7 +120,7 @@ export default function AuthForm({ isLogin }) {
                 });
             }
             if (result === 'SUCCESS') {
-                authModalDispatch(hideModalAction());
+                closeAuthModal();
             }
         }
     };
