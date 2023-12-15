@@ -15,14 +15,13 @@ import {
     testPassword,
 } from '../../../../frontend.config';
 
-import { useAuth } from '../../../../context/Auth/authContext';
+import { useAuth } from '../../../../context/Auth/useAuth';
 import { useAuthModal } from '../hooks/useAuthModal';
-import { loginAction } from '../../../../context/Auth/authAction';
 
 import axios from 'axios';
 
 export default function AuthForm({ isLogin }) {
-    const { authDispatch } = useAuth();
+    const { loginAuth } = useAuth();
     const { closeAuthModal } = useAuthModal();
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
@@ -51,7 +50,7 @@ export default function AuthForm({ isLogin }) {
                 headers: { 'Content-Type': 'application/json' },
             });
             if (result.status === 201) {
-                authDispatch(loginAction(result.data));
+                loginAuth(result.data);
                 return 'SUCCESS';
             } else {
                 console.error('Unexpected status code:', result.status);
@@ -70,7 +69,7 @@ export default function AuthForm({ isLogin }) {
                 { headers: { 'Content-Type': 'application/json' } }
             );
             if (result.status === 201) {
-                authDispatch(loginAction(result.data));
+                loginAuth(result.data);
                 return 'SUCCESS';
             } else {
                 console.error('Unexpected status code:', result.status);

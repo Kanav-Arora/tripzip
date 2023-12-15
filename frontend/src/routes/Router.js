@@ -7,22 +7,20 @@ import Landing from '../layout/Landing';
 import TripsLayout from '../layout/TripsLayout';
 import Team from '../pages/Team';
 import Trip from '../pages/Trip/Trip';
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import PageNotFound from '../pages/PageNotFound';
-
+import { useAuth } from '../context/Auth/useAuth';
 import initAuth from '../services/authService';
-import { useAuth } from '../context/Auth/authContext';
 import LoginSignupModal from '../modules/ui/LoginSignupModal/LoginSignupModal';
 
 export default function Router() {
     const location = useLocation();
     const ref = useRef();
-
-    const { authDispatch } = useAuth();
+    const { loginAuth, logoutAuth } = useAuth();
 
     useEffect(() => {
-        initAuth(authDispatch);
+        initAuth(loginAuth, logoutAuth);
         ref.current.continuousStart();
         setTimeout(() => {
             ref.current.complete();

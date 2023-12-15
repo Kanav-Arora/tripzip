@@ -7,7 +7,7 @@ import { backendOrigin } from '../../frontend.config';
 import TripHeader from './components/TripHeader';
 import TripBody from './components/TripBody/TripBody';
 
-import { useAuth } from '../../context/Auth/authContext';
+import { useAuth } from '../../context/Auth/useAuth';
 
 import TripImage from './components/TripBody/TripImage';
 import SectionContainer from './styles/SectionContainer';
@@ -22,8 +22,8 @@ export default function Trip() {
     });
     const navigate = useNavigate();
 
-    const { authState } = useAuth();
-    const authUID = authState.uid;
+    const { authStateValue } = useAuth();
+    const authUID = authStateValue.uid;
 
     const [tripData, setTripData] = useState(null);
     const [userData, setUserData] = useState(null);
