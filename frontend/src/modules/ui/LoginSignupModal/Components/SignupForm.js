@@ -1,5 +1,4 @@
 import {
-    ContentContainer,
     ContentHeader,
     ContentHeading,
     ContentBody,
@@ -13,11 +12,7 @@ import ThirdPartyAuth from './ThirdPartyAuth';
 import { GoogleIcon } from '../../../../assets/ext-icon';
 
 const SignupForm = ({ handleToggle }) => (
-    <ContentContainer
-        initial={{ x: '100%' }}
-        animate={{ x: 0 }}
-        transition={{ stiffness: 120 }}
-    >
+    <>
         <ContentHeader>
             <ContentHeading>Sign Up</ContentHeading>
             <div className="text-gray-500 text-sm">Welcome!</div>
@@ -31,7 +26,7 @@ const SignupForm = ({ handleToggle }) => (
                 <ToggleButton onClick={handleToggle}>Log In</ToggleButton>
             </ToggleText>
         </ContentBody>
-    </ContentContainer>
+    </>
 );
 
 export default SignupForm;

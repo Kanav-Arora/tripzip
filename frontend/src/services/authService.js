@@ -1,19 +1,17 @@
 import axios from 'axios';
-import { loginAction, logoutAction } from '../context/Auth/authAction.js';
 import { backendOrigin } from '../frontend.config';
-
 const instance = axios.create({
     withCredentials: true,
     baseURL: backendOrigin,
 });
 
-const initAuth = async (dispatch) => {
+const initAuth = async (loginAuth, logoutAuth) => {
     try {
         const response = await instance.get('/');
         if (response.data.isAuth === true) {
-            dispatch(loginAction(response.data.userData));
+            loginAuth(response.data.userData);
         } else {
-            dispatch(logoutAction());
+            logoutAuth();
         }
     } catch (err) {
         console.error(err);

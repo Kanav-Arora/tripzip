@@ -3,13 +3,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import { useAuth } from '../../context/Auth/authContext';
+import { useAuth } from '../../context/Auth/useAuth';
 import { backendOrigin } from '../../frontend.config';
-import { logoutAction } from '../../context/Auth/authAction';
 
 export default function Dropdown({ name }) {
     const [open, setOpen] = useState(false);
-    const { authDispatch } = useAuth();
+    const { logoutAuth } = useAuth();
     const openDrop = () => {
         setOpen(!open);
     };
@@ -17,7 +16,7 @@ export default function Dropdown({ name }) {
         try {
             const result = await axios.post(backendOrigin + '/users/signout');
             if (result.status === 200) {
-                authDispatch(logoutAction());
+                logoutAuth();
             } else {
                 console.error('Unexpected status code:', result.status);
             }
