@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import DateRangeSelector from '../../modules/ui/DateRangeSelector/DateRangeSelector';
+import { useDateRangeSelector } from '../../modules/ui/DateRangeSelector/hooks/useDateRangeSelector';
 import {
     LocationPinMini as LocationIcon,
     CalendarMini as CalendarIcon,
@@ -25,11 +26,7 @@ export default function InputDialog(props) {
         toggleLocationPicker(!showLocationPicker);
     };
 
-    const defaultSelected = {
-        from: null,
-        to: null,
-    };
-    const [range, setRange] = useState(defaultSelected);
+    const { selectedRange } = useDateRangeSelector();
 
     const formatDate = (date) => {
         const day = date.getDate();
@@ -37,18 +34,6 @@ export default function InputDialog(props) {
         const year = date.getFullYear();
         return `${day} ${month}, ${year}`;
     };
-
-    const fromDateRef = useRef('');
-    const toDateRef = useRef('');
-
-    useEffect(() => {
-        if (range && range.from) {
-            fromDateRef.current = formatDate(new Date(range.from));
-        }
-        if (range && range.to) {
-            toDateRef.current = formatDate(new Date(range.to));
-        }
-    }, [range]);
 
     return (
         <div className="mobile:hidden absolute shadow-xl rounded-xl bottom-0 -mb-10 left-1/2 transform -translate-x-1/2 w-fit z-10">
@@ -79,7 +64,11 @@ export default function InputDialog(props) {
                             className="pl-0.5 w-full min-w-[150px] outline-none focus:border-none"
                             readOnly
                             onClick={handleDateClick}
-                            value={fromDateRef.current}
+                            value={
+                                selectedRange.from
+                                    ? formatDate(new Date(selectedRange.from))
+                                    : ''
+                            }
                         />
                     </div>
                 </div>
@@ -95,7 +84,11 @@ export default function InputDialog(props) {
                             className="pl-0.5 w-full min-w-[150px] outline-none focus:border-none"
                             readOnly
                             onClick={handleDateClick}
-                            value={toDateRef.current}
+                            value={
+                                selectedRange.to
+                                    ? formatDate(new Date(selectedRange.to))
+                                    : ''
+                            }
                         />
                     </div>
                 </div>
@@ -105,7 +98,7 @@ export default function InputDialog(props) {
             </div>
             {showDateRangePicker && (
                 <div className="absolute mt-6 left-[57%] transform -translate-x-1/2 text-white z-10">
-                    <DateRangeSelector range={range} setRange={setRange} />
+                    <DateRangeSelector />
                 </div>
             )}
             {showLocationPicker && (
