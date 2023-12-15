@@ -5,18 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
-import { AuthProvider } from './context/Auth/authContext';
-import { AuthModalProvider } from './context/AuthModal/authModalContext';
+import { RecoilRoot } from 'recoil';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <AuthProvider>
-                <AuthModalProvider>
-                    <App />
-                </AuthModalProvider>
-            </AuthProvider>
+            <RecoilRoot>
+                <App />
+            </RecoilRoot>
         </BrowserRouter>
     </React.StrictMode>
 );

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { logoutAction } from '../../context/Auth/authAction';
-import { useAuth } from '../../context/Auth/authContext';
+import { useAuth } from '../../context/Auth/useAuth';
 import { Hamburger, Cross } from '../../assets/ext-icon';
 
 import Dropdown from './Dropdown';
@@ -10,17 +9,16 @@ import AddTripButton from '../../modules/NavBar/AddTripButton';
 import AddTripModal from '../Add Trip/AddTripModal';
 
 import { AddTripProvider } from '../../context/Add Trip/addTripContext';
-import { useAuthModal } from '../../context/AuthModal/authModalContext';
-import { showModalAction } from '../../context/AuthModal/authModalAction';
+import { useAuthModal } from '../../modules/ui/LoginSignupModal/hooks/useAuthModal';
 
 export default function NavBar() {
-    const { authState, authDispatch } = useAuth();
+    const { authStateValue, logoutAuth } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [addTripModalVisible, toggleAddTripModal] = useState(false);
 
-    const { authModalDispatch } = useAuthModal();
+    const { openAuthModal } = useAuthModal();
 
-    const isAuth = authState.isAuthenticated;
+    const isAuth = authStateValue.isAuthenticated;
 
     const toggleAddTripModalHandler = () => {
         toggleAddTripModal(!addTripModalVisible);
@@ -31,15 +29,15 @@ export default function NavBar() {
     };
 
     const handleSignOut = () => {
-        authDispatch(logoutAction());
+        logoutAuth();
     };
 
     const loginModalHandler = () => {
-        authModalDispatch(showModalAction('LOGIN'));
+        openAuthModal({ visible: true, type: 'LOGIN' });
     };
 
     const signupModalHandler = () => {
-        authModalDispatch(showModalAction('SIGNUP'));
+        openAuthModal({ visible: true, type: 'SIGNUP' });
     };
 
     return (
@@ -143,7 +141,7 @@ export default function NavBar() {
             {isAuth === true ? (
                 <div className="mobile:hidden flex gap-5">
                     <AddTripButton onClick={toggleAddTripModalHandler} />
-                    <Dropdown name={authState.name} />
+                    <Dropdown name={authStateValue.name} />
                 </div>
             ) : (
                 <div className="mobile:hidden flex items-center space-x-2">

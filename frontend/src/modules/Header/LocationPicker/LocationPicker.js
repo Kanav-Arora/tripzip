@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, LocationItem } from './Styles';
+import { Container, LocationItem } from './LocationPickerStyles';
 
 const location = ['Delhi', 'Neywork'];
 

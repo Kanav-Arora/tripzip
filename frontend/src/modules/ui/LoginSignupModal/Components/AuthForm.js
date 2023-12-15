@@ -15,16 +15,14 @@ import {
     testPassword,
 } from '../../../../frontend.config';
 
-import { useAuth } from '../../../../context/Auth/authContext';
-import { useAuthModal } from '../../../../context/AuthModal/authModalContext';
-import { hideModalAction } from '../../../../context/AuthModal/authModalAction';
-import { loginAction } from '../../../../context/Auth/authAction';
+import { useAuth } from '../../../../context/Auth/useAuth';
+import { useAuthModal } from '../hooks/useAuthModal';
 
 import axios from 'axios';
 
 export default function AuthForm({ isLogin }) {
-    const { authDispatch } = useAuth();
-    const { authModalDispatch } = useAuthModal();
+    const { loginAuth } = useAuth();
+    const { closeAuthModal } = useAuthModal();
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
@@ -52,7 +50,7 @@ export default function AuthForm({ isLogin }) {
                 headers: { 'Content-Type': 'application/json' },
             });
             if (result.status === 201) {
-                authDispatch(loginAction(result.data));
+                loginAuth(result.data);
                 return 'SUCCESS';
             } else {
                 console.error('Unexpected status code:', result.status);
@@ -71,7 +69,7 @@ export default function AuthForm({ isLogin }) {
                 { headers: { 'Content-Type': 'application/json' } }
             );
             if (result.status === 201) {
-                authDispatch(loginAction(result.data));
+                loginAuth(result.data);
                 return 'SUCCESS';
             } else {
                 console.error('Unexpected status code:', result.status);
@@ -121,7 +119,7 @@ export default function AuthForm({ isLogin }) {
                 });
             }
             if (result === 'SUCCESS') {
-                authModalDispatch(hideModalAction());
+                closeAuthModal();
             }
         }
     };

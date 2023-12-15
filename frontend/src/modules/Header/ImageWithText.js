@@ -47,6 +47,7 @@ export default function ImageWithText() {
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.5 }}
                     className="text-white text-center text-3xl mobile:text-xl"
+                    className="text-white text-center text-2xl mobile:text-xl"
                 >
                     {textVariants[currentTextIndex]}
                 </motion.p>
