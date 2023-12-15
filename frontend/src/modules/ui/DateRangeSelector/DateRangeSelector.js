@@ -20,6 +20,8 @@ export default function DateRangeSelector(props) {
                 mode="range"
                 defaultMonth={currDate}
                 numberOfMonths={2}
+                selected={props.range}
+                onSelect={props.setRange}
                 selected={selectedRange}
                 onSelect={setSelectedRange}
                 modifiersClassNames={{

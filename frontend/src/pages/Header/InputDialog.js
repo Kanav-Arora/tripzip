@@ -34,7 +34,6 @@ export default function InputDialog(props) {
         const year = date.getFullYear();
         return `${day} ${month}, ${year}`;
     };
-
     return (
         <div className="mobile:hidden absolute shadow-xl rounded-xl bottom-0 -mb-10 left-1/2 transform -translate-x-1/2 w-fit z-10">
             <div className="flex justify-center bg-white text-black p-3 rounded-xl">
