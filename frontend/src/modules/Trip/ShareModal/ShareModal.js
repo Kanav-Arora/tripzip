@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { ClipboardIcon, CheckIcon } from "../../../assets/ext-icon"
+import { ClipboardIcon, CheckIcon } from '../../../assets/ext-icon';
+import { IconProvider } from '../../ui/IconProvider/IconProvider';
 
 const ShareModal = ({ url }) => {
     const [isCopied, setIsCopied] = useState(false);
@@ -26,9 +27,17 @@ const ShareModal = ({ url }) => {
                 </div>
                 <button
                     onClick={copyToClipboard}
-                    className='p-2 border rounded-md'
+                    className="p-2 border rounded-md"
                 >
-                    {isCopied ? <CheckIcon size={5} color="#50C878" /> : <ClipboardIcon size={5} />}
+                    {isCopied ? (
+                        <IconProvider
+                            size={2}
+                            Icon={CheckIcon}
+                            color="#50C878"
+                        />
+                    ) : (
+                        <IconProvider size={2} Icon={ClipboardIcon} />
+                    )}
                 </button>
             </div>
         </div>

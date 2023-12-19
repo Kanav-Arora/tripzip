@@ -3,6 +3,7 @@ import { ImgWithFallback } from '../../assets/utilities';
 import { CalendarMini } from '../../assets/ext-icon';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { IconProvider } from '../../modules/ui/IconProvider/IconProvider';
 
 const Card = ({ Icon, title, description }) => {
     const controls = useAnimation();
@@ -29,7 +30,7 @@ const Card = ({ Icon, title, description }) => {
             }
         >
             <div className={'p-2 rounded-lg h-fit bg-white'}>
-                <Icon />
+                <IconProvider size={1} Icon={Icon} />
             </div>
             <div className="flex flex-col">
                 <div className="text-black text-md">{title}</div>

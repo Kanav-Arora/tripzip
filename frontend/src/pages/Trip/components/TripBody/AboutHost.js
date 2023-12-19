@@ -1,13 +1,25 @@
-import React from "react";
-import { StarMini, CakeIcon, MapIcon, LanguageIcon, AcademicCapIcon, MapPinIcon } from "../../../../assets/ext-icon";
-import UserAvatar from '../../../../modules/ui/UserAvatar'
+import React from 'react';
+import {
+    StarMini,
+    CakeIcon,
+    MapIcon,
+    LanguageIcon,
+    AcademicCapIcon,
+    MapPinIcon,
+} from '../../../../assets/ext-icon';
+import UserAvatar from '../../../../modules/ui/UserAvatar';
+import { IconProvider } from '../../../../modules/ui/IconProvider/IconProvider';
 
 const UserCard = ({ name, stars, yearsHosting, numberOfTrips, image }) => {
     return (
         <div className="h-fit bg-white rounded-lg px-6 py-4 flex flex-row gap-10">
             <div className="basis-3/4">
                 <div className="h-full flex flex-col justify-center items-center gap-y-1">
-                    <UserAvatar image='/images/src/kanav.webp' letter='KA' size={5} />
+                    <UserAvatar
+                        image="/images/src/kanav.webp"
+                        letter="KA"
+                        size={5}
+                    />
                     <div className="text-lg font-bold">{name}</div>
                     <div className="text-sm">Host</div>
                 </div>
@@ -15,7 +27,7 @@ const UserCard = ({ name, stars, yearsHosting, numberOfTrips, image }) => {
             <div className="basis-1/4 flex flex-col divide-y">
                 <div className="flex flex-col pb-4 justify-center">
                     <div className="text-base font-bold  flex flex-row gap-x-1 items-center">
-                        {stars} <StarMini />
+                        {stars} <IconProvider Icon={StarMini} size={1} />
                     </div>
                     <div className="text-xs">Stars</div>
                 </div>
@@ -33,11 +45,13 @@ const UserCard = ({ name, stars, yearsHosting, numberOfTrips, image }) => {
 };
 
 const AboutItem = ({ Icon, Text }) => {
-    return (<div className="flex flex-row gap-2 items-center my-3">
-        <Icon />
-        {Text}
-    </div>);
-}
+    return (
+        <div className="flex flex-row gap-2 items-center my-3">
+            <IconProvider Icon={Icon} size={1} />
+            {Text}
+        </div>
+    );
+};
 
 export default function AboutHost({ userData }) {
     let location = `${userData.state}, ${userData.country}`;
@@ -61,15 +75,22 @@ export default function AboutHost({ userData }) {
                         numberOfTrips={userData.tripsCreated.length}
                     />
                     <div className="flex flex-col justify-items-start">
-                        <AboutItem Icon={CakeIcon} Text={`Born in ${userData.year_of_birth}`} />
-                        <AboutItem Icon={MapIcon} Text={`From ${userData.birth_place}`} />
-                        <AboutItem Icon={MapPinIcon} Text={`Located at ${location}`} />
+                        <AboutItem
+                            Icon={CakeIcon}
+                            Text={`Born in ${userData.year_of_birth}`}
+                        />
+                        <AboutItem
+                            Icon={MapIcon}
+                            Text={`From ${userData.birth_place}`}
+                        />
+                        <AboutItem
+                            Icon={MapPinIcon}
+                            Text={`Located at ${location}`}
+                        />
                         <AboutItem Icon={AcademicCapIcon} Text={hobbies} />
                         <AboutItem Icon={LanguageIcon} Text={languages} />
                     </div>
-                    <div>
-                        {userData.about_yourself}
-                    </div>
+                    <div>{userData.about_yourself}</div>
                     <button className="w-fit rounded-md bg-matteBlack text-white font-bold py-2 px-4">
                         Message Host
                     </button>

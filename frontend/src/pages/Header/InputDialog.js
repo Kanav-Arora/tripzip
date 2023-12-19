@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import DateRangeSelector from '../../modules/ui/DateRangeSelector/DateRangeSelector';
 import { useDateRangeSelector } from '../../modules/ui/DateRangeSelector/hooks/useDateRangeSelector';
 import {
@@ -7,6 +7,7 @@ import {
     CalendarFilledMini as CalendarFilledIcon,
 } from '../../assets/ext-icon';
 import LocationPicker from '../../modules/Header/LocationPicker/LocationPicker';
+import { IconProvider } from '../../modules/ui/IconProvider/IconProvider';
 
 export default function InputDialog(props) {
     const [showDateRangePicker, toggleDateRangePicker] = useState(false);
@@ -39,7 +40,7 @@ export default function InputDialog(props) {
             <div className="flex justify-center bg-white text-black p-3 rounded-xl">
                 <div className="px-3 border-r border-gray-300">
                     <div className="flex items-center space-x-2 leading-5 pb-2">
-                        {/* <LocationIcon /> */}
+                        <IconProvider size={1} Icon={LocationIcon} />
                         <span>Location</span>
                     </div>
                     <div className="flex items-center">
@@ -53,7 +54,7 @@ export default function InputDialog(props) {
                 </div>
                 <div className="px-3 border-r border-gray-300 pl-5">
                     <div className="flex items-center space-x-2 leading-5 pb-2">
-                        {/* <CalendarIcon /> */}
+                        <IconProvider size={1} Icon={CalendarIcon} />
                         <span>From Date</span>
                     </div>
                     <div className="flex items-center">
@@ -73,7 +74,7 @@ export default function InputDialog(props) {
                 </div>
                 <div className="px-3 pl-5">
                     <div className="flex items-center space-x-2 leading-5 pb-2">
-                        {/* <CalendarFilledIcon /> */}
+                        <IconProvider size={1} Icon={CalendarFilledIcon} />
                         <span>To Date</span>
                     </div>
                     <div className="flex items-center">
