@@ -10,7 +10,7 @@ import {
 const elements = [
     {
         title: 'Paris',
-        icon: <GoogleIcon />,
+        icon: GoogleIcon,
         vertical: 'top',
         verticalPercentage: '10%',
         horizontal: 'left',
@@ -18,7 +18,7 @@ const elements = [
     },
     {
         title: 'Hawai',
-        icon: <GoogleIcon />,
+        icon: GoogleIcon,
         vertical: 'top',
         verticalPercentage: '20%',
         horizontal: 'right',
@@ -26,7 +26,7 @@ const elements = [
     },
     {
         title: 'Thailand',
-        icon: <GoogleIcon />,
+        icon: GoogleIcon,
         vertical: 'bottom',
         verticalPercentage: '20%',
         horizontal: 'left',
@@ -34,7 +34,7 @@ const elements = [
     },
     {
         title: 'Manali',
-        icon: <GoogleIcon />,
+        icon: GoogleIcon,
         vertical: 'bottom',
         verticalPercentage: '30%',
         horizontal: 'right',

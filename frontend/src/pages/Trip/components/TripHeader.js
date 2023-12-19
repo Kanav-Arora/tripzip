@@ -13,6 +13,7 @@ import PeopleGoingModal from '../../../modules/Trip/PeopleGoingModal/PeopleGoing
 import axios from 'axios';
 import { useAuth } from '../../../context/Auth/useAuth';
 import { useAuthModal } from '../../../modules/ui/LoginSignupModal/hooks/useAuthModal';
+import { IconProvider } from '../../../modules/ui/IconProvider/IconProvider';
 
 const popAnimation = {
     pop: { scale: [1, 1.4, 1], transition: { duration: 0.3 } },
@@ -116,7 +117,7 @@ export default function TripHeader({
                             className="select-none flex flex-row rounded-lg p-2 text-sm font-semibold justify-center gap-1.5 items-center hover:bg-gray-100"
                             onClick={openShareModal}
                         >
-                            <ShareMini />
+                            <IconProvider Icon={ShareMini} size={1} />
                             Share
                         </div>
                         <div
@@ -127,7 +128,9 @@ export default function TripHeader({
                                 variants={popAnimation}
                                 animate={interested ? 'pop' : 'default'}
                             >
-                                <HeartIcon
+                                <IconProvider
+                                    Icon={HeartIcon}
+                                    size={1}
                                     fill={
                                         interested === true ? '#ef4444' : 'none'
                                     }

@@ -7,6 +7,7 @@ import {
 
 import SectionLayout from '../../modules/Home/SectionLayout';
 import { ImgWithFallback } from '../../assets/utilities';
+import { IconProvider } from '../../modules/ui/IconProvider/IconProvider.js';
 
 export default function SectionC() {
     let trending = [
@@ -61,12 +62,18 @@ export default function SectionC() {
                                                 {places.place}
                                             </h2>
                                             <div className="flex gap-10 pb-5">
-                                                <div className="flex gap-2 leading-5">
-                                                    <Calendar></Calendar>
+                                                <div className="flex gap-2 leading-5 items-center">
+                                                    <IconProvider
+                                                        Icon={Calendar}
+                                                        size={1}
+                                                    />
                                                     {places.days} Days
                                                 </div>
-                                                <div className="flex gap-2 leading-5">
-                                                    <Person></Person>
+                                                <div className="flex gap-2 leading-5 items-center">
+                                                    <IconProvider
+                                                        Icon={Person}
+                                                        size={1}
+                                                    />
                                                     {places.people} Going
                                                 </div>
                                             </div>

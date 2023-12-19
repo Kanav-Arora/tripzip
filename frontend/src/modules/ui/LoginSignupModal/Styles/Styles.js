@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Theme } from '../../Theme/theme';
 import { motion, AnimatePresence } from 'framer-motion';
+import { IconProvider } from '../../IconProvider/IconProvider';
 
 export const ModalBody = styled.div`
     width: 100%;
@@ -94,7 +95,7 @@ export const AnimatedSideComponent = ({ index, element }) => {
                     horizontal={element.horizontal}
                     horizontalPercentage={element.horizontalPercentage}
                 >
-                    {element.icon}
+                    <IconProvider Icon={element.icon} />
                     {element.title}
                 </ImageOverlaySideComponent>
             )}

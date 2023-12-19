@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Cross } from '../../../assets/ext-icon';
+import { IconProvider } from '../IconProvider/IconProvider';
 
 const ModalWrapper = styled.div`
     position: fixed;
@@ -94,7 +95,7 @@ const Modal = ({
                         {showDialogCross && (
                             <ModalHeader>
                                 <CloseButton onClick={onClose}>
-                                    <Cross size={5} />
+                                    <IconProvider size={1.25} Icon={Cross} />
                                 </CloseButton>
                             </ModalHeader>
                         )}

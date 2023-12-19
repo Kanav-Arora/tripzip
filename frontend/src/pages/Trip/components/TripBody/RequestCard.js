@@ -1,5 +1,6 @@
-import React from "react";
-import { FlagIcon } from "../../../../assets/ext-icon";
+import React from 'react';
+import { FlagIcon } from '../../../../assets/ext-icon';
+import { IconProvider } from '../../../../modules/ui/IconProvider/IconProvider';
 
 const ExpenseItem = ({ title, cost }) => {
     return (
@@ -11,11 +12,15 @@ const ExpenseItem = ({ title, cost }) => {
 };
 
 export default function RequestCard({ startDate, endDate, interested, cost }) {
-    const stayCost = cost.stay ? cost.stay : "-";
-    const travelCost = cost.travel ? cost.travel : "-";
-    const foodCost = cost.food ? cost.food : "-";
-    const miscCost = cost.miscellaneous ? cost.miscellaneous : "-";
-    const totalCost = (cost.stay ?? 0) + (cost.travel ?? 0) + (cost.food ?? 0) + (cost.miscellaneous ?? 0);
+    const stayCost = cost.stay ? cost.stay : '-';
+    const travelCost = cost.travel ? cost.travel : '-';
+    const foodCost = cost.food ? cost.food : '-';
+    const miscCost = cost.miscellaneous ? cost.miscellaneous : '-';
+    const totalCost =
+        (cost.stay ?? 0) +
+        (cost.travel ?? 0) +
+        (cost.food ?? 0) +
+        (cost.miscellaneous ?? 0);
     return (
         <div className="ml-4 flex flex-col">
             <div className="p-7 rounded-xl shadow-lg border  border-gray-300">
@@ -33,7 +38,10 @@ export default function RequestCard({ startDate, endDate, interested, cost }) {
                     <ExpenseItem title="Miscellaneous" cost={miscCost} />
                 </div>
                 <div className="font-bold mt-4">
-                    <ExpenseItem title="Total" cost={totalCost === 0 ? "-" : totalCost} />
+                    <ExpenseItem
+                        title="Total"
+                        cost={totalCost === 0 ? '-' : totalCost}
+                    />
                 </div>
                 <button className="w-full rounded-md text-white font-bold my-6 py-2 bg-gradient-to-r from-red-600 to-pink-700">
                     Request Join
@@ -43,7 +51,7 @@ export default function RequestCard({ startDate, endDate, interested, cost }) {
                 </div>
             </div>
             <div className="mt-4 text-xs flex flex-row justify-center underline items-center gap-1">
-                <FlagIcon /> Report this trip
+                <IconProvider Icon={FlagIcon} size={1} /> Report this trip
             </div>
         </div>
     );
