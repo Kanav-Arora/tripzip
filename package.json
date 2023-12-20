@@ -24,6 +24,7 @@
         "client": "cd frontend && npm start",
         "test": "cd infra && cd scripts && NODE_ENV=testing node cleardb.js && kill-port 8000 && cd .. && NODE_ENV=testing npx mocha --config mocha.config.js --exit",
         "setup:postman": "node backend/scripts/fetch-postman-collections.js",
+        "database:reset": "cd infra && cd scripts && NODE_ENV=development node cleardb.js",
         "database:setup": "cd infra && cd scripts && NODE_ENV=development node seedData.js",
         "custom-pre-commit": "npm run setup:postman"
     },
