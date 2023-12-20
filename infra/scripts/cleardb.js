@@ -9,7 +9,7 @@ const logger = require('../../backend/utils/logger/logger');
 const mongoURI = config.MongodbUri;
 
 async function clearDatabase() {
-  if (config.NodeEnv === 'testing') {
+  if (config.NodeEnv !== 'production') {
     try {
       await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 

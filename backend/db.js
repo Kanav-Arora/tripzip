@@ -6,16 +6,6 @@ const mongoURI = config.MongodbUri;
 
 let db;
 
-// async function clearDatabase() {
-//   const { collections } = mongoose.connection;
-
-//   const clearPromises = Object.values(collections).map(async (collection) => {
-//     await collection.deleteMany({});
-//   });
-
-//   await Promise.all(clearPromises);
-// }
-
 async function connectToMongo() {
   if (!db) {
     try {
@@ -34,4 +24,17 @@ async function connectToMongo() {
   return db;
 }
 
-module.exports = connectToMongo;
+async function closeMongoDB() {
+  if (db) {
+    try {
+      await mongoose.connection.close();
+      logger.info('MongoDB connection closed successfully');
+    } catch (error) {
+      logger.error(`${error} [db.js]`);
+    } finally {
+      db = null;
+    }
+  }
+}
+
+module.exports = { connectToMongo, closeMongoDB };

@@ -1,6 +1,6 @@
 const app = require('./app');
 const config = require('./config');
-const connectToMongo = require('./db');
+const { connectToMongo } = require('./db');
 const logger = require('./utils/logger/logger');
 
 const { Port } = config;

@@ -1,0 +1,57 @@
+[
+    {
+        "_id": "615f3c250c82a6656baf8d32",
+        "userDetails": "615f3c250c82a6656baf8d33",
+        "email": "john.doe@example.com",
+        "password": "hashedpassword",
+        "name": "John Doe",
+        "status": "active",
+        "created_at": "2022-10-07T12:30:00.000Z",
+        "updated_at": "2022-10-07T12:30:00.000Z",
+        "last_signin_at": "2022-10-07T12:30:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d34",
+        "userDetails": "615f3c250c82a6656baf8d35",
+        "email": "jane.smith@example.com",
+        "password": "hashedpassword",
+        "name": "Jane Smith",
+        "status": "active",
+        "created_at": "2022-10-08T14:45:00.000Z",
+        "updated_at": "2022-10-08T14:45:00.000Z",
+        "last_signin_at": "2022-10-08T14:45:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d36",
+        "userDetails": "615f3c250c82a6656baf8d37",
+        "email": "mike.jones@example.com",
+        "password": "hashedpassword",
+        "name": "Mike Jones",
+        "status": "active",
+        "created_at": "2022-10-09T10:15:00.000Z",
+        "updated_at": "2022-10-09T10:15:00.000Z",
+        "last_signin_at": "2022-10-09T10:15:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d38",
+        "userDetails": "615f3c250c82a6656baf8d39",
+        "email": "emma.wilson@example.com",
+        "password": "hashedpassword",
+        "name": "Emma Wilson",
+        "status": "active",
+        "created_at": "2022-10-10T08:30:00.000Z",
+        "updated_at": "2022-10-10T08:30:00.000Z",
+        "last_signin_at": "2022-10-10T08:30:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d3a",
+        "userDetails": "615f3c250c82a6656baf8d3b",
+        "email": "david.jackson@example.com",
+        "password": "hashedpassword",
+        "name": "David Jackson",
+        "status": "active",
+        "created_at": "2022-10-11T11:00:00.000Z",
+        "updated_at": "2022-10-11T11:00:00.000Z",
+        "last_signin_at": "2022-10-11T11:00:00.000Z"
+    }
+]

@@ -1,47 +1,48 @@
 {
-  "devDependencies": {
-    "concurrently": "^8.2.1",
-    "eslint": "^8.53.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
-    "husky": "^8.0.3",
-    "kill-port": "^2.0.1",
-    "lint-staged": "^14.0.1",
-    "prettier": "^3.0.3"
-  },
-  "scripts": {
-    "kill-ports:both": "kill-port 3000 8000",
-    "kill-ports:server": "kill-port 8000",
-    "kill-ports:front": "kill-port 3000",
-    "prestart": "npm run kill-ports:both",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd backend && npm start",
-    "client": "cd frontend && npm start",
-    "test": "cd infra && cd scripts && NODE_ENV=testing node cleardb.js && kill-port 8000 && cd .. && NODE_ENV=testing npx mocha --config mocha.config.js --exit",
-    "setup:postman": "node backend/scripts/fetch-postman-collections.js",
-    "database:setup": "cd infra && cd scripts && NODE_ENV=development node setupDatabase.js",
-    "custom-pre-commit": "npm run setup:postman"
-  },
-  "lint-staged": {
-    "{frontend,backend}/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "custom-pre-commit": "npm run setup:postman"
+    "devDependencies": {
+        "concurrently": "^8.2.1",
+        "eslint": "^8.53.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-import": "^2.29.0",
+        "eslint-plugin-jsx-a11y": "^6.7.1",
+        "eslint-plugin-react": "^7.33.2",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-simple-import-sort": "^10.0.0",
+        "husky": "^8.0.3",
+        "kill-port": "^2.0.1",
+        "lint-staged": "^14.0.1",
+        "prettier": "^3.0.3"
+    },
+    "scripts": {
+        "kill-ports:both": "kill-port 3000 8000",
+        "kill-ports:server": "kill-port 8000",
+        "kill-ports:front": "kill-port 3000",
+        "prestart": "npm run kill-ports:both",
+        "start": "concurrently \"npm run server\" \"npm run client\"",
+        "server": "cd backend && npm start",
+        "client": "cd frontend && npm start",
+        "test": "cd infra && cd scripts && NODE_ENV=testing node cleardb.js && kill-port 8000 && cd .. && NODE_ENV=testing npx mocha --config mocha.config.js --exit",
+        "setup:postman": "node backend/scripts/fetch-postman-collections.js",
+        "database:reset": "cd infra && cd scripts && NODE_ENV=development node cleardb.js",
+        "database:setup": "cd infra && cd scripts && NODE_ENV=development node seedData.js",
+        "custom-pre-commit": "npm run setup:postman"
+    },
+    "lint-staged": {
+        "{frontend,backend}/**/*.{js,jsx,ts,tsx}": [
+            "eslint --fix",
+            "git add"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "custom-pre-commit": "npm run setup:postman"
+        }
+    },
+    "dependencies": {
+        "dotenv": "^16.3.1",
+        "install": "^0.13.0",
+        "jsonwebtoken": "^9.0.2",
+        "uninstall": "^0.0.0"
     }
-  },
-  "dependencies": {
-    "dotenv": "^16.3.1",
-    "install": "^0.13.0",
-    "jsonwebtoken": "^9.0.2",
-    "uninstall": "^0.0.0"
-  }
 }
