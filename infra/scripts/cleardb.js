@@ -21,7 +21,7 @@ async function clearDatabase() {
 
       await Promise.all(clearPromises);
 
-      logger.info('Test DB cleared');
+      logger.info(`DB cleared: ${config.NodeEnv}`);
       await mongoose.connection.close();
     } catch (error) {
       logger.error(error);

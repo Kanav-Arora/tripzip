@@ -14,13 +14,14 @@ import ImageWithText from '../../modules/Header/ImageWithText';
 
 export default function Header() {
     const location = useLocation();
-    const isHome = location.pathname === '/';
+    const showInputDialog =
+        location.pathname === '/' || location.pathname === '/trips/search';
 
     return (
         <div className="relative">
             <NavBar />
             <ImageWithText />
-            {isHome && <InputDialog />}
+            {showInputDialog && <InputDialog />}
         </div>
     );
 }

@@ -1,34 +1,31 @@
-import React, { useContext } from 'react';
-
 import Day from '../../../modules/AddTrip/Day';
 
 import Title from '../../../modules/ui/Title';
 import Heading from '../../../modules/ui/Heading';
-import { AddTripContext } from '../../../context/Add Trip/addTripContext';
-import {
-    addDayAction,
-    deleteDayAction,
-    updateDayTextAction,
-} from '../../../context/Add Trip/addTripAction';
+import { useAddTrip } from '../useAddTrip';
 
 export default function Page2() {
-    const { state, dispatch } = useContext(AddTripContext);
-
+    const { addDay, deleteDay, updateDayText, getAddTripState } = useAddTrip();
     const handleAddDay = () => {
-        dispatch(addDayAction());
+        addDay();
     };
 
     const handleDeleteDay = (dayNo) => {
-        dispatch(deleteDayAction(dayNo));
+        deleteDay(dayNo);
     };
 
     const updateText = (dayNo, newText) => {
-        dispatch(updateDayTextAction(dayNo, newText));
+        updateDayText(dayNo, newText);
     };
 
     return (
         <>
-            <Title text="Create a trip" isBold fontSize="1.25rem" className="mb-8" />
+            <Title
+                text="Create a trip"
+                isBold
+                fontSize="1.25rem"
+                className="mb-8"
+            />
             <div className="my-2">
                 <div className="flex flex-row items-center justify-between">
                     <Heading
@@ -46,7 +43,7 @@ export default function Page2() {
                 </div>
             </div>
             <div className="h-[calc(100%-60px)] overflow-y-auto max-h-[calc(100vh-500px)]">
-                {state.days.map(([dayNo, textInput]) => (
+                {getAddTripState.days.map(([dayNo, textInput]) => (
                     <Day
                         key={dayNo}
                         dayNo={dayNo}

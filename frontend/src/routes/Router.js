@@ -13,6 +13,8 @@ import PageNotFound from '../pages/PageNotFound';
 import { useAuth } from '../context/Auth/useAuth';
 import initAuth from '../services/authService';
 import LoginSignupModal from '../modules/ui/LoginSignupModal/LoginSignupModal';
+import TripResults from '../pages/Trip Results/TripResults';
+import AddTripModal from '../pages/Add Trip/AddTripModal';
 
 export default function Router() {
     const location = useLocation();
@@ -31,10 +33,16 @@ export default function Router() {
         <>
             <LoadingBar color="#DF6951" ref={ref} />
             <LoginSignupModal />
+            <AddTripModal />
             <Routes>
                 <Route exact path="/" element={<Landing />}>
                     <Route exact path="/" element={<Home />} />
                     <Route exact path="/team" element={<Team />} />
+                    <Route
+                        excat
+                        path="/trips/search"
+                        element={<TripResults />}
+                    />
                 </Route>
                 <Route exact path="/trips" element={<TripsLayout />}>
                     <Route exact path="/trips/:tripID" element={<Trip />} />

@@ -8,15 +8,21 @@ import {
 } from '../../assets/ext-icon';
 import LocationPicker from '../../modules/Header/LocationPicker/LocationPicker';
 import { IconProvider } from '../../modules/ui/IconProvider/IconProvider';
+import { useLocationPicker } from '../../modules/Header/LocationPicker/useLocationPicker';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 
-export default function InputDialog(props) {
+export default function InputDialog() {
+    const navigate = useNavigate();
     const [showDateRangePicker, toggleDateRangePicker] = useState(false);
-    const [showLocationPicker, toggleLocationPicker] = useState(false);
+    const {
+        toggleLocationPicker,
+        closeLocationPicker,
+        onFieldTyping,
+        searchLocation,
+    } = useLocationPicker();
 
     const handleDateClick = () => {
-        if (showLocationPicker === true) {
-            toggleLocationPicker(false);
-        }
+        closeLocationPicker();
         toggleDateRangePicker(!showDateRangePicker);
     };
 
@@ -24,10 +30,41 @@ export default function InputDialog(props) {
         if (showDateRangePicker === true) {
             toggleDateRangePicker(false);
         }
-        toggleLocationPicker(!showLocationPicker);
+        toggleLocationPicker();
+    };
+
+    const handleLocationInputChange = (event) => {
+        const { value } = event.target;
+        onFieldTyping(value);
     };
 
     const { selectedRange } = useDateRangeSelector();
+    function formatDateToYYYYMMDD(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+
+        return `${year}-${month}-${day}`;
+    }
+
+    const searchClickHandler = () => {
+        let params = {};
+        if (searchLocation.search !== '')
+            params.location = searchLocation.search;
+        if (selectedRange.from)
+            params.fromDate = formatDateToYYYYMMDD(selectedRange.from);
+        if (selectedRange.to)
+            params.toDate = formatDateToYYYYMMDD(selectedRange.to);
+
+        navigate(
+            {
+                pathname: '/trips/search',
+                search: `?${createSearchParams(params)}`,
+            },
+            { replace: true, state: { key: Date.now() } }
+        );
+        window.location.reload();
+    };
 
     const formatDate = (date) => {
         const day = date.getDate();
@@ -49,6 +86,7 @@ export default function InputDialog(props) {
                             placeholder="Where do you want to go?"
                             className="pl-0.5 w-full min-w-[225px] outline-none focus:border-none"
                             onClick={handleLocationFieldClick}
+                            onChange={handleLocationInputChange}
                         />
                     </div>
                 </div>
@@ -92,7 +130,10 @@ export default function InputDialog(props) {
                         />
                     </div>
                 </div>
-                <button className="bg-black text-white rounded-lg px-4 py-2 my-auto">
+                <button
+                    className="bg-black text-white rounded-lg px-4 py-2 my-auto"
+                    onClick={searchClickHandler}
+                >
                     Search
                 </button>
             </div>
@@ -101,11 +142,11 @@ export default function InputDialog(props) {
                     <DateRangeSelector />
                 </div>
             )}
-            {showLocationPicker && (
+            {
                 <div className="absolute mt-1 left-[18%] transform -translate-x-1/2 text-white z-10">
                     <LocationPicker />
                 </div>
-            )}
+            }
         </div>
     );
 }

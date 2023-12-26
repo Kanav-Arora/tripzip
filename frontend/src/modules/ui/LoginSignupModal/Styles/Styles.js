@@ -95,7 +95,6 @@ export const AnimatedSideComponent = ({ index, element }) => {
                     horizontal={element.horizontal}
                     horizontalPercentage={element.horizontalPercentage}
                 >
-                    <IconProvider Icon={element.icon} />
                     {element.title}
                 </ImageOverlaySideComponent>
             )}

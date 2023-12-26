@@ -8,7 +8,7 @@ import { useDateRangeSelector } from './hooks/useDateRangeSelector';
 
 const currDate = new Date();
 
-export default function DateRangeSelector(props) {
+export default function DateRangeSelector() {
     const { selectedRange, setSelectedRange } = useDateRangeSelector();
     return (
         <div
@@ -20,8 +20,6 @@ export default function DateRangeSelector(props) {
                 mode="range"
                 defaultMonth={currDate}
                 numberOfMonths={2}
-                selected={props.range}
-                onSelect={props.setRange}
                 selected={selectedRange}
                 onSelect={setSelectedRange}
                 modifiersClassNames={{

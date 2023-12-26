@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 
 import Heading from '../../../modules/ui/Heading';
-import { ShareMini, HeartIcon } from '../../../assets/ext-icon';
+import { ShareMini, HeartIcon, PersonMini } from '../../../assets/ext-icon';
 import { motion } from 'framer-motion';
 import { backendOrigin, frontendOrigin } from '../../../frontend.config';
 import Modal from '../../../modules/ui/Modal/Modal';
@@ -99,17 +99,19 @@ export default function TripHeader({
                     <div className="flex flex-row text-sm font-semibold gap-2 items-center">
                         <div>{`${city}, ${state}`}</div>·
                         <div
-                            className={`select-none ${
-                                currentSize > 0
-                                    ? 'rounded-lg p-1 hover:bg-gray-100'
-                                    : ''
-                            }`}
+                            className={`select-none ${currentSize > 0
+                                ? 'rounded-lg p-1 hover:bg-gray-100'
+                                : ''
+                                }`}
                             onClick={
                                 currentSize > 0 ? openPeopleGoingModal : null
                             }
                         >
-                            {currentSize}
-                            {maxSize !== -1 ? `/${maxSize}` : ''} Going
+                            <div className='flex flex-row items-center gap-1'>
+                                <IconProvider Icon={PersonMini} size={1} />
+                                {currentSize}
+                                {maxSize !== -1 ? ` / ${maxSize}` : ''} Going
+                            </div>
                         </div>
                     </div>
                     <div className="flex flex-row gap-2">
