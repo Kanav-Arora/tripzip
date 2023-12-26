@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userDetailSchema = new Schema({
+    _id: {
+        type: Schema.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
+    },
     address: {
         type: Schema.Types.String,
     },
@@ -47,16 +51,20 @@ const userDetailSchema = new Schema({
         type: Schema.Types.Number,
         default: 0,
     },
-    tripsCreated: [{
-        type: Schema.Types.ObjectId,
-        ref: 'trips',
-        default: [],
-    }],
-    tripsInterested: [{
-        type: Schema.Types.ObjectId,
-        ref: 'trips',
-        default: [],
-    }],
+    tripsCreated: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'trips',
+            default: [],
+        },
+    ],
+    tripsInterested: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'trips',
+            default: [],
+        },
+    ],
     status: {
         type: Schema.Types.String,
         enum: ['active', 'inactive', 'deleted'],

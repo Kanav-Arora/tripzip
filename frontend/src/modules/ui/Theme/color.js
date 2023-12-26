@@ -135,6 +135,7 @@ export const secondaryColors = {
     blueAccent20: '#e2ecfd',
     blueAccent15: '#edf2fe',
     blueAccent10: '#f5f9fd',
+    matteBlack: "#222222",
 };
 
 export const color = {

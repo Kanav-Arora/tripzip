@@ -64,7 +64,7 @@ export default function AuthForm({ isLogin }) {
     const signUpRequest = async (instance, body) => {
         try {
             const result = await instance.post(
-                backendOrigin + '/users/signup',
+                '/users/signup',
                 body,
                 { headers: { 'Content-Type': 'application/json' } }
             );

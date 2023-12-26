@@ -12,7 +12,6 @@ async function toggleInterestedTrip(req, res) {
         const { userDetailsId } = req.user;
         const tripId = req.params.tripID;
         const userDetails = await UserDetails.findById(userDetailsId);
-        logger.info(userDetailsId);
 
         if (!userDetails) {
             return res.status(404).send({ message: 'UserDetails not found' });

@@ -1,5 +1,4 @@
 import React from 'react';
-import { GoogleIcon } from '../../../../assets/ext-icon';
 import {
     Image,
     ImageContainer,
@@ -10,7 +9,6 @@ import {
 const elements = [
     {
         title: 'Paris',
-        icon: GoogleIcon,
         vertical: 'top',
         verticalPercentage: '10%',
         horizontal: 'left',
@@ -18,7 +16,6 @@ const elements = [
     },
     {
         title: 'Hawai',
-        icon: GoogleIcon,
         vertical: 'top',
         verticalPercentage: '20%',
         horizontal: 'right',
@@ -26,7 +23,6 @@ const elements = [
     },
     {
         title: 'Thailand',
-        icon: GoogleIcon,
         vertical: 'bottom',
         verticalPercentage: '20%',
         horizontal: 'left',
@@ -34,7 +30,6 @@ const elements = [
     },
     {
         title: 'Manali',
-        icon: GoogleIcon,
         vertical: 'bottom',
         verticalPercentage: '30%',
         horizontal: 'right',

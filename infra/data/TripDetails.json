@@ -154,5 +154,362 @@
         },
         "created_at": "2022-10-16T16:30:00.000Z",
         "updated_at": "2022-10-16T16:30:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d47",
+        "title": "Desert Safari Expedition",
+        "startDate": "2022-11-05T10:00:00.000Z",
+        "endDate": "2022-11-10T16:00:00.000Z",
+        "description": "An adventurous journey through the desert.",
+        "city": "Desertville",
+        "state": "Sandland",
+        "pincode": "50505",
+        "itinerary": [
+            { "description": "Day 1: Begin the desert safari", "amount": 0 },
+            {
+                "description": "Day 2: Dune bashing and sunset views",
+                "amount": 0
+            },
+            { "description": "Day 3: Camel ride and stargazing", "amount": 0 },
+            { "description": "Day 4: Visit local villages", "amount": 0 },
+            { "description": "Day 5: Farewell and departure", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 120,
+            "travel": 60,
+            "food": 35,
+            "miscellaneous": 30
+        },
+        "created_at": "2022-10-17T09:00:00.000Z",
+        "updated_at": "2022-10-17T09:00:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d49",
+        "title": "Mountain Bike Adventure",
+        "startDate": "2022-11-12T14:00:00.000Z",
+        "endDate": "2022-11-18T12:00:00.000Z",
+        "description": "Explore challenging trails on mountain bikes.",
+        "city": "Mountainville",
+        "state": "Hillville",
+        "pincode": "30303",
+        "itinerary": [
+            {
+                "description": "Day 1: Bike setup and trail briefing",
+                "amount": 0
+            },
+            { "description": "Day 2: Ride through scenic routes", "amount": 0 },
+            {
+                "description": "Day 3: Uphill challenges and downhill thrills",
+                "amount": 0
+            },
+            {
+                "description": "Day 4: Rest day and local exploration",
+                "amount": 0
+            },
+            {
+                "description": "Day 5: Conclude the biking adventure",
+                "amount": 0
+            }
+        ],
+        "cost": {
+            "stay": 100,
+            "travel": 50,
+            "food": 30,
+            "miscellaneous": 20
+        },
+        "created_at": "2022-10-18T10:00:00.000Z",
+        "updated_at": "2022-10-18T10:00:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d4b",
+        "title": "Jungle Safari Experience",
+        "startDate": "2022-11-20T09:00:00.000Z",
+        "endDate": "2022-11-25T17:00:00.000Z",
+        "description": "Discover wildlife in their natural habitat.",
+        "city": "Jungleland",
+        "state": "Wilderness",
+        "pincode": "60606",
+        "itinerary": [
+            { "description": "Day 1: Begin the jungle safari", "amount": 0 },
+            {
+                "description": "Day 2: Wildlife spotting and photography",
+                "amount": 0
+            },
+            {
+                "description": "Day 3: Canopy walk and bird watching",
+                "amount": 0
+            },
+            { "description": "Day 4: Explore the jungle trails", "amount": 0 },
+            { "description": "Day 5: Farewell and departure", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 130,
+            "travel": 70,
+            "food": 40,
+            "miscellaneous": 25
+        },
+        "created_at": "2022-10-19T12:15:00.000Z",
+        "updated_at": "2022-10-19T12:15:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d4d",
+        "title": "Cultural Fest in the City",
+        "startDate": "2022-11-30T13:00:00.000Z",
+        "endDate": "2022-12-05T19:00:00.000Z",
+        "description": "Immerse in the rich cultural heritage of the city.",
+        "city": "Cityville",
+        "state": "Stateville",
+        "pincode": "10101",
+        "itinerary": [
+            { "description": "Day 1: Visit cultural landmarks", "amount": 0 },
+            {
+                "description": "Day 2: Attend traditional performances",
+                "amount": 0
+            },
+            {
+                "description": "Day 3: Explore local markets and cuisine",
+                "amount": 0
+            },
+            { "description": "Day 4: Art and craft workshops", "amount": 0 },
+            { "description": "Day 5: Farewell and departure", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 110,
+            "travel": 55,
+            "food": 35,
+            "miscellaneous": 30
+        },
+        "created_at": "2022-10-20T14:30:00.000Z",
+        "updated_at": "2022-10-20T14:30:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d4f",
+        "title": "Winter Wonderland Retreat",
+        "startDate": "2022-12-10T09:30:00.000Z",
+        "endDate": "2022-12-15T15:30:00.000Z",
+        "description": "Enjoy the beauty of winter in a picturesque setting.",
+        "city": "Snowville",
+        "state": "Coldland",
+        "pincode": "70707",
+        "itinerary": [
+            { "description": "Day 1: Arrival and winter sports", "amount": 0 },
+            {
+                "description": "Day 2: Snowman building and ice skating",
+                "amount": 0
+            },
+            { "description": "Day 3: Skiing and snowboarding", "amount": 0 },
+            { "description": "Day 4: Winter festivities", "amount": 0 },
+            { "description": "Day 5: Farewell and departure", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 150,
+            "travel": 70,
+            "food": 40,
+            "miscellaneous": 25
+        },
+        "created_at": "2022-10-21T16:45:00.000Z",
+        "updated_at": "2022-10-21T16:45:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d51",
+        "title": "Adventure in the Valley",
+        "startDate": "2022-12-17T11:00:00.000Z",
+        "endDate": "2022-12-22T17:00:00.000Z",
+        "description": "Explore the lush green valleys and pristine landscapes.",
+        "city": "Valleytown",
+        "state": "Greenland",
+        "pincode": "80808",
+        "itinerary": [
+            {
+                "description": "Day 1: Valley trek and exploration",
+                "amount": 0
+            },
+            { "description": "Day 2: Zip-lining and rappelling", "amount": 0 },
+            { "description": "Day 3: Camping in the valley", "amount": 0 },
+            { "description": "Day 4: Nature photography", "amount": 0 },
+            { "description": "Day 5: Farewell and departure", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 140,
+            "travel": 65,
+            "food": 45,
+            "miscellaneous": 30
+        },
+        "created_at": "2022-10-22T19:00:00.000Z",
+        "updated_at": "2022-10-22T19:00:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d53",
+        "title": "Island Paradise Getaway",
+        "startDate": "2022-12-25T08:30:00.000Z",
+        "endDate": "2022-12-30T14:30:00.000Z",
+        "description": "Relax on the pristine beaches and indulge in water activities.",
+        "city": "Islandia",
+        "state": "Beachland",
+        "pincode": "40404",
+        "itinerary": [
+            {
+                "description": "Day 1: Arrival and beach relaxation",
+                "amount": 0
+            },
+            {
+                "description": "Day 2: Snorkeling and water sports",
+                "amount": 0
+            },
+            { "description": "Day 3: Island exploration", "amount": 0 },
+            { "description": "Day 4: Sunset cruise", "amount": 0 },
+            { "description": "Day 5: Farewell and departure", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 160,
+            "travel": 80,
+            "food": 50,
+            "miscellaneous": 35
+        },
+        "created_at": "2022-10-23T21:15:00.000Z",
+        "updated_at": "2022-10-23T21:15:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d55",
+        "title": "Mystical Caves Expedition",
+        "startDate": "2022-12-31T07:00:00.000Z",
+        "endDate": "2023-01-05T13:00:00.000Z",
+        "description": "Discover hidden caves and underground wonders.",
+        "city": "Caveville",
+        "state": "Mysticaland",
+        "pincode": "90909",
+        "itinerary": [
+            { "description": "Day 1: Cave exploration begins", "amount": 0 },
+            {
+                "description": "Day 2: Underground river boat ride",
+                "amount": 0
+            },
+            {
+                "description": "Day 3: Cave formations and stalactite views",
+                "amount": 0
+            },
+            { "description": "Day 4: Spelunking adventure", "amount": 0 },
+            { "description": "Day 5: Farewell and departure", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 130,
+            "travel": 70,
+            "food": 40,
+            "miscellaneous": 25
+        },
+        "created_at": "2022-10-24T23:30:00.000Z",
+        "updated_at": "2022-10-24T23:30:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d5b",
+        "title": "Mountain Expedition",
+        "startDate": "2022-11-05T08:00:00.000Z",
+        "endDate": "2022-11-10T16:00:00.000Z",
+        "description": "An adventurous trek through the mountains.",
+        "city": "Mountainville",
+        "state": "Hillville",
+        "pincode": "30303",
+        "itinerary": [
+            {
+                "description": "Day 1: Start trekking from base camp",
+                "amount": 0
+            },
+            { "description": "Day 2: Explore mountain caves", "amount": 0 },
+            { "description": "Day 3: Summit day", "amount": 0 },
+            { "description": "Day 4: Descend and rest", "amount": 0 },
+            { "description": "Day 5: Return journey", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 120,
+            "travel": 50,
+            "food": 35,
+            "miscellaneous": 25
+        },
+        "created_at": "2022-10-27T07:15:00.000Z",
+        "updated_at": "2022-10-27T07:15:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d5d",
+        "title": "Desert Safari",
+        "startDate": "2022-11-15T10:00:00.000Z",
+        "endDate": "2022-11-20T18:00:00.000Z",
+        "description": "A thrilling journey through the desert dunes.",
+        "city": "Desertville",
+        "state": "Sandland",
+        "pincode": "50505",
+        "itinerary": [
+            { "description": "Day 1: Start safari adventure", "amount": 0 },
+            { "description": "Day 2: Visit desert oasis", "amount": 0 },
+            { "description": "Day 3: Camel ride and stargazing", "amount": 0 },
+            { "description": "Day 4: Explore ancient ruins", "amount": 0 },
+            { "description": "Day 5: Farewell and departure", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 150,
+            "travel": 70,
+            "food": 40,
+            "miscellaneous": 30
+        },
+        "created_at": "2022-10-28T09:30:00.000Z",
+        "updated_at": "2022-10-28T09:30:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d5f",
+        "title": "Island Paradise",
+        "startDate": "2022-11-25T12:00:00.000Z",
+        "endDate": "2022-11-30T18:00:00.000Z",
+        "description": "Relaxing days on a tropical island.",
+        "city": "Islandville",
+        "state": "Tropicland",
+        "pincode": "60606",
+        "itinerary": [
+            { "description": "Day 1: Arrival and beach time", "amount": 0 },
+            {
+                "description": "Day 2: Snorkeling and water activities",
+                "amount": 0
+            },
+            { "description": "Day 3: Island exploration", "amount": 0 },
+            { "description": "Day 4: Leisure and relaxation", "amount": 0 },
+            { "description": "Day 5: Farewell and departure", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 180,
+            "travel": 80,
+            "food": 50,
+            "miscellaneous": 35
+        },
+        "created_at": "2022-10-29T11:45:00.000Z",
+        "updated_at": "2022-10-29T11:45:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d61",
+        "title": "City Lights Tour",
+        "startDate": "2022-12-05T14:00:00.000Z",
+        "endDate": "2022-12-10T22:00:00.000Z",
+        "description": "Exploring vibrant city nightlife and attractions.",
+        "city": "Cityville",
+        "state": "Stateville",
+        "pincode": "10101",
+        "itinerary": [
+            {
+                "description": "Day 1: City landmarks and monuments",
+                "amount": 0
+            },
+            {
+                "description": "Day 2: Nightclub and entertainment",
+                "amount": 0
+            },
+            { "description": "Day 3: Cultural performances", "amount": 0 },
+            { "description": "Day 4: Shopping spree", "amount": 0 },
+            { "description": "Day 5: Farewell and departure", "amount": 0 }
+        ],
+        "cost": {
+            "stay": 130,
+            "travel": 60,
+            "food": 40,
+            "miscellaneous": 30
+        },
+        "created_at": "2022-10-30T14:00:00.000Z",
+        "updated_at": "2022-10-30T14:00:00.000Z"
     }
 ]

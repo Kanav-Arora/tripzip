@@ -8,11 +8,7 @@
             "615f3c250c82a6656baf8d38"
         ],
         "groupSize": 10,
-        "peopleGoing": [
-            "615f3c250c82a6656baf8d34",
-            "615f3c250c82a6656baf8d36",
-            "615f3c250c82a6656baf8d39"
-        ],
+        "peopleGoing": ["615f3c250c82a6656baf8d34", "615f3c250c82a6656baf8d36"],
         "views": 100,
         "status": "active",
         "created_at": "2022-10-12T15:30:00.000Z",
@@ -22,16 +18,9 @@
         "_id": "615f3c250c82a6656baf8d3e",
         "tripDetails": "615f3c250c82a6656baf8d3f",
         "createdBy": "615f3c250c82a6656baf8d34",
-        "tripsInterested": [
-            "615f3c250c82a6656baf8d32",
-            "615f3c250c82a6656baf8d37"
-        ],
+        "tripsInterested": ["615f3c250c82a6656baf8d32"],
         "groupSize": 8,
-        "peopleGoing": [
-            "615f3c250c82a6656baf8d32",
-            "615f3c250c82a6656baf8d37",
-            "615f3c250c82a6656baf8d3a"
-        ],
+        "peopleGoing": ["615f3c250c82a6656baf8d32", "615f3c250c82a6656baf8d3a"],
         "views": 75,
         "status": "active",
         "created_at": "2022-10-13T09:45:00.000Z",
@@ -49,7 +38,7 @@
         "peopleGoing": [
             "615f3c250c82a6656baf8d32",
             "615f3c250c82a6656baf8d38",
-            "615f3c250c82a6656baf8d3b"
+            "615f3c250c82a6656baf8d34"
         ],
         "views": 120,
         "status": "active",
@@ -65,11 +54,7 @@
             "615f3c250c82a6656baf8d34"
         ],
         "groupSize": 12,
-        "peopleGoing": [
-            "615f3c250c82a6656baf8d32",
-            "615f3c250c82a6656baf8d34",
-            "615f3c250c82a6656baf8d39"
-        ],
+        "peopleGoing": ["615f3c250c82a6656baf8d32", "615f3c250c82a6656baf8d34"],
         "views": 90,
         "status": "active",
         "created_at": "2022-10-15T14:15:00.000Z",
@@ -79,19 +64,185 @@
         "_id": "615f3c250c82a6656baf8d44",
         "tripDetails": "615f3c250c82a6656baf8d45",
         "createdBy": "615f3c250c82a6656baf8d3a",
-        "tripsInterested": [
-            "615f3c250c82a6656baf8d32",
-            "615f3c250c82a6656baf8d37"
-        ],
+        "tripsInterested": ["615f3c250c82a6656baf8d32"],
         "groupSize": 20,
-        "peopleGoing": [
-            "615f3c250c82a6656baf8d32",
-            "615f3c250c82a6656baf8d37",
-            "615f3c250c82a6656baf8d3b"
-        ],
+        "peopleGoing": ["615f3c250c82a6656baf8d32", "615f3c250c82a6656baf8d3a"],
         "views": 150,
         "status": "active",
         "created_at": "2022-10-16T16:30:00.000Z",
         "updated_at": "2022-10-16T16:30:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d46",
+        "tripDetails": "615f3c250c82a6656baf8d47",
+        "createdBy": "615f3c250c82a6656baf8d3a",
+        "tripsInterested": [
+            "615f3c250c82a6656baf8d32",
+            "615f3c250c82a6656baf8d34",
+            "615f3c250c82a6656baf8d36"
+        ],
+        "groupSize": 18,
+        "peopleGoing": ["615f3c250c82a6656baf8d32", "615f3c250c82a6656baf8d36"],
+        "views": 90,
+        "status": "active",
+        "created_at": "2022-10-17T18:45:00.000Z",
+        "updated_at": "2022-10-17T18:45:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d48",
+        "tripDetails": "615f3c250c82a6656baf8d49",
+        "createdBy": "615f3c250c82a6656baf8d32",
+        "tripsInterested": [
+            "615f3c250c82a6656baf8d34",
+            "615f3c250c82a6656baf8d38",
+            "615f3c250c82a6656baf8d3a"
+        ],
+        "groupSize": 25,
+        "peopleGoing": ["615f3c250c82a6656baf8d34", "615f3c250c82a6656baf8d38"],
+        "views": 120,
+        "status": "active",
+        "created_at": "2022-10-18T10:00:00.000Z",
+        "updated_at": "2022-10-18T10:00:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d4a",
+        "tripDetails": "615f3c250c82a6656baf8d4b",
+        "createdBy": "615f3c250c82a6656baf8d34",
+        "tripsInterested": [
+            "615f3c250c82a6656baf8d32",
+            "615f3c250c82a6656baf8d36",
+            "615f3c250c82a6656baf8d38"
+        ],
+        "groupSize": 15,
+        "peopleGoing": [
+            "615f3c250c82a6656baf8d32",
+            "615f3c250c82a6656baf8d36",
+            "615f3c250c82a6656baf8d38"
+        ],
+        "views": 80,
+        "status": "active",
+        "created_at": "2022-10-19T12:15:00.000Z",
+        "updated_at": "2022-10-19T12:15:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d4c",
+        "tripDetails": "615f3c250c82a6656baf8d4d",
+        "createdBy": "615f3c250c82a6656baf8d38",
+        "tripsInterested": [
+            "615f3c250c82a6656baf8d32",
+            "615f3c250c82a6656baf8d34"
+        ],
+        "groupSize": 20,
+        "peopleGoing": ["615f3c250c82a6656baf8d32", "615f3c250c82a6656baf8d34"],
+        "views": 150,
+        "status": "active",
+        "created_at": "2022-10-20T14:30:00.000Z",
+        "updated_at": "2022-10-20T14:30:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d4e",
+        "tripDetails": "615f3c250c82a6656baf8d4f",
+        "createdBy": "615f3c250c82a6656baf8d3a",
+        "tripsInterested": ["615f3c250c82a6656baf8d32"],
+        "groupSize": 12,
+        "peopleGoing": ["615f3c250c82a6656baf8d32"],
+        "views": 110,
+        "status": "active",
+        "created_at": "2022-10-21T16:45:00.000Z",
+        "updated_at": "2022-10-21T16:45:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d50",
+        "tripDetails": "615f3c250c82a6656baf8d51",
+        "createdBy": "615f3c250c82a6656baf8d32",
+        "tripsInterested": [
+            "615f3c250c82a6656baf8d34",
+            "615f3c250c82a6656baf8d38",
+            "615f3c250c82a6656baf8d3a"
+        ],
+        "groupSize": 18,
+        "peopleGoing": ["615f3c250c82a6656baf8d3a"],
+        "views": 95,
+        "status": "active",
+        "created_at": "2022-10-22T19:00:00.000Z",
+        "updated_at": "2022-10-22T19:00:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d52",
+        "tripDetails": "615f3c250c82a6656baf8d53",
+        "createdBy": "615f3c250c82a6656baf8d38",
+        "tripsInterested": [
+            "615f3c250c82a6656baf8d34",
+            "615f3c250c82a6656baf8d36"
+        ],
+        "groupSize": 25,
+        "peopleGoing": [],
+        "views": 120,
+        "status": "active",
+        "created_at": "2022-10-23T21:15:00.000Z",
+        "updated_at": "2022-10-23T21:15:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d54",
+        "tripDetails": "615f3c250c82a6656baf8d55",
+        "createdBy": "615f3c250c82a6656baf8d32",
+        "tripsInterested": [],
+        "groupSize": 15,
+        "peopleGoing": ["615f3c250c82a6656baf8d34", "615f3c250c82a6656baf8d38"],
+        "views": 80,
+        "status": "active",
+        "created_at": "2022-10-24T23:30:00.000Z",
+        "updated_at": "2022-10-24T23:30:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d5a",
+        "tripDetails": "615f3c250c82a6656baf8d5b",
+        "createdBy": "615f3c250c82a6656baf8d32",
+        "tripsInterested": [],
+        "groupSize": 15,
+        "peopleGoing": [],
+        "views": 80,
+        "status": "active",
+        "created_at": "2022-10-27T07:15:00.000Z",
+        "updated_at": "2022-10-27T07:15:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d5c",
+        "tripDetails": "615f3c250c82a6656baf8d5d",
+        "createdBy": "615f3c250c82a6656baf8d34",
+        "tripsInterested": ["615f3c250c82a6656baf8d36"],
+        "groupSize": 25,
+        "peopleGoing": ["615f3c250c82a6656baf8d36"],
+        "views": 120,
+        "status": "active",
+        "created_at": "2022-10-28T09:30:00.000Z",
+        "updated_at": "2022-10-28T09:30:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d5e",
+        "tripDetails": "615f3c250c82a6656baf8d5f",
+        "createdBy": "615f3c250c82a6656baf8d32",
+        "tripsInterested": [
+            "615f3c250c82a6656baf8d34",
+            "615f3c250c82a6656baf8d38"
+        ],
+        "groupSize": 18,
+        "peopleGoing": ["615f3c250c82a6656baf8d34", "615f3c250c82a6656baf8d38"],
+        "views": 95,
+        "status": "active",
+        "created_at": "2022-10-29T11:45:00.000Z",
+        "updated_at": "2022-10-29T11:45:00.000Z"
+    },
+    {
+        "_id": "615f3c250c82a6656baf8d60",
+        "tripDetails": "615f3c250c82a6656baf8d61",
+        "createdBy": "615f3c250c82a6656baf8d3a",
+        "tripsInterested": ["615f3c250c82a6656baf8d32"],
+        "groupSize": 12,
+        "peopleGoing": ["615f3c250c82a6656baf8d32"],
+        "views": 110,
+        "status": "active",
+        "created_at": "2022-10-30T14:00:00.000Z",
+        "updated_at": "2022-10-30T14:00:00.000Z"
     }
 ]
