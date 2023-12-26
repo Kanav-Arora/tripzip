@@ -28,11 +28,17 @@ async function signUpUser(req, res) {
             userDetailsId: savedUser.userDetails,
         };
         const token = jwt.sign(payload, JwtSecret, { expiresIn: JwtExpiresIn });
-        res.cookie('access_token', token, {
+
+        const cookieOptions = {
             httpOnly: true,
             secure: NodeEnv !== 'development',
-            expires: new Date(Date.now() + (5184000)),
-        }).status(201).json({
+            expires: new Date(Date.now() + 5184000),
+            // path: '/',
+            domain: 'onrender.com',
+            // sameSite: 'None',
+        };
+
+        res.cookie('access_token', token, cookieOptions).status(201).json({
             uid: savedUser._id,
             name: savedUser.name,
             userDetailsId: savedUser.userDetails,
@@ -68,11 +74,17 @@ async function signInUser(req, res) {
             userDetailsId: userExists.userDetails,
         };
         const token = jwt.sign(payload, JwtSecret, { expiresIn: JwtExpiresIn });
-        res.cookie('access_token', token, {
+        const cookieOptions = {
             httpOnly: true,
             secure: NodeEnv !== 'development',
-            expires: new Date(Date.now() + (5184000)),
-        }).status(201).json({
+            expires: new Date(Date.now() + 5184000),
+        };
+
+        if (NodeEnv === 'production') {
+            cookieOptions.domain = 'onrender.com';
+        }
+
+        res.cookie('access_token', token, cookieOptions).status(201).json({
             uid: userExists._id,
             name: userExists.name,
             userDetailsId: userExists.userDetails,
