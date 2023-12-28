@@ -35,8 +35,11 @@ async function signUpUser(req, res) {
             httpOnly: true,
             secure: NodeEnv === 'production',
             expires: new Date(Date.now() + 5184000000),
-            domain: 'tripzip.online',
         };
+
+        if (NodeEnv === 'production') {
+            cookieOptions.domain = 'tripzip.online';
+        }
 
         res.cookie('access_token', token, cookieOptions).status(201).json({
             uid: savedUser._id,
@@ -80,11 +83,10 @@ async function signInUser(req, res) {
             httpOnly: true,
             secure: NodeEnv === 'production',
             expires: new Date(Date.now() + 5184000000),
-            domain: 'tripzip.online',
         };
 
         if (NodeEnv === 'production') {
-            cookieOptions.domain = 'onrender.com';
+            cookieOptions.domain = 'tripzip.online';
         }
 
         res.cookie('access_token', token, cookieOptions).status(201).json({
