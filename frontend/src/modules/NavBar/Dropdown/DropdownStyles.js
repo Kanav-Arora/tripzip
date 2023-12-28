@@ -38,11 +38,12 @@ export const DropdownItem = styled.button`
     text-align: left;
     color: black;
     border: none;
-    cursor: pointer;
+    cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
     padding: ${Theme.spacing(2)} ${Theme.spacing(6)};
     font-size: ${Theme.font.size.sm};
     white-space: nowrap;
     &:hover {
-        background-color: ${Theme.color.gray40};
+        background-color: ${(props) =>
+            props.disabled ? 'transparent' : Theme.color.gray40};
     }
 `;

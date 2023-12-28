@@ -30,7 +30,7 @@ import { IconProvider } from '../ui/IconProvider/IconProvider';
 const TripCard = ({ trip }) => {
     const navigate = useNavigate();
     const onCardClickHandler = () => {
-        navigate(`/trips/${trip._id}`);
+        window.open(`/trips/${trip._id}`, '_blank');
     };
 
     const onUserClickHandler = (event) => {
@@ -89,9 +89,11 @@ const TripCard = ({ trip }) => {
                 <StyledMetaInfo>
                     <StyledInfoItem>
                         <IconProvider size={1} Icon={CalendarIcon} />
-                        {Math.ceil((new Date(trip.tripDetails.endDate) -
-                            new Date(trip.tripDetails.startDate)) /
-                            (1000 * 60 * 60 * 24))}{' '}
+                        {Math.ceil(
+                            (new Date(trip.tripDetails.endDate) -
+                                new Date(trip.tripDetails.startDate)) /
+                                (1000 * 60 * 60 * 24)
+                        )}{' '}
                         Days
                     </StyledInfoItem>
                     <StyledInfoItem>

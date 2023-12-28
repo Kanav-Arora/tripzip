@@ -1,229 +1,206 @@
 {
-  "info": {
-    "_postman_id": "9b5b8147-84e4-4aac-8e78-853919129baa",
-    "name": "Travel Buddy",
-    "description": "This API requires authorization for all routes except for \\`/user/\\` routes. During testing, a pre-script is used to set a testing cookie for authorization.\n\n#### Authorization Requirements\n\n\\- All routes, except those under \\`/user/\\`, require valid authorization.\n\n#### Testing with Pre-Script\n\nTo facilitate testing, a pre-script is used to set a testing cookie. This allows testers to access authorized routes without the need for explicit authorization. Token can be generated in the browser and can be accessed in the environment variable.\n\n``` javascript\nconst tokenValue = pm.environment.get(\"token_value\");\nconst cookieString = `access_token=${tokenValue}; path=/;`;\npm.request.headers.add({\n    key: 'Cookie',\n    value: cookieString\n});\n\n ```\n\nRequest Status Codes\n\n| Status Code | Type | Description |\n| --- | --- | --- |\n| `204 No Content` | Success | No Data Sent |\n| `200 OK` | Success | Contains Data |\n| `201 Created` | Success | Data Created |\n| `401 Unauthorized` | Error | Unauthorized |\n| `404 Not Found` | Error | Data Not Found |\n| `500 Internal Server Error` | Error | Internal Server Error |",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "updatedAt": "2023-10-14T10:45:02.000Z",
-    "uid": "16660574-9b5b8147-84e4-4aac-8e78-853919129baa"
-  },
-  "item": [
-    {
-      "name": "Users",
-      "item": [
-        {
-          "name": "signup",
-          "id": "eba1cfe7-5c40-4466-8a67-ec986700b33c",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\": \"aadijain@gmail.com\",\r\n    \"password\": \"aadijain7\",\r\n    \"name\": \"Aadi Jain\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/users/signup",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "users",
-                "signup"
-              ]
-            },
-            "description": "This endpoint handles user registration.\n\nErrors:  \n- 400 Bad Request: If any required fields are missing or invalid.  \n- 500 Internal Server Error: If there's a server-side error during registration."
-          },
-          "response": [],
-          "uid": "16660574-eba1cfe7-5c40-4466-8a67-ec986700b33c"
-        },
-        {
-          "name": "signin",
-          "id": "c5af9bfe-821a-4a6f-b9f9-1a299c124d09",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"email\": \"aadijain@gmail.com\",\n    \"password\": \"aadijain7\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/users/signin",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "users",
-                "signin"
-              ]
-            },
-            "description": "This endpoint handles user login.\n\nErrors:\n- 400 Bad Request: If any required fields are missing or invalid.\n- 401 Unauthorized: If the provided credentials are incorrect.\n- 500 Internal Server Error: If there's a server-side error during login."
-          },
-          "response": [],
-          "uid": "16660574-c5af9bfe-821a-4a6f-b9f9-1a299c124d09"
-        },
-        {
-          "name": "signout",
-          "id": "82b594b0-25e9-4903-a75a-fd1262356d6b",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8000/users/signout",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "users",
-                "signout"
-              ]
-            },
-            "description": "This endpoint handles user logout.\n\nErrors:\n  - 500 Internal Server Error: If there's a server-side error during logout."
-          },
-          "response": [],
-          "uid": "16660574-82b594b0-25e9-4903-a75a-fd1262356d6b"
-        }
-      ],
-      "id": "6a8150ea-a95c-4d8b-aaa7-834b9f119ccb",
-      "uid": "16660574-6a8150ea-a95c-4d8b-aaa7-834b9f119ccb"
+    "info": {
+        "_postman_id": "9b5b8147-84e4-4aac-8e78-853919129baa",
+        "name": "TripZip",
+        "description": "This API requires authorization for all routes except for \\`/user/\\` routes. During testing, a pre-script is used to set a testing cookie for authorization.\n\n#### Authorization Requirements\n\n\\- All routes, except those under \\`/user/\\`, require valid authorization.\n\n#### Testing with Pre-Script\n\nTo facilitate testing, a pre-script is used to set a testing cookie. This allows testers to access authorized routes without the need for explicit authorization. Token can be generated in the browser and can be accessed in the environment variable.\n\n``` javascript\nconst tokenValue = pm.environment.get(\"token_value\");\nconst cookieString = `access_token=${tokenValue}; path=/;`;\npm.request.headers.add({\n    key: 'Cookie',\n    value: cookieString\n});\n\n ```\n\nRequest Status Codes\n\n| Status Code | Type | Description |\n| --- | --- | --- |\n| `204 No Content` | Success | No Data Sent |\n| `200 OK` | Success | Contains Data |\n| `201 Created` | Success | Data Created |\n| `401 Unauthorized` | Error | Unauthorized |\n| `404 Not Found` | Error | Data Not Found |\n| `500 Internal Server Error` | Error | Internal Server Error |",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "updatedAt": "2023-10-14T10:45:02.000Z",
+        "uid": "16660574-9b5b8147-84e4-4aac-8e78-853919129baa"
     },
-    {
-      "name": "User Details",
-      "item": [
+    "item": [
         {
-          "name": "account",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "id": "66210611-b533-4b52-83e9-b9e2f5209d06",
-                "exec": [
-                  "const tokenValue = pm.environment.get(\"token_value\");",
-                  "const cookieString = `access_token=${tokenValue}; path=/;`;",
-                  "pm.request.headers.add({",
-                  "    key: 'Cookie',",
-                  "    value: cookieString",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "id": "9abce0c6-2c09-4f83-aa9a-f0a354c4efb3",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "x-uid",
-                "value": "6524044a57f9577b6a39e95c",
-                "description": "UID",
-                "type": "text"
-              }
+            "name": "Users",
+            "item": [
+                {
+                    "name": "signup",
+                    "id": "eba1cfe7-5c40-4466-8a67-ec986700b33c",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"email\": \"aadijain@gmail.com\",\r\n    \"password\": \"aadijain7\",\r\n    \"name\": \"Aadi Jain\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/users/signup",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["users", "signup"]
+                        },
+                        "description": "This endpoint handles user registration.\n\nErrors:  \n- 400 Bad Request: If any required fields are missing or invalid.  \n- 500 Internal Server Error: If there's a server-side error during registration."
+                    },
+                    "response": [],
+                    "uid": "16660574-eba1cfe7-5c40-4466-8a67-ec986700b33c"
+                },
+                {
+                    "name": "signin",
+                    "id": "c5af9bfe-821a-4a6f-b9f9-1a299c124d09",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"aadijain@gmail.com\",\n    \"password\": \"aadijain7\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/users/signin",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["users", "signin"]
+                        },
+                        "description": "This endpoint handles user login.\n\nErrors:\n- 400 Bad Request: If any required fields are missing or invalid.\n- 401 Unauthorized: If the provided credentials are incorrect.\n- 500 Internal Server Error: If there's a server-side error during login."
+                    },
+                    "response": [],
+                    "uid": "16660574-c5af9bfe-821a-4a6f-b9f9-1a299c124d09"
+                },
+                {
+                    "name": "signout",
+                    "id": "82b594b0-25e9-4903-a75a-fd1262356d6b",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8000/users/signout",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["users", "signout"]
+                        },
+                        "description": "This endpoint handles user logout.\n\nErrors:\n  - 500 Internal Server Error: If there's a server-side error during logout."
+                    },
+                    "response": [],
+                    "uid": "16660574-82b594b0-25e9-4903-a75a-fd1262356d6b"
+                }
             ],
-            "url": {
-              "raw": "http://localhost:8000/account",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "account"
-              ]
-            },
-            "description": "This endpoint retrieves user account details based on the provided UID.\n\nErrors:\n  - 404 Not Found: If user details are not found for the provided UID.\n  - 500 Internal Server Error: If there's a server-side error during the request."
-          },
-          "response": [],
-          "uid": "16660574-9abce0c6-2c09-4f83-aa9a-f0a354c4efb3"
+            "id": "6a8150ea-a95c-4d8b-aaa7-834b9f119ccb",
+            "uid": "16660574-6a8150ea-a95c-4d8b-aaa7-834b9f119ccb"
         },
         {
-          "name": "account",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "id": "9d790d33-72f7-48e6-8ddb-f245c453ea98",
-                "exec": [
-                  "const tokenValue = pm.environment.get(\"token_value\");",
-                  "const cookieString = `access_token=${tokenValue}; path=/;`;",
-                  "pm.request.headers.add({",
-                  "    key: 'Cookie',",
-                  "    value: cookieString",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "id": "9cf196c6-2252-4718-912e-4e5a38d93ba9",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "x-uid",
-                "value": "6524044a57f9577b6a39e95c",
-                "description": "UID",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"uid\": \"6524044a57f9577b6a39e95c\",\n    \"address\": \"Old school road, Javascript Nagar\",\n    \"pincode\": 151009,\n    \"city\": \"MongoDB\",\n    \"state\": \"React\",\n    \"country\": \"Web Dev\",\n    \"age\": 10,\n    \"gender\": \"male\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+            "name": "User Details",
+            "item": [
+                {
+                    "name": "account",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "66210611-b533-4b52-83e9-b9e2f5209d06",
+                                "exec": [
+                                    "const tokenValue = pm.environment.get(\"token_value\");",
+                                    "const cookieString = `access_token=${tokenValue}; path=/;`;",
+                                    "pm.request.headers.add({",
+                                    "    key: 'Cookie',",
+                                    "    value: cookieString",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "id": "9abce0c6-2c09-4f83-aa9a-f0a354c4efb3",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "x-uid",
+                                "value": "6524044a57f9577b6a39e95c",
+                                "description": "UID",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/account",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["account"]
+                        },
+                        "description": "This endpoint retrieves user account details based on the provided UID.\n\nErrors:\n  - 404 Not Found: If user details are not found for the provided UID.\n  - 500 Internal Server Error: If there's a server-side error during the request."
+                    },
+                    "response": [],
+                    "uid": "16660574-9abce0c6-2c09-4f83-aa9a-f0a354c4efb3"
+                },
+                {
+                    "name": "account",
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "id": "9d790d33-72f7-48e6-8ddb-f245c453ea98",
+                                "exec": [
+                                    "const tokenValue = pm.environment.get(\"token_value\");",
+                                    "const cookieString = `access_token=${tokenValue}; path=/;`;",
+                                    "pm.request.headers.add({",
+                                    "    key: 'Cookie',",
+                                    "    value: cookieString",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "id": "9cf196c6-2252-4718-912e-4e5a38d93ba9",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "x-uid",
+                                "value": "6524044a57f9577b6a39e95c",
+                                "description": "UID",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"uid\": \"6524044a57f9577b6a39e95c\",\n    \"address\": \"Old school road, Javascript Nagar\",\n    \"pincode\": 151009,\n    \"city\": \"MongoDB\",\n    \"state\": \"React\",\n    \"country\": \"Web Dev\",\n    \"age\": 10,\n    \"gender\": \"male\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/account",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["account"]
+                        },
+                        "description": "This endpoint either creates a new user's account details or updates existing details based on the provided UID.\n\nErrors:\n  - 500 Internal Server Error: If there's a server-side error during the request."
+                    },
+                    "response": [],
+                    "uid": "16660574-9cf196c6-2252-4718-912e-4e5a38d93ba9"
                 }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/account",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "account"
-              ]
-            },
-            "description": "This endpoint either creates a new user's account details or updates existing details based on the provided UID.\n\nErrors:\n  - 500 Internal Server Error: If there's a server-side error during the request."
-          },
-          "response": [],
-          "uid": "16660574-9cf196c6-2252-4718-912e-4e5a38d93ba9"
+            ],
+            "id": "ed9fec07-3b0e-4bde-80df-9bd8c8725ab4",
+            "uid": "16660574-ed9fec07-3b0e-4bde-80df-9bd8c8725ab4"
         }
-      ],
-      "id": "ed9fec07-3b0e-4bde-80df-9bd8c8725ab4",
-      "uid": "16660574-ed9fec07-3b0e-4bde-80df-9bd8c8725ab4"
-    }
-  ]
+    ]
 }

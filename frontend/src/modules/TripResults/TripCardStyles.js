@@ -9,6 +9,7 @@ const StyledTripCard = styled.div`
     margin-bottom: 1rem;
     width: 350px;
     height: 350px;
+    cursor: pointer;
 `;
 
 const StyledImageWrapper = styled.div`

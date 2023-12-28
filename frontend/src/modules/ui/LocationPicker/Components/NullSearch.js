@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconProvider } from '../../../ui/IconProvider/IconProvider';
+import { IconProvider } from '../../IconProvider/IconProvider';
 import { LoaderDots } from '../../../../assets/ext-icon';
 
 const Container = styled.div`

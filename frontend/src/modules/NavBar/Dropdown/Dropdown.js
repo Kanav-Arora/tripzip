@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { DropdownContainer, DropdownButton, DropdownList, DropdownItem } from './DropdownStyles';
+import {
+    DropdownContainer,
+    DropdownButton,
+    DropdownList,
+    DropdownItem,
+} from './DropdownStyles';
 import { backendOrigin } from '../../../frontend.config';
 import { useAuth } from '../../../context/Auth/useAuth';
 
@@ -35,11 +40,17 @@ export default function Dropdown({ name, isDark }) {
                     </DropdownButton>
                     {open && (
                         <DropdownList>
-                            <DropdownItem as={Link} to="/my-trips">
+                            <DropdownItem
+                                as={Link}
+                                to="/my-trips"
+                                disabled={true}
+                            >
                                 My Trips
                             </DropdownItem>
-                            <DropdownItem>Setting</DropdownItem>
-                            <DropdownItem onClick={handleSignOut}>Sign Out</DropdownItem>
+                            <DropdownItem disabled={true}>Setting</DropdownItem>
+                            <DropdownItem onClick={handleSignOut}>
+                                Sign Out
+                            </DropdownItem>
                         </DropdownList>
                     )}
                 </div>

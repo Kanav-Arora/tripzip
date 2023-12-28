@@ -12,6 +12,8 @@ import { backendOrigin } from '../../frontend.config';
 import { useAddTrip } from './useAddTrip';
 import Modal from '../../modules/ui/Modal/Modal';
 
+import { Container, ButtonBar, Wrapper } from './AddTripModalStyles';
+
 export default function AddTripModal() {
     const {
         nextPage,
@@ -25,7 +27,6 @@ export default function AddTripModal() {
     const handleNext = () => {
         nextPage();
     };
-
     const handlePrevious = () => {
         prevPage();
     };
@@ -71,67 +72,53 @@ export default function AddTripModal() {
             height="75%"
             onClose={closeAddTripModal}
         >
-            Kanav
+            <Wrapper>
+                <Container>
+                    <motion.div
+                        className="flex-1"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        {CurrentStepComponent}
+                    </motion.div>
+                    <ButtonBar>
+                        <button
+                            className="mb-4 px-2 py-1 text-sm"
+                            onClick={handlePrevious}
+                            disabled={buttonsDisabled}
+                        >
+                            Back
+                        </button>
+                        <div>
+                            <button
+                                className="mb-4 px-2 py-1 border shadow-sm border-gray-300 rounded-md"
+                                onClick={closeAddTripModal}
+                                disabled={buttonsDisabled}
+                            >
+                                Close
+                            </button>
+                            <button
+                                className="bg-orangeaccent text-white w-20 ml-2 mb-4 px-3 py-1 shadow-sm rounded-md "
+                                onClick={
+                                    getAddTripState.currentStep ===
+                                    steps.length - 1
+                                        ? handleSubmit
+                                        : handleNext
+                                }
+                                disabled={buttonsDisabled}
+                            >
+                                {getAddTripState.currentStep ===
+                                steps.length - 1 ? (
+                                    <>Submit</>
+                                ) : (
+                                    <>Next</>
+                                )}
+                            </button>
+                        </div>
+                    </ButtonBar>
+                </Container>
+            </Wrapper>
         </Modal>
-        // <div className="fixed top-0 left-0 w-full h-full blur-bg">
-        //     <div className="absolute top-1/2 left-1/2 bg-white border rounded-xl flex flex-col flex-start justify-between centered-modal">
-        //         <motion.div
-        //             className="flex-1 mx-5 mt-5"
-        //             initial={{ opacity: 0 }}
-        //             animate={{ opacity: 1 }}
-        //             exit={{ opacity: 0 }}
-        //         >
-        //             {CurrentStepComponent}
-        //         </motion.div>
-        //         <div className="mt-6">
-        //             <div className="flex flex-row justify-between mx-5">
-        //                 <button
-        //                     className="mb-4 px-2 py-1 text-sm"
-        //                     onClick={handlePrevious}
-        //                     disabled={buttonsDisabled}
-        //                 >
-        //                     Back
-        //                 </button>
-        //                 <div>
-        //                     <button
-        //                         className="mb-4 px-2 py-1 border shadow-sm border-gray-300 rounded-md"
-        //                         onClick={closeAddTripModal()}
-        //                         disabled={buttonsDisabled}
-        //                     >
-        //                         Close
-        //                     </button>
-        //                     <button
-        //                         className="bg-orangeaccent text-white w-20 ml-2 mb-4 px-3 py-1 shadow-sm rounded-md "
-        //                         onClick={
-        //                             getAddTripState.currentStep ===
-        //                             steps.length - 1
-        //                                 ? handleSubmit
-        //                                 : handleNext
-        //                         }
-        //                         disabled={buttonsDisabled}
-        //                     >
-        //                         {getAddTripState.currentStep ===
-        //                         steps.length - 1 ? (
-        //                             <>Submit</>
-        //                         ) : (
-        //                             <>Next</>
-        //                         )}
-        //                     </button>
-        //                 </div>
-        //             </div>
-        //             <ProgressBar
-        //                 percentage={
-        //                     getAddTripState.currentStep === 0
-        //                         ? 0
-        //                         : (
-        //                               getAddTripState.currentStep /
-        //                               steps.length
-        //                           ).toFixed(2) * 100
-        //                 }
-        //                 isLoading={buttonsDisabled}
-        //             />
-        //         </div>
-        //     </div>
-        // </div>
     );
 }

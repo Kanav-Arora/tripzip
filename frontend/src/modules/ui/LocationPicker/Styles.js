@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Theme } from '../../ui/Theme/theme';
+import { Theme } from '../Theme/theme';
 
 export const Container = styled.div`
     background: white;

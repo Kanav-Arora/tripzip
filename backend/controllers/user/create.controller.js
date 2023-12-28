@@ -12,7 +12,9 @@ async function signUpUser(req, res) {
 
     try {
         if (!user.name || !user.email || !user.password) {
-            return res.status(400).send({ message: 'Invalid or missing params' });
+            return res
+                .status(400)
+                .send({ message: 'Invalid or missing params' });
         }
 
         const userExists = await ifUserExists(user);
@@ -31,11 +33,9 @@ async function signUpUser(req, res) {
 
         const cookieOptions = {
             httpOnly: true,
-            secure: NodeEnv !== 'development',
-            expires: new Date(Date.now() + 5184000),
-            // path: '/',
-            domain: 'onrender.com',
-            // sameSite: 'None',
+            secure: NodeEnv === 'production',
+            expires: new Date(Date.now() + 5184000000),
+            domain: 'tripzip.online',
         };
 
         res.cookie('access_token', token, cookieOptions).status(201).json({
@@ -65,7 +65,9 @@ async function signInUser(req, res) {
         );
 
         if (!isPasswordCorrect) {
-            return res.status(400).send({ message: 'Umm, Invalid credentials' });
+            return res
+                .status(400)
+                .send({ message: 'Umm, Invalid credentials' });
         }
 
         const payload = {
@@ -76,8 +78,9 @@ async function signInUser(req, res) {
         const token = jwt.sign(payload, JwtSecret, { expiresIn: JwtExpiresIn });
         const cookieOptions = {
             httpOnly: true,
-            secure: NodeEnv !== 'development',
-            expires: new Date(Date.now() + 5184000),
+            secure: NodeEnv === 'production',
+            expires: new Date(Date.now() + 5184000000),
+            domain: 'tripzip.online',
         };
 
         if (NodeEnv === 'production') {

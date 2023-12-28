@@ -5,9 +5,9 @@ import AuthButtonGroup from '../../NavBar/AuthButtonGroup/AuthButtonGroup';
 import LocationNavbarInput from './LocationNavbarInput/LocationNavbarInput';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { isNavbarScopedState } from './States/isNavbarScopedState';
-import { useLocationPicker } from '../../Header/LocationPicker/useLocationPicker';
 import { useDateRangeSelector } from '../../ui/DateRangeSelector/hooks/useDateRangeSelector';
 import AuthContainer from '../../NavBar/AuthContainer/AuthContainer';
+import { useLocationPicker } from '../../ui/LocationPicker/useLocationPicker';
 
 const LocationNavbar = () => {
     const [isFixed, setIsFixed] = useState(false);
@@ -37,7 +37,7 @@ const LocationNavbar = () => {
 
     return (
         <Container isFixed={isFixed} isNavbarScoped={isNavbarScoped}>
-            <Section>Travel Buddy</Section>
+            <Section>TripZip</Section>
             <LocationNavbarInput />
             <Section>
                 {isAuth === true ? (

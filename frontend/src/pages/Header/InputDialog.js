@@ -6,13 +6,21 @@ import {
     CalendarMini as CalendarIcon,
     CalendarFilledMini as CalendarFilledIcon,
 } from '../../assets/ext-icon';
-import LocationPicker from '../../modules/Header/LocationPicker/LocationPicker';
 import { IconProvider } from '../../modules/ui/IconProvider/IconProvider';
-import { useLocationPicker } from '../../modules/Header/LocationPicker/useLocationPicker';
-import { useNavigate, createSearchParams } from 'react-router-dom';
+import { useNavigate, createSearchParams, useLocation } from 'react-router-dom';
+import LocationPicker from '../../modules/ui/LocationPicker/LocationPicker';
+import { useLocationPicker } from '../../modules/ui/LocationPicker/useLocationPicker';
 
 export default function InputDialog() {
     const navigate = useNavigate();
+    const { search } = useLocation();
+
+    const params = new URLSearchParams(search);
+
+    const locationParam = params.get('location');
+    const fromDateParam = params.get('fromDate');
+    const toDateParam = params.get('toDate');
+
     const [showDateRangePicker, toggleDateRangePicker] = useState(false);
     const {
         toggleLocationPicker,
@@ -85,6 +93,7 @@ export default function InputDialog() {
                             type="text"
                             placeholder="Where do you want to go?"
                             className="pl-0.5 w-full min-w-[225px] outline-none focus:border-none"
+                            defaultValue={locationParam}
                             onClick={handleLocationFieldClick}
                             onChange={handleLocationInputChange}
                         />

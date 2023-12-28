@@ -49,7 +49,7 @@ export default function NavBar() {
                         {isOpen ? <Cross /> : <Hamburger />}
                     </button>
                 </div>
-                Travel Buddy
+                TripZip
             </div>
 
             {/* In mobile view: SideBar is open */}

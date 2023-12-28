@@ -22,10 +22,10 @@ import {
 import { IconProvider } from '../../../ui/IconProvider/IconProvider';
 import { isNavbarScopedState } from '../States/isNavbarScopedState';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { useLocationPicker } from '../../../Header/LocationPicker/useLocationPicker';
-import LocationPicker from '../../../Header/LocationPicker/LocationPicker';
 import DateRangeSelector from '../../../ui/DateRangeSelector/DateRangeSelector';
 import { useNavigate, createSearchParams } from 'react-router-dom';
+import { useLocationPicker } from '../../../ui/LocationPicker/useLocationPicker';
+import LocationPicker from '../../../ui/LocationPicker/LocationPicker';
 
 export default function LocationNavbarInput() {
     const [, setNavbarScope] = useRecoilState(isNavbarScopedState);
@@ -87,15 +87,20 @@ export default function LocationNavbarInput() {
         let params = {};
         if (searchLocation.search !== '')
             params.location = searchLocation.search;
-        if (selectedRange.from) params.fromDate = formatDateToYYYYMMDD(selectedRange.from);
-        if (selectedRange.to) params.toDate = formatDateToYYYYMMDD(selectedRange.to);
+        if (selectedRange.from)
+            params.fromDate = formatDateToYYYYMMDD(selectedRange.from);
+        if (selectedRange.to)
+            params.toDate = formatDateToYYYYMMDD(selectedRange.to);
 
-        navigate({
-            pathname: '/trips/search',
-            search: `?${createSearchParams(params)}`,
-        }, { replace: true, state: { key: Date.now() } });
+        navigate(
+            {
+                pathname: '/trips/search',
+                search: `?${createSearchParams(params)}`,
+            },
+            { replace: true, state: { key: Date.now() } }
+        );
         window.location.reload();
-    }
+    };
 
     const { selectedRange } = useDateRangeSelector();
 
@@ -153,8 +158,8 @@ export default function LocationNavbarInput() {
                                 value={
                                     selectedRange.from
                                         ? formatDate(
-                                            new Date(selectedRange.from)
-                                        )
+                                              new Date(selectedRange.from)
+                                          )
                                         : ''
                                 }
                             />

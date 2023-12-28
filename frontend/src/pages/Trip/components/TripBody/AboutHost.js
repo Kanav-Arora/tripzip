@@ -96,7 +96,7 @@ export default function AboutHost({ userData }) {
                     </button>
                     <div className="text-xs font-extralight pt-6 border-t border-gray-300">
                         We are not responsible to protect any payment transfers
-                        over or outside Travel Buddy.
+                        over or outside TripZip.
                     </div>
                 </div>
             </div>

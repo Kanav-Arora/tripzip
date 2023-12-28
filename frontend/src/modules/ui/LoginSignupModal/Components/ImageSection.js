@@ -49,7 +49,7 @@ export default function ImageSection({ position }) {
                     <AnimatedSideComponent element={element} index={index} />
                 );
             })}
-            <ImageOverlayText>Find Your Travel Buddy</ImageOverlayText>
+            <ImageOverlayText>Find Your TripZip</ImageOverlayText>
             <Image src="/images/fallback/AuthModal.jpg" alt="Background" />
         </ImageContainer>
     );
