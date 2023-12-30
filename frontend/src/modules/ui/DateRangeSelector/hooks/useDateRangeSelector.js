@@ -1,10 +1,9 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { DateRangeSelectorState } from '../states/DateRangeSelectorState';
 import { showDateRangeSelectorState } from '../states/showDateRangeSelectorState';
 
-export const useDateRangeSelector = () => {
-    const [, setSelectedRange] = useRecoilState(DateRangeSelectorState);
-    const selectedRange = useRecoilValue(DateRangeSelectorState);
+export const useDateRangeSelector = (DateRangeState) => {
+    const [, setSelectedRange] = useRecoilState(DateRangeState);
+    const selectedRange = useRecoilValue(DateRangeState);
     const [, setShowDateRangeSelectorState] = useRecoilState(
         showDateRangeSelectorState
     );

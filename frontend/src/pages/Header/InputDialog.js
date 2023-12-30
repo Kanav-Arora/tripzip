@@ -10,6 +10,7 @@ import { IconProvider } from '../../modules/ui/IconProvider/IconProvider';
 import { useNavigate, createSearchParams, useLocation } from 'react-router-dom';
 import LocationPicker from '../../modules/ui/LocationPicker/LocationPicker';
 import { useLocationPicker } from '../../modules/ui/LocationPicker/useLocationPicker';
+import { InputDateRangeState } from '../../modules/ui/DateRangeSelector/states/InputDateRangeState';
 
 export default function InputDialog() {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function InputDialog() {
     const toDateParam = params.get('toDate');
 
     const [showDateRangePicker, toggleDateRangePicker] = useState(false);
+    const { selectedRange, setSelectedRange } = useDateRangeSelector(InputDateRangeState);
     const {
         toggleLocationPicker,
         closeLocationPicker,
@@ -46,7 +48,6 @@ export default function InputDialog() {
         onFieldTyping(value);
     };
 
-    const { selectedRange } = useDateRangeSelector();
     function formatDateToYYYYMMDD(date) {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -69,7 +70,6 @@ export default function InputDialog() {
                 pathname: '/trips/search',
                 search: `?${createSearchParams(params)}`,
             },
-            { replace: true, state: { key: Date.now() } }
         );
         window.location.reload();
     };
@@ -148,7 +148,7 @@ export default function InputDialog() {
             </div>
             {showDateRangePicker && (
                 <div className="absolute mt-6 left-[57%] transform -translate-x-1/2 text-white z-10">
-                    <DateRangeSelector />
+                    <DateRangeSelector selectedRange={selectedRange} setSelectedRange={setSelectedRange} />
                 </div>
             )}
             {

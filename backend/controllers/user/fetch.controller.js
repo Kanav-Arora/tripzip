@@ -11,7 +11,7 @@ async function userData(req, res) {
                 .send({ message: 'Invalid or missing params' });
         }
 
-        const user = await Users.findOne({ _id: userID }, { name: 1 });
+        const user = await Users.findOne({ _id: userID }).populate('userDetails').exec();
 
         if (!user) {
             return res.status(404).send({ message: 'User not found' });
@@ -20,7 +20,7 @@ async function userData(req, res) {
         return res.status(200).send({
             status: 200,
             message: 'UserDetails fetched successfully',
-            data: { name: user.name },
+            data: user,
         });
     } catch (error) {
         logger.error(error);

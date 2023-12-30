@@ -4,12 +4,9 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import './day-picker.css';
 
-import { useDateRangeSelector } from './hooks/useDateRangeSelector';
-
 const currDate = new Date();
 
-export default function DateRangeSelector() {
-    const { selectedRange, setSelectedRange } = useDateRangeSelector();
+export default function DateRangeSelector({ selectedRange, setSelectedRange }) {
     return (
         <div
             className="bg-white text-black shadow-xl h-[350px] pt-1 rounded-lg"

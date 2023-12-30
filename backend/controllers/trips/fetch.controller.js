@@ -24,15 +24,21 @@ async function countTrips(req, res) {
                 populatedTripDetailsFilter['populatedTripDetails.city'] = location.replace(/-/g, ' ');
             }
             if (fromDate) {
-                populatedTripDetailsFilter['populatedTripDetails.startDate'] = { $gte: new Date(fromDate) };
+                populatedTripDetailsFilter['populatedTripDetails.startDate'] = {
+                    $gte: new Date(fromDate),
+                };
             }
             if (toDate) {
-                populatedTripDetailsFilter['populatedTripDetails.endDate'] = { $lte: new Date(toDate) };
+                populatedTripDetailsFilter['populatedTripDetails.endDate'] = {
+                    $lte: new Date(toDate),
+                };
             }
 
-            filter.$and = Object.keys(populatedTripDetailsFilter).map((key) => ({
-                [key]: populatedTripDetailsFilter[key],
-            }));
+            filter.$and = Object.keys(populatedTripDetailsFilter).map(
+                (key) => ({
+                    [key]: populatedTripDetailsFilter[key],
+                }),
+            );
         }
 
         const response = await Trips.aggregate([
@@ -46,7 +52,9 @@ async function countTrips(req, res) {
             },
             {
                 $addFields: {
-                    populatedTripDetails: { $arrayElemAt: ['$populatedTripDetails', 0] },
+                    populatedTripDetails: {
+                        $arrayElemAt: ['$populatedTripDetails', 0],
+                    },
                 },
             },
             {
@@ -94,13 +102,20 @@ async function filteredTrips(req, res) {
             const tripDetailsFilter = {};
 
             if (location) {
-                tripDetailsFilter['tripDetails.city'] = location.replace(/-/g, ' ');
+                tripDetailsFilter['tripDetails.city'] = location.replace(
+                    /-/g,
+                    ' ',
+                );
             }
             if (fromDate) {
-                tripDetailsFilter['tripDetails.startDate'] = { $gte: new Date(fromDate) };
+                tripDetailsFilter['tripDetails.startDate'] = {
+                    $gte: new Date(fromDate),
+                };
             }
             if (toDate) {
-                tripDetailsFilter['tripDetails.endDate'] = { $lte: new Date(toDate) };
+                tripDetailsFilter['tripDetails.endDate'] = {
+                    $lte: new Date(toDate),
+                };
             }
 
             filter.$and = Object.keys(tripDetailsFilter).map((key) => ({
@@ -179,4 +194,33 @@ async function fetchTripByID(req, res) {
     }
 }
 
-module.exports = { countTrips, filteredTrips, fetchTripByID };
+async function fetchTrending(req, res) {
+    try {
+        const trendingTrips = await Trips.find().sort({ views: -1 }).limit(3).populate('tripDetails')
+            .exec();
+        if (!trendingTrips || trendingTrips.length === 0) {
+            return res.status(404).json({
+                status: 404,
+                message: 'Trending trips not found',
+            });
+        }
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Trending Trips fetched successfully',
+            data: trendingTrips,
+        });
+    } catch (error) {
+        logger.error(error.response.data, 'Trips-fetchTrending');
+
+        return res.status(500).json({
+            status: 500,
+            message: 'Internal Server Error:)',
+            error: error.response.data,
+        });
+    }
+}
+
+module.exports = {
+    countTrips, filteredTrips, fetchTripByID, fetchTrending,
+};

@@ -8,6 +8,8 @@ import { isNavbarScopedState } from './States/isNavbarScopedState';
 import { useDateRangeSelector } from '../../ui/DateRangeSelector/hooks/useDateRangeSelector';
 import AuthContainer from '../../NavBar/AuthContainer/AuthContainer';
 import { useLocationPicker } from '../../ui/LocationPicker/useLocationPicker';
+import { Link } from 'react-router-dom';
+import { InputDateRangeState } from '../../ui/DateRangeSelector/states/InputDateRangeState';
 
 const LocationNavbar = () => {
     const [isFixed, setIsFixed] = useState(false);
@@ -15,7 +17,7 @@ const LocationNavbar = () => {
     const [, setNavbarScope] = useRecoilState(isNavbarScopedState);
     const isNavbarScoped = useRecoilValue(isNavbarScopedState);
     const { closeLocationPicker } = useLocationPicker();
-    const { closeDateRangeSelector } = useDateRangeSelector();
+    const { closeDateRangeSelector } = useDateRangeSelector(InputDateRangeState);
     const isAuth = authStateValue.isAuthenticated;
 
     useEffect(() => {
@@ -37,7 +39,7 @@ const LocationNavbar = () => {
 
     return (
         <Container isFixed={isFixed} isNavbarScoped={isNavbarScoped}>
-            <Section>TripZip</Section>
+            <Section><Link to={'/'}>TripZip</Link> </Section>
             <LocationNavbarInput />
             <Section>
                 {isAuth === true ? (
