@@ -20,7 +20,7 @@ export default function AddTripButton({ isDark }) {
 
     return (
         <StyledButton onClick={toggleAddTripModalHandler} isDark={isDark}>
-            <IconProvider Icon={WriteMini} color={isDark ? 'black' : 'white'} />
+            <IconProvider Icon={WriteMini} size={1.5} color={isDark ? 'black' : 'white'} />
         </StyledButton>
     );
 }

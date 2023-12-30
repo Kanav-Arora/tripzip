@@ -3,15 +3,20 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { backendOrigin } from '../../frontend.config';
 import TripCard from '../../modules/TripResults/TripCard';
-
+import { WriteMini } from '../../assets/ext-icon'
 import {
     Container,
     Wrapper,
     StyledLoadButton,
     StyledButtonWrapper,
     Content,
+    IsEmpty,
+    PaddedSection,
+    BorderedButton
 } from './TripResultsStyles';
 import SkeletonCard from '../../modules/TripResults/SkeletonCard';
+import { IconProvider } from '../../modules/ui/IconProvider/IconProvider';
+import { useAddTrip } from '../Add Trip/useAddTrip';
 
 export default function TripResults() {
     const { search } = useLocation();
@@ -32,6 +37,8 @@ export default function TripResults() {
         page: 1,
     });
     const [tripCount, setTripCount] = useState(0);
+
+    const { openAddTripModal } = useAddTrip();
 
     const fetchTripsHandler = async () => {
         try {
@@ -73,9 +80,14 @@ export default function TripResults() {
                     },
                     headers: { 'Content-Type': 'application/json' },
                 });
-                if (countResults.status === 200) {
+                console.log(countResults);
+                if (countResults.status === 200 || countResults.data.status === 200) {
                     setTripCount(countResults.data.data.tripsCount);
                     await fetchTripsHandler();
+                }
+                if (countResults.status === 204 || countResults.data.status === 204) {
+                    setTripCount(0);
+                    setLoadingStatus({ ...loadingStatus, loading: false });
                 }
             } catch (error) {
                 console.error('Error counting results:', error);
@@ -89,26 +101,52 @@ export default function TripResults() {
     };
 
     return (
-        <Content>
-            <Wrapper>
-                <Container id="trip-results-container">
-                    {tripResults.map((trip) => {
-                        return <TripCard key={trip._id} trip={trip} />;
-                    })}
-                    {loadingStatus.loading && (
-                        <SkeletonCard cards={9} />
-                    )}
-                </Container>
-            </Wrapper>
-            {(tripResults.length ?? 0) < tripCount && tripCount !== 0 && (
-                <StyledButtonWrapper>
-                    {
-                        <StyledLoadButton onClick={handleShowMore}>
-                            Show more
-                        </StyledLoadButton>
-                    }
-                </StyledButtonWrapper>
-            )}
-        </Content>
+        <PaddedSection>
+            {
+                loadingStatus.loading === true
+                    ?
+                    <Content>
+                        <Wrapper>
+                            <Container>
+                                <SkeletonCard cards={9} />
+                            </Container>
+                        </Wrapper>
+                    </Content>
+                    :
+                    (
+                        tripCount === 0
+                            ?
+                            <Content>
+                                <IsEmpty>Sorry :) Unable to find a match<br />Don't be sad, you can create a new trip</IsEmpty>
+                                <BorderedButton onClick={() => openAddTripModal()}>
+                                    <IconProvider Icon={WriteMini} size={1.25} />
+                                    <div>
+                                        Create Trip
+                                    </div>
+                                </BorderedButton>
+                            </Content>
+                            :
+                            <Content>
+                                <Wrapper>
+                                    <Container>
+                                        {tripResults.map((trip) => {
+                                            return <TripCard key={trip._id} trip={trip} />;
+                                        })}
+                                    </Container>
+                                </Wrapper>
+                                {(tripResults.length ?? 0) < tripCount && tripCount !== 0 && (
+                                    <StyledButtonWrapper>
+                                        {
+                                            <StyledLoadButton onClick={handleShowMore}>
+                                                Show more
+                                            </StyledLoadButton>
+                                        }
+                                    </StyledButtonWrapper>
+                                )}
+                            </Content>
+                    )
+            }
+        </PaddedSection>
+
     );
 }
