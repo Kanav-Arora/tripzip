@@ -139,8 +139,6 @@ export default function NavBar() {
                         authName={authStateValue.name}
                         isDark={false}
                     />
-                    {/* <AddTripButton onClick={toggleAddTripModalHandler} />
-                    <Dropdown name={authStateValue.name} /> */}
                 </div>
             ) : (
                 <div className="mobile:hidden flex items-center space-x-2">

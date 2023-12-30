@@ -3,7 +3,9 @@ const { Router } = require('express');
 
 const createTrip = require('../controllers/trips/create.controller');
 const deleteTrip = require('../controllers/trips/delete.controller');
-const { countTrips, filteredTrips, fetchTripByID } = require('../controllers/trips/fetch.controller');
+const {
+    countTrips, filteredTrips, fetchTripByID, fetchTrending,
+} = require('../controllers/trips/fetch.controller');
 const { toggleInterestedTrip } = require('../controllers/trips/patch.controller');
 
 const tripsRouter = Router();
@@ -15,6 +17,7 @@ tripsRouter.post('/', createTrip);
 tripsRouter.delete('/:tripID', deleteTrip);
 
 tripsRouter.get('/', filteredTrips);
+tripsRouter.get('/trendingTrips', fetchTrending);
 tripsRouter.get('/results', countTrips);
 tripsRouter.get('/:tripID', fetchTripByID);
 

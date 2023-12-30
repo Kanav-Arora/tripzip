@@ -12,7 +12,7 @@ import { useAuth } from '../../../context/Auth/useAuth';
 
 export default function Dropdown({ name, isDark }) {
     const [open, setOpen] = useState(false);
-    const { logoutAuth } = useAuth();
+    const { logoutAuth, authStateValue } = useAuth();
 
     const openDrop = () => {
         setOpen(!open);
@@ -42,8 +42,7 @@ export default function Dropdown({ name, isDark }) {
                         <DropdownList>
                             <DropdownItem
                                 as={Link}
-                                to="/my-trips"
-                                disabled={true}
+                                to={`/account/${authStateValue.uid}`}
                             >
                                 My Trips
                             </DropdownItem>

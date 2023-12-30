@@ -35,7 +35,6 @@ export default function TripResults() {
 
     const fetchTripsHandler = async () => {
         try {
-            setLoadingStatus({ ...loadingStatus, loading: false });
             const response = await instance.get('/trips', {
                 params: {
                     page: loadingStatus.page,
@@ -64,6 +63,7 @@ export default function TripResults() {
 
     useEffect(() => {
         const countResultsHandler = async () => {
+            setLoadingStatus({ ...loadingStatus, loading: true });
             try {
                 const countResults = await instance.get('/trips/results', {
                     params: {
@@ -75,7 +75,7 @@ export default function TripResults() {
                 });
                 if (countResults.status === 200) {
                     setTripCount(countResults.data.data.tripsCount);
-                    fetchTripsHandler();
+                    await fetchTripsHandler();
                 }
             } catch (error) {
                 console.error('Error counting results:', error);
@@ -88,11 +88,6 @@ export default function TripResults() {
         await fetchTripsHandler();
     };
 
-    const skeletonCount =
-        (tripCount - (tripResults.length ?? 0)) / 9 >= 1
-            ? 9
-            : tripCount - (tripResults.length ?? 0);
-
     return (
         <Content>
             <Wrapper>
@@ -101,7 +96,7 @@ export default function TripResults() {
                         return <TripCard key={trip._id} trip={trip} />;
                     })}
                     {loadingStatus.loading && (
-                        <SkeletonCard cards={skeletonCount} />
+                        <SkeletonCard cards={9} />
                     )}
                 </Container>
             </Wrapper>

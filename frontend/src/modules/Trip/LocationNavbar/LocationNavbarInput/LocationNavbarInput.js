@@ -26,6 +26,7 @@ import DateRangeSelector from '../../../ui/DateRangeSelector/DateRangeSelector';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 import { useLocationPicker } from '../../../ui/LocationPicker/useLocationPicker';
 import LocationPicker from '../../../ui/LocationPicker/LocationPicker';
+import { InputDateRangeState } from '../../../ui/DateRangeSelector/states/InputDateRangeState';
 
 export default function LocationNavbarInput() {
     const [, setNavbarScope] = useRecoilState(isNavbarScopedState);
@@ -43,7 +44,9 @@ export default function LocationNavbarInput() {
         closeDateRangeSelector,
         toggleDateRangeSelector,
         isDateRangeSelectorVisible,
-    } = useDateRangeSelector();
+        selectedRange,
+        setSelectedRange
+    } = useDateRangeSelector(InputDateRangeState);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0 });
@@ -97,12 +100,10 @@ export default function LocationNavbarInput() {
                 pathname: '/trips/search',
                 search: `?${createSearchParams(params)}`,
             },
-            { replace: true, state: { key: Date.now() } }
         );
         window.location.reload();
     };
 
-    const { selectedRange } = useDateRangeSelector();
 
     return (
         <Wrapper>
@@ -158,8 +159,8 @@ export default function LocationNavbarInput() {
                                 value={
                                     selectedRange.from
                                         ? formatDate(
-                                              new Date(selectedRange.from)
-                                          )
+                                            new Date(selectedRange.from)
+                                        )
                                         : ''
                                 }
                             />
@@ -207,7 +208,7 @@ export default function LocationNavbarInput() {
             )}
             {isNavbarScoped && isDateRangeSelectorVisible && (
                 <DateRangePicker>
-                    <DateRangeSelector />
+                    <DateRangeSelector selectedRange={selectedRange} setSelectedRange={setSelectedRange} />
                 </DateRangePicker>
             )}
         </Wrapper>

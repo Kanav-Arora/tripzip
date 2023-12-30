@@ -95,6 +95,7 @@ async function signInUser(req, res) {
             userDetailsId: userExists.userDetails,
         });
     } catch (error) {
+        console.log('Signin Error');
         logger.error(error);
         return res.status(500).send({ message: 'Internal Server Error :(' });
     }

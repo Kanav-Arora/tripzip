@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
-const Users = require('../models/user.mongo');
-const UserDetails = require('../models/userDetails.mongo');
-const logger = require('../utils/logger/logger');
+const Users = require('../../models/user.mongo');
+const UserDetails = require('../../models/userDetails.mongo');
+const logger = require('../../utils/logger/logger');
 
 async function getUserDetails(req, res) {
     let uid;
