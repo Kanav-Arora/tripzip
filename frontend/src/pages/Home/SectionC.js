@@ -21,7 +21,12 @@ export default function SectionC() {
         const fetchTrending = async () => {
             try {
                 const response = await instance.get('trips/trendingTrips');
-                setTrending(response.data.data);
+                if (response.status === 200 || response.data.status === 200) {
+                    setTrending(response.data.data);
+                }
+                if (response.status === 204 || response.data.status === 204) {
+
+                }
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -45,19 +50,28 @@ export default function SectionC() {
                             {loading ? (
                                 <SkeletonCard cards={3} />
                             ) : (
-                                trending.map((trip, index) => {
-                                    return <TripCard trip={trip} />;
-                                })
+                                trending.length === 0
+                                    ?
+                                    <></>
+                                    :
+                                    trending.map((trip, index) => {
+                                        return <TripCard trip={trip} />;
+                                    })
                             )}
                         </TripContainer>
                     </div>
                 </div>
-                <button
-                    className="mx-auto bg-black text-white rounded-xl w-fit py-1 px-4"
-                    onClick={exploreMoreClick}
-                >
-                    Explore more
-                </button>
+                {
+                    trending.length > 0
+                        ?
+                        <button
+                            className="mx-auto bg-black text-white rounded-xl w-fit py-1 px-4"
+                            onClick={exploreMoreClick}
+                        >
+                            Explore more
+                        </button>
+                        : <></>
+                }
             </div>
         </SectionLayout>
     );

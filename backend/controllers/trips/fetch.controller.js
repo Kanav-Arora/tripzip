@@ -208,8 +208,8 @@ async function fetchTrending(req, res) {
         const trendingTrips = await Trips.find().sort({ views: -1 }).limit(3).populate('tripDetails')
             .exec();
         if (!trendingTrips || trendingTrips.length === 0) {
-            return res.status(404).json({
-                status: 404,
+            return res.status(204).json({
+                status: 204,
                 message: 'Trending trips not found',
             });
         }
