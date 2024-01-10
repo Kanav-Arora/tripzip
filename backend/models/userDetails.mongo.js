@@ -51,6 +51,15 @@ const userDetailSchema = new Schema({
         type: Schema.Types.Number,
         default: 0,
     },
+    image: {
+        type: {
+            id: Schema.Types.String,
+            deletehash: Schema.Types.String,
+            name: Schema.Types.String,
+            link: Schema.Types.String,
+        },
+        default: null,
+    },
     tripsCreated: [
         {
             type: Schema.Types.ObjectId,
