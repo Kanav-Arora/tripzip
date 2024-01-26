@@ -16,6 +16,7 @@ import LoginSignupModal from '../modules/ui/LoginSignupModal/LoginSignupModal';
 import TripResults from '../pages/Trip Results/TripResults';
 import AddTripModal from '../pages/Add Trip/AddTripModal';
 import UserPage from '../pages/UserPage/UserPage';
+import AccountSetting from '../pages/AccountSetting/AccountSetting';
 
 export default function Router() {
     const location = useLocation();
@@ -49,6 +50,7 @@ export default function Router() {
                     <Route exact path="/trips/:tripID" element={<Trip />} />
                 </Route>
                 <Route path="/account/:uid" element={<UserPage />} />
+                <Route path="/settings" element={<AccountSetting />} />
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </>

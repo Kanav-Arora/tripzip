@@ -31,7 +31,7 @@ const userDetailSchema = new Schema({
     },
     gender: {
         type: Schema.Types.String,
-        enum: ['male', 'female', 'other'],
+        enum: ['Male', 'Female', 'Other'],
     },
     language_speak: {
         type: [Schema.Types.String],
@@ -44,21 +44,12 @@ const userDetailSchema = new Schema({
         type: [Schema.Types.String],
         default: [],
     },
-    about_yourself: {
+    about: {
         type: Schema.Types.String,
     },
     stars: {
         type: Schema.Types.Number,
         default: 0,
-    },
-    image: {
-        type: {
-            id: Schema.Types.String,
-            deletehash: Schema.Types.String,
-            name: Schema.Types.String,
-            link: Schema.Types.String,
-        },
-        default: null,
     },
     tripsCreated: [
         {

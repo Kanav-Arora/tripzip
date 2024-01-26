@@ -1,8 +1,10 @@
 const bodyParser = require('body-parser');
 const { Router } = require('express');
 
-const { getUserDetails, postUserDetails } = require('../controllers/userDetails/userDetails.controller');
-const { fetchOngoingTrips, fetchCompletedTrips, fetchInterestedTrips } = require('../controllers/userDetails/fetch.controller');
+const {
+    fetchOngoingTrips, fetchCompletedTrips, fetchInterestedTrips, getUserDetails,
+} = require('../controllers/userDetails/fetch.controller');
+const { postUserDetails } = require('../controllers/userDetails/post.controller');
 
 const userDetailsRouter = Router();
 

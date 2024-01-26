@@ -2,9 +2,9 @@
     {
         "_id": "615f3c250c82a6656baf8d32",
         "userDetails": "615f3c250c82a6656baf8d33",
-        "email": "john.doe@example.com",
-        "password": "hashedpassword",
-        "name": "John Doe",
+        "email": "travelbuddy@gmail.com",
+        "password": "ea2592994fb0342130b1b17ccd718270bf013d4a6deb88c8dcf782a50b4ed587fdca9c955d4e5241dd67f6c1f1bb52d6407ad07f302f55bf1da9ec04069da2b2.306a1becbca66d2f",
+        "name": "Travel Buddy",
         "status": "active",
         "created_at": "2022-10-07T12:30:00.000Z",
         "updated_at": "2022-10-07T12:30:00.000Z",
