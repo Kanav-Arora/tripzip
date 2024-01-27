@@ -19,8 +19,16 @@ const userSchema = new Schema({
   },
   password: {
     type: Schema.Types.String,
-    required: [true, 'Please provide a password'],
     minlength: 8,
+    default: null,
+  },
+  isGoogleAuth: {
+    type: Schema.Types.Boolean,
+    default: false,
+  },
+  googleID: {
+    type: Schema.Types.String,
+    default: null,
   },
   name: {
     type: Schema.Types.String,

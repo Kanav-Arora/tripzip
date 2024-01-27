@@ -29,4 +29,5 @@ module.exports = {
     JwtExpiresIn: process.env.JWT_EXPIRES_IN,
     FrontendOrigin: process.env.FRONTEND_ORIGIN,
     PostmanApi: `${process.env.POSTMAN_API}${process.env.POSTMAN_ACCESS_KEY}`,
+    GoogleAuthClientID: process.env.CLIENTID,
 };

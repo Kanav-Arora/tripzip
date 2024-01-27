@@ -1,10 +1,13 @@
 const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
+const {
+    JwtSecret, JwtExpiresIn, NodeEnv, GoogleAuthClientID,
+} = require('../../config');
 
-const { JwtSecret, JwtExpiresIn, NodeEnv } = require('../../config');
+const googleClient = new OAuth2Client(GoogleAuthClientID);
 
 const logger = require('../../utils/logger/logger');
 const { PasswordManager } = require('../../services/passwordManager');
-
 const { ifUserExists, addNewUser } = require('./helper.controller');
 
 async function signUpUser(req, res) {
@@ -17,7 +20,7 @@ async function signUpUser(req, res) {
                 .send({ message: 'Invalid or missing params' });
         }
 
-        const userExists = await ifUserExists(user);
+        const userExists = await ifUserExists(user.email);
         if (userExists) {
             return res.status(400).send({ message: 'User already exists' });
         }
@@ -57,7 +60,7 @@ async function signUpUser(req, res) {
 async function signInUser(req, res) {
     const user = req.body;
     try {
-        const userExists = await ifUserExists(user);
+        const userExists = await ifUserExists(user.email);
         if (!userExists) {
             return res.status(400).send({ message: 'Invalid Credentails' });
         }
@@ -95,10 +98,66 @@ async function signInUser(req, res) {
             userDetailsId: userExists.userDetails,
         });
     } catch (error) {
-        console.log('Signin Error');
-        logger.error(error);
+        logger.error(`Signin error: ${error}`);
         return res.status(500).send({ message: 'Internal Server Error :(' });
     }
 }
 
-module.exports = { signUpUser, signInUser };
+async function authWithGoogle(req, res) {
+    const { idToken } = req.body;
+    try {
+        const ticket = await googleClient.verifyIdToken({
+            idToken,
+            audience: GoogleAuthClientID,
+        });
+
+        const authData = ticket.getPayload();
+
+        const userExists = await ifUserExists(authData.email);
+        let payload = {};
+
+        if (userExists) {
+            payload = {
+                id: userExists._id,
+                name: userExists.name,
+                userDetailsId: userExists.userDetails,
+            };
+        } else {
+            const newUser = {
+                googleID: authData.sub,
+                email: authData.email,
+                name: authData.name,
+                image: authData.picture,
+                isGoogleAuth: true,
+            };
+            const savedUser = await addNewUser(newUser);
+            payload = {
+                id: savedUser._id,
+                name: savedUser.name,
+                userDetailsId: savedUser.userDetails,
+            };
+        }
+
+        const token = jwt.sign(payload, JwtSecret, { expiresIn: JwtExpiresIn });
+        const cookieOptions = {
+            httpOnly: true,
+            secure: NodeEnv === 'production',
+            expires: new Date(Date.now() + 5184000000),
+        };
+
+        if (NodeEnv === 'production') {
+            cookieOptions.domain = 'tripzip.online';
+        }
+
+        res.cookie('access_token', token, cookieOptions).status(201).json({
+            uid: payload.id,
+            name: payload.name,
+            userDetailsId: payload.userDetailsId,
+        });
+    } catch (error) {
+        logger.error(`GoogleAuth error: ${error}`);
+        return res.status(500).send({ message: 'Internal Server Error :(' });
+    }
+}
+
+module.exports = { signUpUser, signInUser, authWithGoogle };
