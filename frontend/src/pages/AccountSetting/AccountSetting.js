@@ -38,8 +38,6 @@ export default function AccountSetting() {
         imageUpdatedState.imageFile !== null ||
         dataUpdatedState !== fetchedUserData;
 
-    console.log(isDataChanged);
-
     const authState = useAuth();
     const navigate = useNavigate();
     if (!authState.isAuthenticated) {

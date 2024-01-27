@@ -3,14 +3,15 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {
     DropdownContainer,
-    DropdownButton,
     DropdownList,
     DropdownItem,
 } from './DropdownStyles';
 import { backendOrigin } from '../../../frontend.config';
 import { useAuth } from '../../../context/Auth/useAuth';
+import UserAvatar from '../../../modules/ui/UserAvatar'
+import { Theme } from '../../ui/Theme/theme';
 
-export default function Dropdown({ name, isDark }) {
+export default function Dropdown({ name, image, isDark }) {
     const [open, setOpen] = useState(false);
     const { logoutAuth, authStateValue } = useAuth();
 
@@ -35,9 +36,7 @@ export default function Dropdown({ name, isDark }) {
         <DropdownContainer>
             <div>
                 <div id="dropdown">
-                    <DropdownButton isDark={isDark} onClick={openDrop}>
-                        {name[0]}
-                    </DropdownButton>
+                    <UserAvatar image={image} letter={name} onClick={openDrop} size={2} backgroundColor={isDark ? Theme.color.matteBlack : Theme.color.gray60} />
                     {open && (
                         <DropdownList>
                             <DropdownItem

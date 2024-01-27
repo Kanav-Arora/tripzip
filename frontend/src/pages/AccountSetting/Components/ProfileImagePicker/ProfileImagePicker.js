@@ -25,7 +25,7 @@ export default function ProfileImagePicker() {
                 setDataUpdateState({
                     ...dataState,
                     imageFile: selectedFile,
-                    imageURL: reader.result,
+                    image: reader.result,
                 });
             };
             reader.readAsDataURL(selectedFile);
@@ -33,7 +33,7 @@ export default function ProfileImagePicker() {
     };
 
     const handleRemoveClick = () => {
-        setDataUpdateState({ ...dataState, imageFile: null, imageURL: null });
+        setDataUpdateState({ ...dataState, imageFile: null, image: null });
     };
 
     const handleImagePickerClick = () => {
@@ -46,7 +46,7 @@ export default function ProfileImagePicker() {
                 letter={authStateValue.name}
                 size={6}
                 onClick={handleImagePickerClick}
-                image={dataState.imageURL}
+                image={dataState.image}
             />
             <StyledContent>
                 <StyledChangeText onClick={handleImagePickerClick}>

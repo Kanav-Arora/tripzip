@@ -7,5 +7,6 @@ export const AuthState = atom({
         uid: null,
         name: null,
         userDetailsId: null,
+        image: null,
     },
 });

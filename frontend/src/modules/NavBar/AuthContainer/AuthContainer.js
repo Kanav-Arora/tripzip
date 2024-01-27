@@ -11,11 +11,11 @@ const Container = styled.div`
     gap: ${Theme.spacing(4)};
 `;
 
-export default function AuthContainer({ authName, isDark }) {
+export default function AuthContainer({ authName, image, isDark }) {
     return (
         <Container>
             <AddTripButton isDark={isDark} />
-            <Dropdown name={authName} isDark={isDark} />
+            <Dropdown name={authName} isDark={isDark} image={image} />
         </Container>
     );
 }

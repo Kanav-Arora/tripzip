@@ -3,27 +3,17 @@ import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../context/Auth/useAuth';
 import { Hamburger, Cross } from '../../assets/ext-icon';
-
-import Dropdown from '../../modules/NavBar/Dropdown/Dropdown';
-import AddTripButton from '../../modules/AddTrip/AddTripButton';
-import AddTripModal from '../Add Trip/AddTripModal';
-
-import { AddTripProvider } from '../../context/Add Trip/addTripContext';
 import { useAuthModal } from '../../modules/ui/LoginSignupModal/hooks/useAuthModal';
 import AuthContainer from '../../modules/NavBar/AuthContainer/AuthContainer';
 
 export default function NavBar() {
     const { authStateValue, logoutAuth } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
-    const [addTripModalVisible, toggleAddTripModal] = useState(false);
 
     const { openAuthModal } = useAuthModal();
 
     const isAuth = authStateValue.isAuthenticated;
 
-    const toggleAddTripModalHandler = () => {
-        toggleAddTripModal(!addTripModalVisible);
-    };
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -137,6 +127,7 @@ export default function NavBar() {
                 <div className="mobile:hidden flex gap-5">
                     <AuthContainer
                         authName={authStateValue.name}
+                        image={authStateValue.image}
                         isDark={false}
                     />
                 </div>
