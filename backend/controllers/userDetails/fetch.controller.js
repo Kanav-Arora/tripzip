@@ -1,11 +1,14 @@
 const Users = require('../../models/user.mongo');
 const Trips = require('../../models/trip.mongo');
 const logger = require('../../utils/logger/logger');
+const UserDetails = require('../../models/userDetails.mongo');
 
 async function fetchOngoingTrips(req, res) {
     try {
         const { uid } = req.params;
-        const user = await Users.findOne({ _id: uid }).populate('userDetails').exec();
+        const user = await Users.findOne({ _id: uid })
+            .populate('userDetails')
+            .exec();
 
         if (!user) {
             return res.status(404).send({ message: 'User not found' });
@@ -63,7 +66,9 @@ async function fetchOngoingTrips(req, res) {
 async function fetchCompletedTrips(req, res) {
     try {
         const { uid } = req.params;
-        const user = await Users.findOne({ _id: uid }).populate('userDetails').exec();
+        const user = await Users.findOne({ _id: uid })
+            .populate('userDetails')
+            .exec();
 
         if (!user) {
             return res.status(404).send({ message: 'User not found' });
@@ -82,7 +87,9 @@ async function fetchCompletedTrips(req, res) {
 async function fetchInterestedTrips(req, res) {
     try {
         const { uid } = req.params;
-        const user = await Users.findOne({ _id: uid }).populate('userDetails').exec();
+        const user = await Users.findOne({ _id: uid })
+            .populate('userDetails')
+            .exec();
 
         if (!user) {
             return res.status(404).send({ message: 'User not found' });
@@ -127,6 +134,40 @@ async function fetchInterestedTrips(req, res) {
     }
 }
 
+async function getUserDetails(req, res) {
+    let uid;
+    if (req.route.path === '/') {
+        uid = req.user.uid;
+    } else if (req.route.path === '/:uid') {
+        uid = req.params.uid;
+    }
+    try {
+        const user = await Users.findById(uid);
+        const userDetailRef = user.userDetails;
+        UserDetails.findById(userDetailRef).then((userDetails) => {
+            if (userDetails) {
+                res.status(200).send({
+                    status: 200,
+                    message: 'User Details Fetched',
+                    data: userDetails,
+                });
+            } else {
+                logger.warn(`UserDetails not found: ${uid}`);
+                return res.status(404).send({
+                    status: 404,
+                    message: 'Data not found',
+                });
+            }
+        });
+    } catch (error) {
+        logger.error(error);
+        return res.status(500).send({ message: 'Internal Server Error :(' });
+    }
+}
+
 module.exports = {
-    fetchOngoingTrips, fetchCompletedTrips, fetchInterestedTrips,
+    fetchOngoingTrips,
+    fetchCompletedTrips,
+    fetchInterestedTrips,
+    getUserDetails,
 };

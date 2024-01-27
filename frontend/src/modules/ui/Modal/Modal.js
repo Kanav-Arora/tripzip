@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-
+import { motion, useAnimation } from 'framer-motion';
 import { Cross } from '../../../assets/ext-icon';
 import { IconProvider } from '../IconProvider/IconProvider';
+import { Theme } from '../Theme/theme';
 
 const ModalWrapper = styled.div`
     position: fixed;
@@ -13,13 +14,15 @@ const ModalWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
+    background: ${(props) =>
+        props.hasBackdrop === true ? 'rgba(0, 0, 0, 0.2)' : ''};
     z-index: 999;
 `;
 
-const ModalContent = styled.div`
+const AnimatedModalContent = styled(motion.div)`
     background: white;
     border-radius: 12px;
+    box-shadow: ${Theme.boxShadow.xl};
     width: ${(props) =>
         props.width === 'fit' ? 'fit-content' : props.width || '400px'};
     height: ${(props) =>
@@ -29,9 +32,11 @@ const ModalContent = styled.div`
 `;
 
 const ModalHeader = styled.div`
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: ${Theme.spacing(3)};
     border-bottom: 1px solid #d8d8d8;
 `;
 
@@ -39,6 +44,7 @@ const ModalBody = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
+    padding: ${Theme.spacing(3)};
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
@@ -54,10 +60,14 @@ const ModalBody = styled.div`
 
 const CloseButton = styled.button`
     cursor: pointer;
-    color: black;
+    color: ${Theme.color.gray60};
     background: none;
     border: none;
     margin-bottom: 8px;
+`;
+
+const StyledModalTitle = styled.div`
+    font-weight: ${Theme.font.weight.semibold};
 `;
 
 const Modal = ({
@@ -67,19 +77,18 @@ const Modal = ({
     height,
     onClose,
     showDialogCross,
+    modalTitle,
+    hasBackdrop = true,
+    animate = false,
     scroll = false,
 }) => {
-    useEffect(() => {
-        if (isVisible) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
+    const controls = useAnimation();
 
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, [isVisible]);
+    useEffect(() => {
+        if (animate && isVisible) {
+            controls.start({ scale: 1, opacity: 1 });
+        }
+    }, [animate, isVisible, controls]);
 
     const handleOverlayClick = (e) => {
         if (isVisible && e.target === e.currentTarget) {
@@ -90,17 +99,51 @@ const Modal = ({
     return (
         <>
             {isVisible && (
-                <ModalWrapper onClick={handleOverlayClick}>
-                    <ModalContent width={width} height={height}>
-                        {showDialogCross && (
-                            <ModalHeader>
-                                <CloseButton onClick={onClose}>
-                                    <IconProvider size={1.25} Icon={Cross} />
-                                </CloseButton>
-                            </ModalHeader>
-                        )}
-                        <ModalBody scroll={scroll}>{children}</ModalBody>
-                    </ModalContent>
+                <ModalWrapper
+                    onClick={handleOverlayClick}
+                    hasBackdrop={hasBackdrop}
+                >
+                    {animate ? (
+                        <AnimatedModalContent
+                            width={width}
+                            height={height}
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={controls}
+                            exit={{ scale: 0, opacity: 0 }}
+                        >
+                            {showDialogCross && (
+                                <ModalHeader>
+                                    <StyledModalTitle>
+                                        {modalTitle}
+                                    </StyledModalTitle>
+                                    <CloseButton onClick={onClose}>
+                                        <IconProvider
+                                            size={1.25}
+                                            Icon={Cross}
+                                        />
+                                    </CloseButton>
+                                </ModalHeader>
+                            )}
+                            <ModalBody scroll={scroll}>{children}</ModalBody>
+                        </AnimatedModalContent>
+                    ) : (
+                        <AnimatedModalContent width={width} height={height}>
+                            {showDialogCross && (
+                                <ModalHeader>
+                                    <StyledModalTitle>
+                                        {modalTitle}
+                                    </StyledModalTitle>
+                                    <CloseButton onClick={onClose}>
+                                        <IconProvider
+                                            size={1.25}
+                                            Icon={Cross}
+                                        />
+                                    </CloseButton>
+                                </ModalHeader>
+                            )}
+                            <ModalBody scroll={scroll}>{children}</ModalBody>
+                        </AnimatedModalContent>
+                    )}
                 </ModalWrapper>
             )}
         </>

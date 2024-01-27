@@ -46,7 +46,8 @@ export default function Dropdown({ name, isDark }) {
                             >
                                 My Trips
                             </DropdownItem>
-                            <DropdownItem disabled={true}>Setting</DropdownItem>
+                            <DropdownItem as={Link}
+                                to={`/settings`}>Setting</DropdownItem>
                             <DropdownItem onClick={handleSignOut}>
                                 Sign Out
                             </DropdownItem>

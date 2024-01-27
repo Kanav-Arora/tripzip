@@ -9,7 +9,7 @@ const currDate = new Date();
 export default function DateRangeSelector({ selectedRange, setSelectedRange }) {
     return (
         <div
-            className="bg-white text-black shadow-xl h-[350px] pt-1 rounded-lg"
+            className="bg-white text-black shadow-xl h-[375px] p-1 rounded-lg"
             style={{ marginTop: '-20px' }}
         >
             <DayPicker

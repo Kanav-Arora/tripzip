@@ -35,7 +35,7 @@ const userDetailSchema = new Schema({
     },
     gender: {
         type: Schema.Types.String,
-        enum: ['male', 'female', 'other'],
+        enum: ['Male', 'Female', 'Other'],
     },
     language_speak: {
         type: [Schema.Types.String],
@@ -48,7 +48,7 @@ const userDetailSchema = new Schema({
         type: [Schema.Types.String],
         default: [],
     },
-    about_yourself: {
+    about: {
         type: Schema.Types.String,
     },
     stars: {

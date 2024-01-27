@@ -29,3 +29,5 @@ Changelog.txt
 
 /backend/utils/logger/error.log
 /backend/utils/logger/server.log
+
+/backend/public/uploads/
