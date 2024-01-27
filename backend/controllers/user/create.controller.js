@@ -9,6 +9,7 @@ const googleClient = new OAuth2Client(GoogleAuthClientID);
 const logger = require('../../utils/logger/logger');
 const { PasswordManager } = require('../../services/passwordManager');
 const { ifUserExists, addNewUser } = require('./helper.controller');
+const UserDetails = require('../../models/userDetails.mongo');
 
 async function signUpUser(req, res) {
     const user = req.body;
@@ -138,6 +139,8 @@ async function authWithGoogle(req, res) {
             };
         }
 
+        const response = await UserDetails.findById(payload.userDetailsId, { image: 1 });
+        payload.image = response.image;
         const token = jwt.sign(payload, JwtSecret, { expiresIn: JwtExpiresIn });
         const cookieOptions = {
             httpOnly: true,
@@ -153,6 +156,7 @@ async function authWithGoogle(req, res) {
             uid: payload.id,
             name: payload.name,
             userDetailsId: payload.userDetailsId,
+            image: payload.image,
         });
     } catch (error) {
         logger.error(`GoogleAuth error: ${error}`);
