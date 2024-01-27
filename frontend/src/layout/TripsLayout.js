@@ -1,17 +1,10 @@
-import React from 'react'
-import {
-    Outlet
-} from "react-router-dom";
-import axios from 'axios';
-
-axios.defaults.withCredentials = true;
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 export default function TripsLayout() {
-
     return (
         <>
             <Outlet />
         </>
-
-    )
+    );
 }

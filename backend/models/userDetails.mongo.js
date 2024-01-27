@@ -7,6 +7,10 @@ const userDetailSchema = new Schema({
         type: Schema.Types.ObjectId,
         default: () => new mongoose.Types.ObjectId(),
     },
+    image: {
+        type: Schema.Types.String,
+        default: null,
+    },
     address: {
         type: Schema.Types.String,
     },

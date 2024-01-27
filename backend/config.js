@@ -29,6 +29,5 @@ module.exports = {
     JwtExpiresIn: process.env.JWT_EXPIRES_IN,
     FrontendOrigin: process.env.FRONTEND_ORIGIN,
     PostmanApi: `${process.env.POSTMAN_API}${process.env.POSTMAN_ACCESS_KEY}`,
-    ImgurClientID: process.env.IMGUR_CLIENT_ID,
-    ImgurClientSecret: process.env.IMGUR_CLIENT_SECRET,
+    GoogleAuthClientID: process.env.CLIENTID,
 };

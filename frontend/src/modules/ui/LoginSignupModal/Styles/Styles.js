@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Theme } from '../../Theme/theme';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IconProvider } from '../../IconProvider/IconProvider';
 
 export const ModalBody = styled.div`
     width: 100%;
@@ -139,21 +138,7 @@ export const ContentBody = styled.div`
 `;
 
 export const AuthServiceContainer = styled.div`
-    height: ${Theme.spacing(10)};
     width: 100%;
-    border: 1px solid ${Theme.color.gray};
-    border-radius: ${Theme.border.radius.md};
-    padding-top: ${Theme.spacing(1)};
-    padding-bottom: ${Theme.spacing(1)};
-    padding-left: ${Theme.spacing(4)};
-    padding-right: ${Theme.spacing(4)};
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: ${Theme.spacing(2)};
-    font-size: ${Theme.font.size.sm};
-    font-weight: ${Theme.font.weight.semibold};
 `;
 
 export const TextDivider = styled.div`
