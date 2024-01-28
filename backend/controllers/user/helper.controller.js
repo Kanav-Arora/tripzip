@@ -19,6 +19,7 @@ async function addNewUser(user) {
             userDetails: userDetailResponse._id,
             email: user.email,
             name: user.name,
+            isGoogleAuth: user.isGoogleAuth,
         };
         if (user.isGoogleAuth) {
             newUser.googleID = user.googleID;

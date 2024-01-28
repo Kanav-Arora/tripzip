@@ -1,5 +1,8 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useAuth } from '../../context/Auth/useAuth'
+import { BucketAPI } from '../../frontend.config';
 
 const AvatarContainer = styled.div`
     width: ${(props) => `${props.size}rem`};
@@ -24,7 +27,7 @@ const TextInitials = styled.span`
 `;
 
 export default function UserAvatar({
-    image,
+    uid,
     letter,
     size,
     backgroundColor,
@@ -32,6 +35,29 @@ export default function UserAvatar({
     hasShadow,
     onClick,
 }) {
+    const [image, setImage] = useState(null);
+    const { authStateValue } = useAuth();
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    useEffect(() => {
+        const searchUID = uid ? uid : authStateValue.uid;
+        const fetchImage = async () => {
+            try {
+                const response = await axios({
+                    method: "GET",
+                    url: BucketAPI + searchUID,
+                });
+                if (response.status === 200) {
+                    console.log(response);
+                    setImage(response.data.image);
+                }
+            } catch (error) {
+                console.error('Error fetching image:', error.message);
+            }
+        };
+
+        fetchImage();
+    }, []);
+
     return (
         <AvatarContainer
             size={size}

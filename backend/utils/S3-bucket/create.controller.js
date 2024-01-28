@@ -1,37 +1,32 @@
-const fs = require('fs');
 const logger = require('../logger/logger');
-
-// const uploadToS3 = async (fileKey, fileBuffer, contentType) => {
-// };
+const {
+    AwsUserProfileImagesBucketName, S3ClientObject,
+} = require('../../config');
 
 async function postImage(req, res) {
     if (req.isAuth === false) {
         res.status(401).send({ message: 'Unauthorised access' });
         return;
     }
+    const uploadedImage = req.file;
+    if (!uploadedImage) {
+        return res.status(404).send({ message: 'Image not found' });
+    }
+    const keyUid = req.user?.uid; // Not allowing non-user account to upload
+    const params = {
+        Bucket: AwsUserProfileImagesBucketName,
+        Key: keyUid,
+        Body: uploadedImage.buffer,
+        ContentType: uploadedImage.mimetype,
+    };
     try {
-        const uploadedImage = req.file;
-
-        if (!uploadedImage) {
-            return res.status(404).send({ message: 'Image not found' });
-        }
-
-        // const { originalname, buffer, mimetype } = uploadedImage;
-        // const fileKey = `profile_images/${originalname}`;
-
-        // const s3Response = await uploadToS3(fileKey, buffer, mimetype);
-
-        fs.unlinkSync(uploadedImage.path);
-
-        return res.status(201).send({
-            status: 201,
-            message: 'Account Image uploaded',
-        });
+        await S3ClientObject.upload(params).promise();
+        res.status(200).send('File uploaded to S3 successfully!');
     } catch (error) {
-        logger.error(`S3-Bucket Create Controller: ${error}`);
+        logger.error(`S3-Bucket Delete Controller: ${error}`);
         res.status(500).send({
-            status: 500,
-            message: 'Internal Server Error',
+            message: 'Error uploading file to S3',
+            error: error.message,
         });
     }
 }

@@ -1,15 +1,16 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
+const axios = require('axios');
 const {
     JwtSecret, JwtExpiresIn, NodeEnv, GoogleAuthClientID,
 } = require('../../config');
 
 const googleClient = new OAuth2Client(GoogleAuthClientID);
-
 const logger = require('../../utils/logger/logger');
 const { PasswordManager } = require('../../services/passwordManager');
 const { ifUserExists, addNewUser } = require('./helper.controller');
-const UserDetails = require('../../models/userDetails.mongo');
+const { AwsUserProfileImagesBucketName, S3ClientObject } = require('../../config');
 
 async function signUpUser(req, res) {
     const user = req.body;
@@ -137,10 +138,23 @@ async function authWithGoogle(req, res) {
                 name: savedUser.name,
                 userDetailsId: savedUser.userDetails,
             };
+            if (authData.picture) {
+                const { data, headers, status } = await axios.get(authData.picture, {
+                    responseType: 'arraybuffer', // Ensure response is treated as binary data
+                });
+
+                if (status === 200) {
+                    const imageParams = {
+                        Bucket: AwsUserProfileImagesBucketName,
+                        Key: payload.id.toString(),
+                        Body: Buffer.from(data, 'binary'),
+                        ContentType: headers['content-type'],
+                    };
+                    await S3ClientObject.upload(imageParams).promise();
+                }
+            }
         }
 
-        const response = await UserDetails.findById(payload.userDetailsId, { image: 1 });
-        payload.image = response.image;
         const token = jwt.sign(payload, JwtSecret, { expiresIn: JwtExpiresIn });
         const cookieOptions = {
             httpOnly: true,
@@ -156,7 +170,6 @@ async function authWithGoogle(req, res) {
             uid: payload.id,
             name: payload.name,
             userDetailsId: payload.userDetailsId,
-            image: payload.image,
         });
     } catch (error) {
         logger.error(`GoogleAuth error: ${error}`);

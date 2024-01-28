@@ -21,7 +21,11 @@ export default function Dropdown({ isDark }) {
 
     const handleSignOut = async () => {
         try {
-            const result = await axios.post(backendOrigin + '/users/signout');
+            const instance = axios.create({
+                withCredentials: true,
+                baseURL: backendOrigin,
+            });
+            const result = await instance.post('/users/signout');
             if (result.status === 200) {
                 logoutAuth();
             } else {
@@ -31,7 +35,7 @@ export default function Dropdown({ isDark }) {
             console.log(error);
         }
     };
-    console.log(authStateValue);
+
     return (
         <DropdownContainer>
             <div>
