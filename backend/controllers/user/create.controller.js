@@ -88,7 +88,6 @@ async function signInUser(req, res) {
         if (NodeEnv === 'production') {
             cookieOptions.domain = 'tripzip.online';
         }
-
         res.cookie('access_token', token, cookieOptions).status(201).json({
             uid: userExists._id,
             name: userExists.name,
