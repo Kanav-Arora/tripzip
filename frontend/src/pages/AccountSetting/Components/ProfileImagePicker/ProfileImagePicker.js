@@ -46,7 +46,6 @@ export default function ProfileImagePicker() {
                 letter={authStateValue.name}
                 size={6}
                 onClick={handleImagePickerClick}
-                image={dataState.image}
             />
             <StyledContent>
                 <StyledChangeText onClick={handleImagePickerClick}>

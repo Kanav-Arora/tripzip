@@ -11,7 +11,6 @@ export const useAuth = () => {
             uid: user.uid,
             name: user.name,
             userDetailsId: user.userDetailsId,
-            image: user.image,
         });
     };
 
@@ -21,7 +20,6 @@ export const useAuth = () => {
             uid: null,
             name: null,
             userDetailsId: null,
-            image: null,
         });
     };
 

@@ -127,7 +127,6 @@ export default function NavBar() {
                 <div className="mobile:hidden flex gap-5">
                     <AuthContainer
                         authName={authStateValue.name}
-                        image={authStateValue.image}
                         isDark={false}
                     />
                 </div>

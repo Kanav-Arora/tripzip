@@ -129,7 +129,6 @@ async function authWithGoogle(req, res) {
                 googleID: authData.sub,
                 email: authData.email,
                 name: authData.name,
-                image: authData.picture,
                 isGoogleAuth: true,
             };
             const savedUser = await addNewUser(newUser);
