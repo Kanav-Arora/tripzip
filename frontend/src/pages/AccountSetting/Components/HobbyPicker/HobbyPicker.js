@@ -20,7 +20,11 @@ export default function HobbyPicker() {
     };
 
     const handleKeyDown = (e) => {
-        if (e.keyCode === 13 && currentHobby.trim() !== '') {
+        if (
+            e.keyCode === 13 &&
+            currentHobby.trim() !== '' &&
+            currentHobby.length <= 10
+        ) {
             e.preventDefault();
             addHobby(currentHobby.trim());
             setCurrentHobby('');

@@ -11,7 +11,7 @@ import { useAuth } from '../../../context/Auth/useAuth';
 import UserAvatar from '../../../modules/ui/UserAvatar'
 import { Theme } from '../../ui/Theme/theme';
 
-export default function Dropdown({ name, image, isDark }) {
+export default function Dropdown({ isDark }) {
     const [open, setOpen] = useState(false);
     const { logoutAuth, authStateValue } = useAuth();
 
@@ -31,12 +31,12 @@ export default function Dropdown({ name, image, isDark }) {
             console.log(error);
         }
     };
-
+    console.log(authStateValue);
     return (
         <DropdownContainer>
             <div>
                 <div id="dropdown">
-                    <UserAvatar image={image} letter={name} onClick={openDrop} size={2} backgroundColor={isDark ? Theme.color.matteBlack : Theme.color.gray60} />
+                    <UserAvatar image={authStateValue.image} letter={authStateValue.name} onClick={openDrop} size={2} backgroundColor={isDark ? Theme.color.matteBlack : Theme.color.gray60} />
                     {open && (
                         <DropdownList>
                             <DropdownItem

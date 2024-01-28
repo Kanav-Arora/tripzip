@@ -32,7 +32,6 @@ export default function UserAvatar({
     hasShadow,
     onClick,
 }) {
-    console.log(image);
     return (
         <AvatarContainer
             size={size}

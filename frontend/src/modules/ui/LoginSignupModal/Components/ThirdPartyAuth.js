@@ -18,7 +18,6 @@ const ThirdPartyAuth = ({ title, Icon }) => {
             idToken: response.credential,
         });
         if (result.status === 201) {
-            console.log(result.data);
             loginAuth(result.data);
             closeAuthModal();
         }

@@ -11,10 +11,12 @@ import { useRecoilState } from 'recoil';
 import DropDownMenu from '../../../../modules/ui/DropdownMenu/DropDownMenu';
 import HobbyPicker from '../HobbyPicker/HobbyPicker';
 import { DataUpdateState } from '../../states/DataUpdateState';
+import { useAuth } from '../../../../context/Auth/useAuth';
 
 export default function AccountDetails() {
     const [dataUpdatedState, setDataUpdatedState] =
         useRecoilState(DataUpdateState);
+    const { authStateValue } = useAuth();
     const GenderOptions = [
         { value: 'Male', label: 'Male' },
         { value: 'Female', label: 'Female' },
@@ -43,10 +45,8 @@ export default function AccountDetails() {
                     <FieldTitle>Name</FieldTitle>
                     <InputField
                         type="text"
-                        defaultValue={dataUpdatedState.name}
-                        onChange={(e) =>
-                            handleFieldChange('name', e.target.value)
-                        }
+                        defaultValue={authStateValue.name}
+                        disabled
                     />
                 </FormField>
                 <FormField>
