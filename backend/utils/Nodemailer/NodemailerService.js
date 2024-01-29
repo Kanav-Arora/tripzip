@@ -35,4 +35,20 @@ async function sendWelcomeEmail(toEmail, userName) {
     }
 }
 
-module.exports = { sendWelcomeEmail };
+async function sendVerificationEmail(toEmail, userName, verificationCode) {
+    const mailOptions = {
+        from: { name: 'TripZip', address: GmailID },
+        to: toEmail,
+        subject: 'Welcome to TripZip',
+        html: welcomeEmailContent.replace('{{USERNAME}}', userName).replace('{{USER EMAIL}}', toEmail).replace('{{CODE}}', verificationCode),
+    };
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        logger.info(`Email sent: ${info.response}`);
+    } catch (error) {
+        logger.error('Error sending email:', error);
+        throw error;
+    }
+}
+
+module.exports = { sendWelcomeEmail, sendVerificationEmail };

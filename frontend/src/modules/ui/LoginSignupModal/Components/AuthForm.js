@@ -10,19 +10,17 @@ import {
 } from '../Styles/Styles';
 import {
     environment,
-    backendOrigin,
     testLoginId,
     testPassword,
 } from '../../../../frontend.config';
 
-import { useAuth } from '../../../../context/Auth/useAuth';
-import { useAuthModal } from '../hooks/useAuthModal';
-
-import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { AuthFormState } from '../states/AuthFormState';
+import { isVerificationPageOpenState } from '../states/isVerificationPageOpenState';
 
 export default function AuthForm({ isLogin }) {
-    const { loginAuth } = useAuth();
-    const { closeAuthModal } = useAuthModal();
+    const [authFormState, setAuthFormState] = useRecoilState(AuthFormState);
+    const [, setVerifyState] = useRecoilState(isVerificationPageOpenState);
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
@@ -44,57 +42,8 @@ export default function AuthForm({ isLogin }) {
         return true;
     };
 
-    const loginRequest = async (instance, body) => {
-        try {
-            const result = await instance.post('/users/signin', body, {
-                headers: { 'Content-Type': 'application/json' },
-            });
-            if (result.status === 201) {
-                loginAuth(result.data);
-                return 'SUCCESS';
-            } else {
-                console.error('Unexpected status code:', result.status);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        return 'FAIL';
-    };
-
-    const signUpRequest = async (instance, body) => {
-        try {
-            const result = await instance.post(
-                '/users/signup',
-                body,
-                { headers: { 'Content-Type': 'application/json' } }
-            );
-            if (result.status === 201) {
-                loginAuth(result.data);
-                return 'SUCCESS';
-            } else {
-                console.error('Unexpected status code:', result.status);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            if (error.response) {
-                console.error('Response data:', error.response.data);
-                console.error('Response status:', error.response.status);
-            } else if (error.request) {
-                console.error('Request data:', error.request);
-            } else {
-                console.error('Error message:', error.message);
-            }
-        }
-        return 'FAIL';
-    };
-
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-
-        const instance = axios.create({
-            withCredentials: true,
-            baseURL: backendOrigin,
-        });
 
         const nameField = e.target.elements.name;
         const name = nameField ? nameField.value : '';
@@ -105,23 +54,37 @@ export default function AuthForm({ isLogin }) {
         const isPasswordValid = validatePassword(password);
 
         if (isEmailValid && isPasswordValid) {
-            let result = '';
-            if (isLogin) {
-                result = await loginRequest(instance, {
-                    email: email,
-                    password: password,
-                });
-            } else {
-                result = await signUpRequest(instance, {
-                    name: name,
-                    email: email,
-                    password: password,
-                });
+            const data = {
+                email,
+                password,
+                type: isLogin ? 'Login' : 'Signup',
+            };
+
+            if (!isLogin) {
+                data.name = name;
             }
-            if (result === 'SUCCESS') {
-                closeAuthModal();
-            }
+            setAuthFormState({ ...authFormState, ...data });
+            setVerifyState(true);
         }
+
+        // if (isEmailValid && isPasswordValid) {
+        //     let result = '';
+        //     if (isLogin) {
+        //         result = await loginRequest(instance, {
+        //             email: email,
+        //             password: password,
+        //         });
+        //     } else {
+        //         result = await signUpRequest(instance, {
+        //             name: name,
+        //             email: email,
+        //             password: password,
+        //         });
+        //     }
+        //     if (result === 'SUCCESS') {
+        //         closeAuthModal();
+        //     }
+        // }
     };
 
     return (

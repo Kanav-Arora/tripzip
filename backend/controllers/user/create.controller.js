@@ -6,6 +6,7 @@ const logger = require('../../utils/logger/logger');
 const { PasswordManager } = require('../../services/passwordManager');
 
 const { ifUserExists, addNewUser } = require('./helper.controller');
+const { sendWelcomeEmail } = require('../../utils/Nodemailer/NodemailerService');
 
 async function signUpUser(req, res) {
     const user = req.body;
@@ -88,6 +89,7 @@ async function signInUser(req, res) {
         if (NodeEnv === 'production') {
             cookieOptions.domain = 'tripzip.online';
         }
+        sendWelcomeEmail(userExists.email, userExists.name);
         res.cookie('access_token', token, cookieOptions).status(201).json({
             uid: userExists._id,
             name: userExists.name,

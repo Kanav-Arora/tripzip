@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Welcome to TripZip</title>
+        <title>Email Verification Code</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -33,18 +33,22 @@
     <body>
         <div class="container">
             <div class="header">
-                <h1>
-                    Welcome to TripZip
-                    <img
-                        src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif"
-                        width="30px"
-                    />
-                </h1>
+                <h1>Email Verification Code</h1>
             </div>
             <div class="content">
                 <p>Hello {{USERNAME}},</p>
-                <p>Welcome to TripZip!</p>
-                <p>We're excited to have you on board.</p>
+                <p>
+                    We have received a request to verify your email address
+                    associated with {{USER EMAIL}}.
+                </p>
+                <p>
+                    Your verification code is:
+                    <strong>{{CODE}}</strong>
+                </p>
+                <p>
+                    This code will expire in 24 hours. If you did not request
+                    this verification, please ignore this email.
+                </p>
                 <p>Best regards,<br />TripZip</p>
             </div>
         </div>

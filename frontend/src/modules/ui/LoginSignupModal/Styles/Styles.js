@@ -1,15 +1,14 @@
 import styled from 'styled-components';
 import { Theme } from '../../Theme/theme';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IconProvider } from '../../IconProvider/IconProvider';
 
 export const ModalBody = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
-    border-radius: ${Theme.border.radius.xl};
-    padding: ${Theme.spacing(1)};
+    border-radius: ${Theme.border.radius['2xl']};
+    padding: ${Theme.spacing(2)};
 `;
 
 export const Image = styled.img`
@@ -104,8 +103,8 @@ export const AnimatedSideComponent = ({ index, element }) => {
 
 export const ContentContainer = styled(motion.div)`
     width: 50%;
-    padding-left: ${Theme.spacing(20)};
-    padding-right: ${Theme.spacing(20)};
+    padding-left: ${Theme.spacing(10)};
+    padding-right: ${Theme.spacing(10)};
     padding-top: ${Theme.spacing(12)};
     padding-bottom: ${Theme.spacing(12)};
     border-radius: inherit;
@@ -182,7 +181,7 @@ export const TextDivider = styled.div`
 export const ToggleText = styled.div`
     width: 100%;
     color: ${Theme.color.gray50};
-    font-size: ${Theme.font.size.xs};
+    font-size: ${Theme.font.size.sm};
     display: flex;
     flex-direction: row;
     justify-content: center;
