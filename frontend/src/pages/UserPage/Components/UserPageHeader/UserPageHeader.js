@@ -5,7 +5,7 @@ import UserAvatar from '../../../../modules/ui/UserAvatar';
 export default function UserPageHeader({ image, name, email }) {
     return (
         <Container>
-            <UserAvatar size={6} image={image} letter={name} />
+            <UserAvatar size={6} image={image} name={name} />
             <Content>
                 <UserName>{name}</UserName>
                 <Email>{email}</Email>

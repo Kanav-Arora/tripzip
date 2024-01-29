@@ -17,7 +17,7 @@ const UserCard = ({ name, stars, yearsHosting, numberOfTrips, image }) => {
                 <div className="h-full flex flex-col justify-center items-center gap-y-1">
                     <UserAvatar
                         image="/images/src/kanav.webp"
-                        letter="KA"
+                        name="KA"
                         size={5}
                     />
                     <div className="text-lg font-bold">{name}</div>

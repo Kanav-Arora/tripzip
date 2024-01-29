@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useAuth } from '../../context/Auth/useAuth'
+import { useAuth } from '../../context/Auth/useAuth';
 import { BucketAPI } from '../../frontend.config';
 
 const AvatarContainer = styled.div`
@@ -28,7 +28,7 @@ const TextInitials = styled.span`
 
 export default function UserAvatar({
     uid,
-    letter,
+    name,
     size,
     backgroundColor,
     textColor,
@@ -43,7 +43,7 @@ export default function UserAvatar({
         const fetchImage = async () => {
             try {
                 const response = await axios({
-                    method: "GET",
+                    method: 'GET',
                     url: BucketAPI + searchUID,
                 });
                 if (response.status === 200) {
@@ -79,7 +79,7 @@ export default function UserAvatar({
                 />
             ) : (
                 <TextInitials size={size}>
-                    {letter ? letter.slice(0, 2).toUpperCase() : ''}
+                    {name ? name.slice(0, 2).toUpperCase() : ''}
                 </TextInitials>
             )}
         </AvatarContainer>

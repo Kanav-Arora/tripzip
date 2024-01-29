@@ -79,7 +79,7 @@ const TripCard = ({ trip }) => {
                     </div>
                     {userDetails && (
                         <UserAvatar
-                            letter={userDetails.name}
+                            name={userDetails.name}
                             size={1.75}
                             image="/images/src/kanav.webp"
                             onClick={onUserClickHandler}
@@ -92,7 +92,7 @@ const TripCard = ({ trip }) => {
                         {Math.ceil(
                             (new Date(trip.tripDetails.endDate) -
                                 new Date(trip.tripDetails.startDate)) /
-                                (1000 * 60 * 60 * 24)
+                            (1000 * 60 * 60 * 24)
                         )}{' '}
                         Days
                     </StyledInfoItem>

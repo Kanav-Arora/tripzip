@@ -43,7 +43,7 @@ export default function ProfileImagePicker() {
     return (
         <StyledWrapper>
             <UserAvatar
-                letter={authStateValue.name}
+                name={authStateValue.name}
                 size={6}
                 onClick={handleImagePickerClick}
             />

@@ -40,7 +40,7 @@ export default function Dropdown({ isDark }) {
         <DropdownContainer>
             <div>
                 <div id="dropdown">
-                    <UserAvatar letter={authStateValue.name} onClick={openDrop} size={2} backgroundColor={isDark ? Theme.color.matteBlack : Theme.color.gray60} />
+                    <UserAvatar name={authStateValue.name} onClick={openDrop} size={2} backgroundColor={isDark ? Theme.color.matteBlack : Theme.color.gray60} />
                     {open && (
                         <DropdownList>
                             <DropdownItem

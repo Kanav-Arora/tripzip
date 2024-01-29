@@ -48,7 +48,7 @@ export default function TripBody({ tripData, userData }) {
                         </div>
                         <UserAvatar
                             image="/images/src/kanav.webp"
-                            letter="KA"
+                            name="KA"
                             size={1.75}
                             hasShadow={true}
                         />
