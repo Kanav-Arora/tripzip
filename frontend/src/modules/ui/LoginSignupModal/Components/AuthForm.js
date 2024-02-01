@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
     FormContainer,
     Form,
@@ -17,8 +16,14 @@ import {
 import { useRecoilState } from 'recoil';
 import { AuthFormState } from '../states/AuthFormState';
 import { isVerificationPageOpenState } from '../states/isVerificationPageOpenState';
+import axios from 'axios';
+import { backendOrigin } from '../../../../frontend.config';
+import { useAuth } from '../../../../context/Auth/useAuth';
+import { useAuthModal } from '../hooks/useAuthModal';
 
 export default function AuthForm({ isLogin }) {
+    const { loginAuth } = useAuth();
+    const { closeAuthModal } = useAuthModal();
     const [authFormState, setAuthFormState] = useRecoilState(AuthFormState);
     const [, setVerifyState] = useRecoilState(isVerificationPageOpenState);
     const [emailError, setEmailError] = useState('');
@@ -54,37 +59,44 @@ export default function AuthForm({ isLogin }) {
         const isPasswordValid = validatePassword(password);
 
         if (isEmailValid && isPasswordValid) {
-            const data = {
-                email,
-                password,
-                type: isLogin ? 'Login' : 'Signup',
-            };
+            try {
+                const instance = axios.create({
+                    withCredentials: true,
+                    baseURL: backendOrigin,
+                });
+                const data = {
+                    email,
+                    password,
+                    type: isLogin ? 'Login' : 'Signup',
+                };
 
-            if (!isLogin) {
-                data.name = name;
+                if (!isLogin) {
+                    data.name = name;
+                }
+                if (isLogin) {
+                    const result = await instance.post('/users/signin', { email, password }, {
+                        headers: { 'Content-Type': 'application/json' },
+                    });
+                    if (result.data.status === 201) {
+                        loginAuth(result.data);
+                        setVerifyState(false);
+                        setAuthFormState({
+                            name: null,
+                            email: null,
+                            password: null,
+                            type: null,
+                        });
+                        closeAuthModal();
+                    }
+                }
+                else {
+                    setAuthFormState({ ...authFormState, ...data });
+                    setVerifyState(true);
+                }
+            } catch (error) {
+                console.log(error);
             }
-            setAuthFormState({ ...authFormState, ...data });
-            setVerifyState(true);
         }
-
-        // if (isEmailValid && isPasswordValid) {
-        //     let result = '';
-        //     if (isLogin) {
-        //         result = await loginRequest(instance, {
-        //             email: email,
-        //             password: password,
-        //         });
-        //     } else {
-        //         result = await signUpRequest(instance, {
-        //             name: name,
-        //             email: email,
-        //             password: password,
-        //         });
-        //     }
-        //     if (result === 'SUCCESS') {
-        //         closeAuthModal();
-        //     }
-        // }
     };
 
     return (

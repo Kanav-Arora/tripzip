@@ -41,7 +41,7 @@ async function signUpUser(req, res) {
         if (NodeEnv === 'production') {
             cookieOptions.domain = 'tripzip.online';
         }
-
+        sendWelcomeEmail(savedUser.email, savedUser.name);
         res.cookie('access_token', token, cookieOptions).status(201).json({
             uid: savedUser._id,
             name: savedUser.name,
@@ -60,7 +60,7 @@ async function signInUser(req, res) {
     try {
         const userExists = await ifUserExists(user);
         if (!userExists) {
-            return res.status(400).send({ message: 'Invalid Credentails' });
+            return res.status(400).send({ message: 'Email doesn\'t exists' });
         }
 
         const isPasswordCorrect = await PasswordManager.compare(

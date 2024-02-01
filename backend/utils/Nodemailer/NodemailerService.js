@@ -6,6 +6,7 @@ const logger = require('../logger/logger');
 const { GmailID, GmailPassword } = require('../../config');
 
 const welcomeEmailContent = fs.readFileSync(`${__dirname}/content/welcomeEmailContent.html`, 'utf-8');
+const verifyEmailContent = fs.readFileSync(`${__dirname}/content/verifyEmailContent.html`, 'utf-8');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -35,12 +36,12 @@ async function sendWelcomeEmail(toEmail, userName) {
     }
 }
 
-async function sendVerificationEmail(toEmail, userName, verificationCode) {
+async function sendVerificationEmail(toEmail, verificationCode) {
     const mailOptions = {
         from: { name: 'TripZip', address: GmailID },
         to: toEmail,
         subject: 'Welcome to TripZip',
-        html: welcomeEmailContent.replace('{{USERNAME}}', userName).replace('{{USER EMAIL}}', toEmail).replace('{{CODE}}', verificationCode),
+        html: verifyEmailContent.replace('{{USER EMAIL}}', toEmail).replace('{{CODE}}', verificationCode),
     };
     try {
         const info = await transporter.sendMail(mailOptions);
