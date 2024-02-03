@@ -6,6 +6,8 @@ import {
     Input,
     Error,
     Button,
+    ForgotPassButton,
+    FieldSubText,
 } from '../Styles/Styles';
 import {
     environment,
@@ -15,19 +17,21 @@ import {
 
 import { useRecoilState } from 'recoil';
 import { AuthFormState } from '../states/AuthFormState';
-import { isVerificationPageOpenState } from '../states/isVerificationPageOpenState';
+import { OpenedPageState } from '../states/OpenedPageState';
 import axios from 'axios';
 import { backendOrigin } from '../../../../frontend.config';
 import { useAuth } from '../../../../context/Auth/useAuth';
 import { useAuthModal } from '../hooks/useAuthModal';
+import Pages from '../constants/PageStates';
 
 export default function AuthForm({ isLogin }) {
     const { loginAuth } = useAuth();
     const { closeAuthModal } = useAuthModal();
     const [authFormState, setAuthFormState] = useRecoilState(AuthFormState);
-    const [, setVerifyState] = useRecoilState(isVerificationPageOpenState);
+    const [, setPageState] = useRecoilState(OpenedPageState);
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [nameError, setNameError] = useState('');
 
     const validateEmail = (email) => {
         if (!email.includes('@')) {
@@ -54,44 +58,48 @@ export default function AuthForm({ isLogin }) {
         const name = nameField ? nameField.value : '';
         const email = e.target.elements.email.value;
         const password = e.target.elements.password.value;
+        const instance = axios.create({
+            withCredentials: true,
+            baseURL: backendOrigin,
+        });
+        const data = {
+            email,
+            password,
+            type: isLogin ? 'Login' : 'Signup',
+        };
 
-        const isEmailValid = validateEmail(email);
-        const isPasswordValid = validatePassword(password);
+        if (!isLogin) {
+            data.name = name;
+            if (name === '') {
+                setNameError("Name field can't be empty");
+            }
+            const isEmailValid = validateEmail(email);
+            const isPasswordValid = validatePassword(password);
 
-        if (isEmailValid && isPasswordValid) {
+            if (isEmailValid && isPasswordValid && data.name !== '') {
+                setAuthFormState({ ...authFormState, ...data });
+                setPageState(Pages.verify);
+            }
+        } else {
             try {
-                const instance = axios.create({
-                    withCredentials: true,
-                    baseURL: backendOrigin,
-                });
-                const data = {
-                    email,
-                    password,
-                    type: isLogin ? 'Login' : 'Signup',
-                };
-
-                if (!isLogin) {
-                    data.name = name;
-                }
-                if (isLogin) {
-                    const result = await instance.post('/users/signin', { email, password }, {
+                const result = await instance.post(
+                    '/users/signin',
+                    { email, password },
+                    {
                         headers: { 'Content-Type': 'application/json' },
-                    });
-                    if (result.data.status === 201) {
-                        loginAuth(result.data);
-                        setVerifyState(false);
-                        setAuthFormState({
-                            name: null,
-                            email: null,
-                            password: null,
-                            type: null,
-                        });
-                        closeAuthModal();
                     }
-                }
-                else {
-                    setAuthFormState({ ...authFormState, ...data });
-                    setVerifyState(true);
+                );
+                console.log(result);
+                if (result.status === 201) {
+                    loginAuth(result.data);
+                    setPageState(Pages.main);
+                    setAuthFormState({
+                        name: null,
+                        email: null,
+                        password: null,
+                        type: null,
+                    });
+                    closeAuthModal();
                 }
             } catch (error) {
                 console.log(error);
@@ -109,7 +117,9 @@ export default function AuthForm({ isLogin }) {
                             type="text"
                             placeholder="Name"
                             onChange={(e) => e.preventDefault()}
+                            error={!!nameError}
                         />
+                        {nameError && <Error>{nameError}</Error>}
                     </FormField>
                 )}
                 <FormField>
@@ -138,9 +148,21 @@ export default function AuthForm({ isLogin }) {
                         placeholder="Password"
                         error={!!passwordError}
                     />
+                    {!isLogin && !passwordError && (
+                        <FieldSubText>
+                            Password must of atleast 8 length and be
+                            alphanumeric
+                        </FieldSubText>
+                    )}
                     {passwordError && <Error>{passwordError}</Error>}
                 </FormField>
-
+                {isLogin && (
+                    <ForgotPassButton
+                        onClick={() => setPageState(Pages.passwordReset)}
+                    >
+                        Forgot Password ?
+                    </ForgotPassButton>
+                )}
                 <Button type="submit">{isLogin ? 'Login' : 'Signup'}</Button>
             </Form>
         </FormContainer>

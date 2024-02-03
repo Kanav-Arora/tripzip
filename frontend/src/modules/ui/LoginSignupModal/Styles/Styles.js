@@ -132,7 +132,7 @@ export const ContentBody = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: ${Theme.spacing(10)};
+    gap: ${Theme.spacing(6)};
     margin-top: ${Theme.spacing(3)};
     margin-bottom: ${Theme.spacing(3)};
 `;
@@ -214,6 +214,12 @@ export const FieldLabel = styled.div`
     font-weight: ${Theme.font.weight.semibold};
 `;
 
+export const FieldSubText = styled.div`
+    font-weight: ${Theme.font.weight.light};
+    color: ${Theme.color.gray60};
+    font-size: ${Theme.font.size.xs};
+`;
+
 export const Input = styled.input`
     width: 100%;
     height: ${Theme.spacing(10)};
@@ -234,8 +240,7 @@ export const Input = styled.input`
 
 export const Error = styled.span`
     color: red;
-    font-size: 12px;
-    margin-top: 5px;
+    font-size: ${Theme.font.size.xs};
 `;
 
 export const Button = styled.button`
@@ -246,4 +251,11 @@ export const Button = styled.button`
     border: none;
     border-radius: ${Theme.border.radius.md};
     cursor: pointer;
+`;
+
+export const ForgotPassButton = styled.button`
+    margin-left: auto;
+    font-size: ${Theme.font.size.xs};
+    color: ${Theme.color.matteBlack};
+    font-weight: ${Theme.font.weight.semibold};
 `;

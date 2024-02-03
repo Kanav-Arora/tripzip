@@ -11,11 +11,20 @@ import ThirdPartyAuth from './ThirdPartyAuth';
 import { GoogleIcon } from '../../../../assets/ext-icon';
 import VerificationPage from './VerificationPage';
 import { useRecoilValue } from 'recoil';
-import { isVerificationPageOpenState } from '../states/isVerificationPageOpenState';
+import { OpenedPageState } from '../states/OpenedPageState';
+import Pages from '../constants/PageStates';
+import PasswordReset from './PasswordReset';
 
 export default function LoginForm({ handleToggle }) {
-    const verifyState = useRecoilValue(isVerificationPageOpenState);
-    return !verifyState ? (
+    const pageState = useRecoilValue(OpenedPageState);
+    if (pageState === Pages.verify) {
+        return <VerificationPage />;
+    }
+    if (pageState === Pages.passwordReset) {
+        return <PasswordReset />;
+    }
+
+    return (
         <>
             <ContentHeader>
                 <ContentHeading>Log In</ContentHeading>
@@ -31,7 +40,5 @@ export default function LoginForm({ handleToggle }) {
                 </ToggleText>
             </ContentBody>
         </>
-    ) : (
-        <VerificationPage />
     );
 }

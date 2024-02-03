@@ -11,12 +11,16 @@ import AuthForm from './AuthForm';
 import ThirdPartyAuth from './ThirdPartyAuth';
 import { GoogleIcon } from '../../../../assets/ext-icon';
 import { useRecoilValue } from 'recoil';
-import { isVerificationPageOpenState } from '../states/isVerificationPageOpenState';
+import { OpenedPageState } from '../states/OpenedPageState';
+import Pages from '../constants/PageStates';
 import VerificationPage from './VerificationPage';
 
 export default function SignupForm({ handleToggle }) {
-    const verifyState = useRecoilValue(isVerificationPageOpenState);
-    return !verifyState ? (
+    const pageState = useRecoilValue(OpenedPageState);
+    if (pageState === Pages.verify) {
+        return <VerificationPage />;
+    }
+    return (
         <>
             <ContentHeader>
                 <ContentHeading>Sign Up</ContentHeading>
@@ -32,7 +36,5 @@ export default function SignupForm({ handleToggle }) {
                 </ToggleText>
             </ContentBody>
         </>
-    ) : (
-        <VerificationPage />
     );
 }

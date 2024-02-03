@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { isVerificationPageOpenState } from '../states/isVerificationPageOpenState';
-import { VerificationResetTimeState } from '../states/VerificationResetTimeState';
+import { OpenedPageState } from '../states/OpenedPageState';
 import { AuthFormState } from '../states/AuthFormState';
 import { Theme } from '../../Theme/theme';
 import { useAuth } from '../../../../context/Auth/useAuth';
@@ -11,6 +10,7 @@ import { backendOrigin } from '../../../../frontend.config';
 import axios from 'axios';
 import { IconProvider } from '../../IconProvider/IconProvider';
 import { ChevronLeft } from '../../../../assets/ext-icon';
+import Pages from '../constants/PageStates';
 
 const StyledContainer = styled.div`
     display: flex;
@@ -69,54 +69,13 @@ const StyledButton = styled.button`
     width: 100%;
 `;
 
-const ResendButton = styled.button`
-    margin-top: ${Theme.spacing(2)};
-    color: ${Theme.color.blue500};
-    cursor: pointer;
-    border: none;
-    background: none;
-`;
-
-const TimerText = styled.div`
-    margin-top: ${Theme.spacing(2)};
-    font-size: ${Theme.font.size.sm};
-    color: ${Theme.color.gray60};
-`;
-
-const CountdownTimer = () => {
-    const [resetTimeState, setResetTimeState] = useRecoilState(VerificationResetTimeState);
-    const [countdown, setCountdown] = useState(resetTimeState.time);
-    useEffect(() => {
-        if (countdown > 0) {
-            const intervalId = setInterval(() => {
-                setCountdown((prev) => prev - 1);
-            }, 1000);
-
-            return () => clearInterval(intervalId);
-        } else {
-            setResetTimeState({ disable: false, time: 0 });
-        }
-    }, []);
-
-    const minutes = Math.floor(countdown / 60);
-    const remainingSeconds = countdown % 60;
-
-    return (
-        <TimerText>
-            Resend in {minutes}:
-            {remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds}
-        </TimerText>
-    );
-};
-
 export default function VerificationPage() {
     const { loginAuth } = useAuth();
     const { closeAuthModal } = useAuthModal();
-    const [, setVerifyState] = useRecoilState(isVerificationPageOpenState);
+    const [, setPageState] = useRecoilState(OpenedPageState);
     const [authFormState, setAuthFormState] = useRecoilState(AuthFormState);
     const inputRefs = [useRef(), useRef(), useRef(), useRef()];
     const [proceedDisabled, setProceedDisabled] = useState(true);
-    const [resetTimeState, setResetTimeState] = useRecoilState(VerificationResetTimeState);
 
     useEffect(() => {
         const instance = axios.create({
@@ -126,17 +85,9 @@ export default function VerificationPage() {
 
         const fetchCodeInfo = async () => {
             try {
-                const response = await instance.get('/emailVerify', {
+                await instance.get('/emailVerify', {
                     params: new URLSearchParams({ email: authFormState.email }),
                 });
-                console.log(response);
-                if (response.status === 200) {
-                    const remainingTime = response.data.remainingTime;
-                    setResetTimeState({ disable: true, time: remainingTime });
-                }
-                else if (response.status === 201) {
-                    setResetTimeState({ disable: true, time: 120 });
-                }
             } catch (error) {
                 console.error('Error fetching code info:', error.message);
             }
@@ -197,13 +148,19 @@ export default function VerificationPage() {
             withCredentials: true,
             baseURL: backendOrigin,
         });
-        const verificationCode = inputRefs.map(ref => ref.current.value).join('');
-        const verifyResponse = await instance.post('/emailVerify', {
-            email: authFormState.email,
-            code: verificationCode,
-        }, {
-            headers: { 'Content-Type': 'application/json' },
-        });
+        const verificationCode = inputRefs
+            .map((ref) => ref.current.value)
+            .join('');
+        const verifyResponse = await instance.post(
+            '/emailVerify',
+            {
+                email: authFormState.email,
+                code: verificationCode,
+            },
+            {
+                headers: { 'Content-Type': 'application/json' },
+            }
+        );
 
         if (verifyResponse.status === 201) {
             let result = '';
@@ -211,12 +168,12 @@ export default function VerificationPage() {
                 name: authFormState.name,
                 email: authFormState.email,
                 password: authFormState.password,
-                isVerified: true
+                isVerified: true,
             });
 
             if (result === 'SUCCESS') {
                 closeAuthModal();
-                setVerifyState(false);
+                setPageState(Pages.main);
                 setAuthFormState({
                     name: null,
                     email: null,
@@ -225,28 +182,6 @@ export default function VerificationPage() {
                 });
             }
         }
-
-    };
-
-    const handleResendButtonClick = async () => {
-        setResetTimeState({ disable: true, time: 0 });
-        const instance = axios.create({
-            withCredentials: true,
-            baseURL: backendOrigin,
-        });
-
-        try {
-            const response = await instance.get('/emailVerify', {
-                params: new URLSearchParams({ email: authFormState.email }),
-            });
-            if (response.status === 201) {
-                setResetTimeState({ disable: true, time: 120 });
-            } else {
-                console.error('Unexpected status code:', response.status);
-            }
-        } catch (error) {
-            console.error('Error resending code:', error.message);
-        }
     };
 
     return (
@@ -254,7 +189,7 @@ export default function VerificationPage() {
             <StyledHeader>
                 <button
                     onClick={() => {
-                        setVerifyState(false);
+                        setPageState(Pages.main);
                     }}
                 >
                     <IconProvider Icon={ChevronLeft} size={2} />
@@ -284,16 +219,6 @@ export default function VerificationPage() {
                 >
                     Proceed
                 </StyledButton>
-                {/* <ResendButton
-                    disabled={resetTimeState.disable}
-                    onClick={handleResendButtonClick}
-                >
-                    Resend Code
-                </ResendButton>
-                {resetTimeState.disable === true && (
-                    <CountdownTimer
-                    />
-                )} */}
             </StyledBody>
         </StyledContainer>
     );
