@@ -7,6 +7,7 @@ const { GmailID, GmailPassword } = require('../../config');
 
 const welcomeEmailContent = fs.readFileSync(`${__dirname}/content/welcomeEmailContent.html`, 'utf-8');
 const verifyEmailContent = fs.readFileSync(`${__dirname}/content/verifyEmailContent.html`, 'utf-8');
+const verifyPasswordChangeContent = fs.readFileSync(`${__dirname}/content/verifyPasswordChangeContent.html`, 'utf-8');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -36,11 +37,11 @@ async function sendWelcomeEmail(toEmail, userName) {
     }
 }
 
-async function sendVerificationEmail(toEmail, verificationCode) {
+async function sendEmailVerificationEmail(toEmail, verificationCode) {
     const mailOptions = {
         from: { name: 'TripZip', address: GmailID },
         to: toEmail,
-        subject: 'Welcome to TripZip',
+        subject: 'Verify Email',
         html: verifyEmailContent.replace('{{USER EMAIL}}', toEmail).replace('{{CODE}}', verificationCode),
     };
     try {
@@ -52,4 +53,20 @@ async function sendVerificationEmail(toEmail, verificationCode) {
     }
 }
 
-module.exports = { sendWelcomeEmail, sendVerificationEmail };
+async function sendPasswordVerificationEmail(toEmail, verificationCode) {
+    const mailOptions = {
+        from: { name: 'TripZip', address: GmailID },
+        to: toEmail,
+        subject: 'Password Change Request',
+        html: verifyPasswordChangeContent.replace('{{USER EMAIL}}', toEmail).replace('{{CODE}}', verificationCode),
+    };
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        logger.info(`Email sent: ${info.response}`);
+    } catch (error) {
+        logger.error('Error sending email:', error);
+        throw error;
+    }
+}
+
+module.exports = { sendWelcomeEmail, sendEmailVerificationEmail, sendPasswordVerificationEmail };

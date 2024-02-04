@@ -17,7 +17,7 @@ import PasswordReset from './PasswordReset';
 
 export default function LoginForm({ handleToggle }) {
     const pageState = useRecoilValue(OpenedPageState);
-    if (pageState === Pages.verify) {
+    if (pageState === Pages.emailVerify || pageState === Pages.passwordVerify) {
         return <VerificationPage />;
     }
     if (pageState === Pages.passwordReset) {

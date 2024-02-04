@@ -17,7 +17,7 @@ import VerificationPage from './VerificationPage';
 
 export default function SignupForm({ handleToggle }) {
     const pageState = useRecoilValue(OpenedPageState);
-    if (pageState === Pages.verify) {
+    if (pageState === Pages.emailVerify) {
         return <VerificationPage />;
     }
     return (

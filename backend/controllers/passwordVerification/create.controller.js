@@ -1,6 +1,6 @@
-const EmailVerify = require('../../models/emailVerification.mongo');
+const PasswordVerify = require('../../models/passwordVerification.mongo');
 const {
-    sendEmailVerificationEmail,
+    sendPasswordVerificationEmail,
 } = require('../../utils/Nodemailer/NodemailerService');
 const logger = require('../../utils/logger/logger');
 
@@ -8,11 +8,11 @@ function generateVerificationCode() {
     return Math.floor(1000 + Math.random() * 9000).toString();
 }
 
-async function verifyEmailID(req, res) {
+async function verifyPasswordID(req, res) {
     try {
         const { email } = req.query;
 
-        const existingVerification = await EmailVerify.findOne({ email });
+        const existingVerification = await PasswordVerify.findOne({ email });
         if (existingVerification) {
             const currentTime = new Date();
             const creationTime = existingVerification.created_at;
@@ -23,7 +23,7 @@ async function verifyEmailID(req, res) {
                 );
                 return res.status(200).json({
                     status: 200,
-                    message: 'EmailVerify code still valid',
+                    message: 'Password Verification code still valid',
                     remainingTime,
                 });
             }
@@ -39,7 +39,7 @@ async function verifyEmailID(req, res) {
             existingVerification.created_at = new Date();
             await existingVerification.save();
         } else {
-            const newVerification = new EmailVerify({
+            const newVerification = new PasswordVerify({
                 email,
                 verificationCode: newVerificationCode,
                 expirationTime,
@@ -47,13 +47,13 @@ async function verifyEmailID(req, res) {
             });
             await newVerification.save();
         }
-        sendEmailVerificationEmail(email, newVerificationCode);
+        sendPasswordVerificationEmail(email, newVerificationCode);
         res.status(201).json({
             status: 201,
-            message: 'EmailVerify code generated successfully',
+            message: 'Password Verification code generated successfully',
         });
     } catch (error) {
-        logger.error('Error during email EmailVerify:', error);
+        logger.error('Error during Password Verification:', error);
         res.status(500).json({
             success: false,
             message: 'Internal server error',
@@ -61,14 +61,14 @@ async function verifyEmailID(req, res) {
     }
 }
 
-async function verifyEmailCode(req, res) {
+async function verifyPasswordCode(req, res) {
     try {
         const { email, code } = req.body;
-        const existingVerification = await EmailVerify.findOne({ email });
+        const existingVerification = await PasswordVerify.findOne({ email });
         if (existingVerification.verificationCode === code) {
             return res.status(201).json({
                 status: 201,
-                message: 'Email verified successfully',
+                message: 'Password Change: code verified successfully',
             });
         }
 
@@ -77,7 +77,7 @@ async function verifyEmailCode(req, res) {
             message: 'Invalid code',
         });
     } catch (error) {
-        logger.error('Error during email EmailVerify:', error);
+        logger.error('Error during password verification:', error);
         res.status(500).json({
             success: false,
             message: 'Internal server error',
@@ -85,4 +85,4 @@ async function verifyEmailCode(req, res) {
     }
 }
 
-module.exports = { verifyEmailID, verifyEmailCode };
+module.exports = { verifyPasswordID, verifyPasswordCode };

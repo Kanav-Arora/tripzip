@@ -11,6 +11,7 @@ import axios from 'axios';
 import { IconProvider } from '../../IconProvider/IconProvider';
 import { ChevronLeft } from '../../../../assets/ext-icon';
 import Pages from '../constants/PageStates';
+import { PasswordChangeFormState } from '../states/PasswordChangeFormState';
 
 const StyledContainer = styled.div`
     display: flex;
@@ -72,8 +73,9 @@ const StyledButton = styled.button`
 export default function VerificationPage() {
     const { loginAuth } = useAuth();
     const { closeAuthModal } = useAuthModal();
-    const [, setPageState] = useRecoilState(OpenedPageState);
+    const [pageState, setPageState] = useRecoilState(OpenedPageState);
     const [authFormState, setAuthFormState] = useRecoilState(AuthFormState);
+    const [passwordFormState, setPasswordFormState] = useRecoilState(PasswordChangeFormState);
     const inputRefs = [useRef(), useRef(), useRef(), useRef()];
     const [proceedDisabled, setProceedDisabled] = useState(true);
 
@@ -85,9 +87,19 @@ export default function VerificationPage() {
 
         const fetchCodeInfo = async () => {
             try {
-                await instance.get('/emailVerify', {
-                    params: new URLSearchParams({ email: authFormState.email }),
-                });
+                if (pageState === Pages.emailVerify) {
+                    await instance.get('/emailVerify', {
+                        params: new URLSearchParams({
+                            email: authFormState.email,
+                        }),
+                    });
+                } else if (pageState === Pages.passwordVerify) {
+                    await instance.get('/passwordVerify', {
+                        params: new URLSearchParams({
+                            email: passwordFormState.email,
+                        }),
+                    });
+                }
             } catch (error) {
                 console.error('Error fetching code info:', error.message);
             }
@@ -143,6 +155,31 @@ export default function VerificationPage() {
         return 'FAIL';
     };
 
+    const passwordChangeRequest = async (instance, body) => {
+        try {
+            const result = await instance.patch('/users/changepassword', body, {
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            if (result.status === 201) {
+                return 'SUCCESS';
+            } else {
+                console.error('Unexpected status code:', result.status);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            if (error.response) {
+                console.error('Response data:', error.response.data);
+                console.error('Response status:', error.response.status);
+            } else if (error.request) {
+                console.error('Request data:', error.request);
+            } else {
+                console.error('Error message:', error.message);
+            }
+        }
+        return 'FAIL';
+    };
+
     const handleProceed = async () => {
         const instance = axios.create({
             withCredentials: true,
@@ -151,34 +188,63 @@ export default function VerificationPage() {
         const verificationCode = inputRefs
             .map((ref) => ref.current.value)
             .join('');
-        const verifyResponse = await instance.post(
-            '/emailVerify',
-            {
-                email: authFormState.email,
-                code: verificationCode,
-            },
-            {
-                headers: { 'Content-Type': 'application/json' },
-            }
-        );
+        let verifyResponse = null;
+        if (pageState === Pages.emailVerify) {
+            verifyResponse = await instance.post(
+                '/emailVerify',
+                {
+                    email: authFormState.email,
+                    code: verificationCode,
+                },
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                }
+            );
+        }
+        else if (pageState === Pages.passwordVerify) {
+            verifyResponse = await instance.post(
+                '/passwordVerify',
+                {
+                    email: passwordFormState.email,
+                    code: verificationCode,
+                },
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                }
+            );
+        }
 
         if (verifyResponse.status === 201) {
             let result = '';
-            result = await signUpRequest(instance, {
-                name: authFormState.name,
-                email: authFormState.email,
-                password: authFormState.password,
-                isVerified: true,
-            });
+            if (pageState === Pages.emailVerify) {
+                result = await signUpRequest(instance, {
+                    name: authFormState.name,
+                    email: authFormState.email,
+                    password: authFormState.password,
+                    isVerified: true,
+                });
+            }
+            else if (pageState === Pages.passwordVerify) {
+                result = await passwordChangeRequest(instance, {
+                    email: passwordFormState.email,
+                    password: passwordFormState.password,
+                });
+            }
 
             if (result === 'SUCCESS') {
-                closeAuthModal();
+                if (pageState === Pages.emailVerify) {
+                    closeAuthModal();
+                }
                 setPageState(Pages.main);
                 setAuthFormState({
                     name: null,
                     email: null,
                     password: null,
                     type: null,
+                });
+                setPasswordFormState({
+                    email: null,
+                    password: null,
                 });
             }
         }
@@ -196,7 +262,7 @@ export default function VerificationPage() {
                 </button>
             </StyledHeader>
             <StyledBody>
-                We have sent a verification code to {authFormState.email}.
+                We have sent a verification code to {pageState === Pages.emailVerify ? authFormState.email : passwordFormState.email}.
                 Please verify your email to proceed.
                 <DigitInputContainer>
                     {[0, 1, 2, 3].map((index) => (

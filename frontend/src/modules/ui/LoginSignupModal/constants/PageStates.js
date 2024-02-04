@@ -1,6 +1,7 @@
 const Pages = {
     main: 'Main',
-    verify: 'Verify',
+    emailVerify: 'EmailVerify',
+    passwordVerify: 'PasswordVerify',
     passwordReset: 'PasswordReset',
 };
 

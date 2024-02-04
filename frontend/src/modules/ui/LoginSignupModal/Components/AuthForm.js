@@ -51,6 +51,10 @@ export default function AuthForm({ isLogin }) {
         return true;
     };
 
+    const handleForgotPasswordClick = () => {
+        setPageState(Pages.passwordReset);
+    };
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
@@ -78,7 +82,7 @@ export default function AuthForm({ isLogin }) {
 
             if (isEmailValid && isPasswordValid && data.name !== '') {
                 setAuthFormState({ ...authFormState, ...data });
-                setPageState(Pages.verify);
+                setPageState(Pages.emailVerify);
             }
         } else {
             try {
@@ -157,9 +161,7 @@ export default function AuthForm({ isLogin }) {
                     {passwordError && <Error>{passwordError}</Error>}
                 </FormField>
                 {isLogin && (
-                    <ForgotPassButton
-                        onClick={() => setPageState(Pages.passwordReset)}
-                    >
+                    <ForgotPassButton onClick={handleForgotPasswordClick}>
                         Forgot Password ?
                     </ForgotPassButton>
                 )}

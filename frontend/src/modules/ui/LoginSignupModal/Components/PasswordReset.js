@@ -1,17 +1,15 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { OpenedPageState } from '../states/OpenedPageState';
 import { AuthFormState } from '../states/AuthFormState';
+import { PasswordChangeFormState } from '../states/PasswordChangeFormState';
 import { Theme } from '../../Theme/theme';
-import { useAuth } from '../../../../context/Auth/useAuth';
-import { useAuthModal } from '../hooks/useAuthModal';
-import { backendOrigin } from '../../../../frontend.config';
-import axios from 'axios';
 import { IconProvider } from '../../IconProvider/IconProvider';
 import { ChevronLeft } from '../../../../assets/ext-icon';
 import Pages from '../constants/PageStates';
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -82,11 +80,65 @@ const StyledButton = styled.button`
     width: 100%;
 `;
 
+export const Error = styled.span`
+    color: red;
+    font-size: ${Theme.font.size.xs};
+`;
+
 export default function PasswordReset() {
     const [, setPageState] = useRecoilState(OpenedPageState);
     const [authFormState] = useRecoilState(AuthFormState);
+    const [, passwordFormState] = useRecoilState(PasswordChangeFormState);
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [rePasswordError, setRePasswordError] = useState('');
+
+    const validateEmail = (email) => {
+        if (!email.includes('@')) {
+            setEmailError('Invalid email address');
+            return false;
+        }
+        setEmailError('');
+        return true;
+    };
+
+    const validatePassword = (password) => {
+        if (password === '' || password.length < 6) {
+            setPasswordError('Password must be at least 6 characters long');
+            return false;
+        }
+
+        setPasswordError('');
+        return true;
+    };
+
+    const validateRePassword = (password, repassword) => {
+        if (password !== repassword) {
+            setRePasswordError('Value should match your password');
+            return false;
+        }
+        setPasswordError('');
+        return true;
+    };
+
+    const handleSubmitButtonClick = (e) => {
+        e.preventDefault();
+        const email = e.target.elements.email.value;
+        const password = e.target.elements.password.value;
+        const repassword = e.target.elements.repassword.value;
+
+        const isEmailValid = validateEmail(email);
+        const isPasswordValid = validatePassword(password);
+        const isRePasswordValid = validateRePassword(password, repassword);
+
+        if (isEmailValid && isPasswordValid && isRePasswordValid) {
+            passwordFormState({ email, password });
+            setPageState(Pages.passwordVerify);
+        }
+    };
+
     return (
-        <StyledContainer>
+        <StyledContainer onSubmit={handleSubmitButtonClick}>
             <StyledHeader>
                 <button
                     onClick={() => {
@@ -104,27 +156,33 @@ export default function PasswordReset() {
                         name="email"
                         type="email"
                         placeholder="Enter your email"
+                        error={!!emailError}
                     ></Input>
+                    {emailError && <Error>{emailError}</Error>}
                 </FormField>
                 <FormField>
                     <Input
                         name="password"
                         type="password"
                         placeholder="Enter new password"
+                        error={!!passwordError}
                     ></Input>
-                    <FieldSubText>
+                    {!passwordError && <FieldSubText>
                         Password must of atleast 8 length and be alphanumeric
-                    </FieldSubText>
+                    </FieldSubText>}
+                    {passwordError && <Error>{passwordError}</Error>}
                 </FormField>
                 <FormField>
                     <Input
-                        name="password"
+                        name="repassword"
                         type="password"
                         placeholder="Re-enter new password"
+                        error={!!rePasswordError}
                     ></Input>
+                    {rePasswordError && <Error>{rePasswordError}</Error>}
                 </FormField>
             </StyledBody>
-            <StyledButton>Proceed</StyledButton>
+            <StyledButton type="submit">Proceed</StyledButton>
         </StyledContainer>
     );
 }
