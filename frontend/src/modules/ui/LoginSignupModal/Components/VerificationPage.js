@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { OpenedPageState } from '../states/OpenedPageState';
 import { AuthFormState } from '../states/AuthFormState';
 import { Theme } from '../../Theme/theme';
@@ -12,6 +12,7 @@ import { IconProvider } from '../../IconProvider/IconProvider';
 import { ChevronLeft } from '../../../../assets/ext-icon';
 import Pages from '../constants/PageStates';
 import { PasswordChangeFormState } from '../states/PasswordChangeFormState';
+import { LoginDataState } from '../states/LoginDataState';
 
 const StyledContainer = styled.div`
     display: flex;
@@ -72,6 +73,8 @@ const StyledButton = styled.button`
 
 export default function VerificationPage() {
     const { loginAuth } = useAuth();
+    const loginDataValue = useRecoilValue(LoginDataState);
+    const resetLoginDataState = useResetRecoilState(LoginDataState);
     const { closeAuthModal } = useAuthModal();
     const [pageState, setPageState] = useRecoilState(OpenedPageState);
     const [authFormState, setAuthFormState] = useRecoilState(AuthFormState);
@@ -129,57 +132,6 @@ export default function VerificationPage() {
         }
     };
 
-    const signUpRequest = async (instance, body) => {
-        try {
-            const result = await instance.post('/users/signup', body, {
-                headers: { 'Content-Type': 'application/json' },
-            });
-
-            if (result.status === 201) {
-                loginAuth(result.data);
-                return 'SUCCESS';
-            } else {
-                console.error('Unexpected status code:', result.status);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            if (error.response) {
-                console.error('Response data:', error.response.data);
-                console.error('Response status:', error.response.status);
-            } else if (error.request) {
-                console.error('Request data:', error.request);
-            } else {
-                console.error('Error message:', error.message);
-            }
-        }
-        return 'FAIL';
-    };
-
-    const passwordChangeRequest = async (instance, body) => {
-        try {
-            const result = await instance.patch('/users/changepassword', body, {
-                headers: { 'Content-Type': 'application/json' },
-            });
-
-            if (result.status === 201) {
-                return 'SUCCESS';
-            } else {
-                console.error('Unexpected status code:', result.status);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            if (error.response) {
-                console.error('Response data:', error.response.data);
-                console.error('Response status:', error.response.status);
-            } else if (error.request) {
-                console.error('Request data:', error.request);
-            } else {
-                console.error('Error message:', error.message);
-            }
-        }
-        return 'FAIL';
-    };
-
     const handleProceed = async () => {
         const instance = axios.create({
             withCredentials: true,
@@ -213,28 +165,29 @@ export default function VerificationPage() {
                 }
             );
         }
-
         if (verifyResponse.status === 201) {
             let result = '';
             if (pageState === Pages.emailVerify) {
-                result = await signUpRequest(instance, {
-                    name: authFormState.name,
-                    email: authFormState.email,
-                    password: authFormState.password,
-                    isVerified: true,
-                });
+                loginAuth(loginDataValue);
+                result = 'SUCCESS';
             }
             else if (pageState === Pages.passwordVerify) {
-                result = await passwordChangeRequest(instance, {
+                const changePasswordResponse = await instance.patch('/users/changepassword', {
                     email: passwordFormState.email,
                     password: passwordFormState.password,
+                }, {
+                    headers: { 'Content-Type': 'application/json' },
                 });
+                if (changePasswordResponse.status === 201) {
+                    result = 'SUCCESS';
+                }
             }
 
             if (result === 'SUCCESS') {
                 if (pageState === Pages.emailVerify) {
                     closeAuthModal();
                 }
+                resetLoginDataState();
                 setPageState(Pages.main);
                 setAuthFormState({
                     name: null,

@@ -17,6 +17,7 @@ import {
 
 import { useRecoilState } from 'recoil';
 import { AuthFormState } from '../states/AuthFormState';
+import { LoginDataState } from '../states/LoginDataState';
 import { OpenedPageState } from '../states/OpenedPageState';
 import axios from 'axios';
 import { backendOrigin } from '../../../../frontend.config';
@@ -28,6 +29,7 @@ export default function AuthForm({ isLogin }) {
     const { loginAuth } = useAuth();
     const { closeAuthModal } = useAuthModal();
     const [authFormState, setAuthFormState] = useRecoilState(AuthFormState);
+    const [, setLoginDataState] = useRecoilState(LoginDataState);
     const [, setPageState] = useRecoilState(OpenedPageState);
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
@@ -81,8 +83,27 @@ export default function AuthForm({ isLogin }) {
             const isPasswordValid = validatePassword(password);
 
             if (isEmailValid && isPasswordValid && data.name !== '') {
-                setAuthFormState({ ...authFormState, ...data });
-                setPageState(Pages.emailVerify);
+                const result = await instance.post(
+                    '/users/signup',
+                    {
+                        name,
+                        email,
+                        password,
+                        isVerified: false,
+                    },
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                    }
+                );
+                if (result.status === 201) {
+                    setLoginDataState({
+                        uid: result.data.uid,
+                        userDetailsId: result.data.userDetailsId,
+                        name: result.data.name,
+                    });
+                    setAuthFormState({ ...authFormState, ...data });
+                    setPageState(Pages.emailVerify);
+                }
             }
         } else {
             try {
@@ -93,17 +114,29 @@ export default function AuthForm({ isLogin }) {
                         headers: { 'Content-Type': 'application/json' },
                     }
                 );
+                console.log("signin");
                 console.log(result);
                 if (result.status === 201) {
-                    loginAuth(result.data);
-                    setPageState(Pages.main);
-                    setAuthFormState({
-                        name: null,
-                        email: null,
-                        password: null,
-                        type: null,
-                    });
-                    closeAuthModal();
+                    if (result.data.isVerified) {
+                        loginAuth(result.data);
+                        setPageState(Pages.main);
+                        setAuthFormState({
+                            name: null,
+                            email: null,
+                            password: null,
+                            type: null,
+                        });
+                        closeAuthModal();
+                    }
+                    else {
+                        setAuthFormState({ ...authFormState, ...data });
+                        setLoginDataState({
+                            uid: result.data.uid,
+                            userDetailsId: result.data.userDetailsId,
+                            name: result.data.name,
+                        });
+                        setPageState(Pages.emailVerify);
+                    }
                 }
             } catch (error) {
                 console.log(error);

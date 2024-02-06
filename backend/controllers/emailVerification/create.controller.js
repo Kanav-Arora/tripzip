@@ -3,6 +3,7 @@ const {
     sendEmailVerificationEmail,
 } = require('../../utils/Nodemailer/NodemailerService');
 const logger = require('../../utils/logger/logger');
+const User = require('../../models/user.mongo');
 
 function generateVerificationCode() {
     return Math.floor(1000 + Math.random() * 9000).toString();
@@ -66,6 +67,11 @@ async function verifyEmailCode(req, res) {
         const { email, code } = req.body;
         const existingVerification = await EmailVerify.findOne({ email });
         if (existingVerification.verificationCode === code) {
+            await User.findOneAndUpdate(
+                { email },
+                { $set: { isVerified: true } },
+                { new: true },
+            );
             return res.status(201).json({
                 status: 201,
                 message: 'Email verified successfully',
