@@ -14,6 +14,15 @@ import axios from 'axios';
 import { useAuth } from '../../../context/Auth/useAuth';
 import { useAuthModal } from '../../../modules/ui/LoginSignupModal/hooks/useAuthModal';
 import { IconProvider } from '../../../modules/ui/IconProvider/IconProvider';
+import {
+    PeopleModalText,
+    HeaderButtons,
+    StyledWrapper,
+    SubHeader,
+    SubHeaderSectionA,
+    SubHeaderSectionB,
+} from './TripHeaderStyles';
+import { useIsMobile } from '../../../modules/ui/hooks/useIsMobile';
 
 const popAnimation = {
     pop: { scale: [1, 1.4, 1], transition: { duration: 0.3 } },
@@ -90,42 +99,34 @@ export default function TripHeader({
     };
 
     const currentSize = peopleGoing.length;
-
+    const isMobile = useIsMobile();
     return (
         <>
-            <div className="flex flex-col justify-between">
+            <StyledWrapper>
                 <Heading text={title} />
-                <div className="flex flex-row justify-between items-center">
-                    <div className="flex flex-row text-sm font-semibold gap-2 items-center">
+                <SubHeader>
+                    <SubHeaderSectionA>
                         <div>{`${city}, ${state}`}</div>·
-                        <div
-                            className={`select-none ${currentSize > 0
-                                ? 'rounded-lg p-1 hover:bg-gray-100'
-                                : ''
-                                }`}
+                        <PeopleModalText
                             onClick={
                                 currentSize > 0 ? openPeopleGoingModal : null
                             }
+                            currentSize={currentSize}
                         >
-                            <div className='flex flex-row items-center gap-1'>
-                                <IconProvider Icon={PersonMini} size={1} />
-                                {currentSize}
-                                {maxSize !== -1 ? ` / ${maxSize}` : ''} Going
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex flex-row gap-2">
-                        <div
-                            className="select-none flex flex-row rounded-lg p-2 text-sm font-semibold justify-center gap-1.5 items-center hover:bg-gray-100"
-                            onClick={openShareModal}
-                        >
+                            <IconProvider Icon={PersonMini} size={1} />
+                            {isMobile
+                                ? 'Going'
+                                : `${currentSize}
+                                ${maxSize !== -1 ? ` / ${maxSize}` : ''} Going`}
+                        </PeopleModalText>
+                    </SubHeaderSectionA>
+
+                    <SubHeaderSectionB>
+                        <HeaderButtons onClick={openShareModal}>
                             <IconProvider Icon={ShareMini} size={1} />
-                            Share
-                        </div>
-                        <div
-                            className="select-none group flex flex-row rounded-lg p-2 text-sm font-semibold justify-center gap-1.5 items-center hover:bg-gray-100"
-                            onClick={interestedHandler}
-                        >
+                            {!isMobile && 'Share'}
+                        </HeaderButtons>
+                        <HeaderButtons onClick={interestedHandler}>
                             <motion.div
                                 variants={popAnimation}
                                 animate={interested ? 'pop' : 'default'}
@@ -139,11 +140,11 @@ export default function TripHeader({
                                     stroke={interested === true ? 0.25 : 1}
                                 />
                             </motion.div>
-                            Interested
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            {!isMobile && 'Interested'}
+                        </HeaderButtons>
+                    </SubHeaderSectionB>
+                </SubHeader>
+            </StyledWrapper>
 
             {currentSize >= 0 ? (
                 <Modal

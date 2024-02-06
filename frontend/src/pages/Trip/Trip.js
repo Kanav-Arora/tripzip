@@ -14,6 +14,24 @@ import SectionContainer from './styles/SectionContainer';
 
 import { useNavigate } from 'react-router-dom';
 import LocationNavbar from '../../modules/Trip/LocationNavbar/LocationNavbar';
+import styled from 'styled-components';
+import { Theme } from '../../modules/ui/Theme/theme';
+import { useIsMobile } from '../../modules/ui/hooks/useIsMobile';
+
+const StyledWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+`;
+
+const StyledContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: ${(props) => (props.isMobile ? '90%' : '70%')};
+    gap: ${Theme.spacing(2)};
+`;
 
 export default function Trip() {
     const { tripID } = useParams();
@@ -57,13 +75,13 @@ export default function Trip() {
 
     const image =
         'https://media.architecturaldigest.com/photos/5da74823d599ec0008227ea8/master/pass/GettyImages-946087016.jpg';
-
+    const isMobile = useIsMobile();
     return (
         <>
             <LocationNavbar />
-            <div className="mx-40">
+            <StyledWrapper>
                 {tripData !== null && userData !== null ? (
-                    <div className="flex flex-col gap-y-2">
+                    <StyledContainer isMobile={isMobile}>
                         <TripHeader
                             title={tripData.tripDetails.title}
                             city={tripData.tripDetails.city}
@@ -78,11 +96,11 @@ export default function Trip() {
                             <TripImage image={image} />
                         </SectionContainer>
                         <TripBody tripData={tripData} userData={userData} />
-                    </div>
+                    </StyledContainer>
                 ) : (
                     <div></div>
                 )}
-            </div>
+            </StyledWrapper>
         </>
     );
 }
