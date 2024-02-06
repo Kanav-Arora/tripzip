@@ -63,10 +63,7 @@ async function countTrips(req, res) {
             { $count: 'tripsCount' },
         ]);
 
-        console.log(response);
-
         if (response.length === 0) {
-            console.log('inside this');
             return res.status(204).json({
                 status: 204,
                 message: 'No Trips Found',
