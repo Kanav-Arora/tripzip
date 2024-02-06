@@ -6,7 +6,7 @@ const {
     signInUser,
 } = require('../controllers/user/create.controller');
 
-const { signOutUser } = require('../controllers/user/patch.controller');
+const { signOutUser, changePassword } = require('../controllers/user/patch.controller');
 const { userData } = require('../controllers/user/fetch.controller');
 
 const userRouter = Router();
@@ -19,5 +19,6 @@ userRouter.post('/signin', signInUser);
 userRouter.post('/signout', signOutUser);
 
 userRouter.get('/userdata/:userID', userData);
+userRouter.patch('/changepassword', changePassword);
 
 module.exports = userRouter;

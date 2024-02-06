@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
     FormContainer,
     Form,
@@ -7,24 +6,34 @@ import {
     Input,
     Error,
     Button,
+    ForgotPassButton,
+    FieldSubText,
 } from '../Styles/Styles';
 import {
     environment,
-    backendOrigin,
     testLoginId,
     testPassword,
 } from '../../../../frontend.config';
 
+import { useRecoilState } from 'recoil';
+import { AuthFormState } from '../states/AuthFormState';
+import { LoginDataState } from '../states/LoginDataState';
+import { OpenedPageState } from '../states/OpenedPageState';
+import axios from 'axios';
+import { backendOrigin } from '../../../../frontend.config';
 import { useAuth } from '../../../../context/Auth/useAuth';
 import { useAuthModal } from '../hooks/useAuthModal';
-
-import axios from 'axios';
+import Pages from '../constants/PageStates';
 
 export default function AuthForm({ isLogin }) {
     const { loginAuth } = useAuth();
     const { closeAuthModal } = useAuthModal();
+    const [authFormState, setAuthFormState] = useRecoilState(AuthFormState);
+    const [, setLoginDataState] = useRecoilState(LoginDataState);
+    const [, setPageState] = useRecoilState(OpenedPageState);
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [nameError, setNameError] = useState('');
 
     const validateEmail = (email) => {
         if (!email.includes('@')) {
@@ -44,82 +53,93 @@ export default function AuthForm({ isLogin }) {
         return true;
     };
 
-    const loginRequest = async (instance, body) => {
-        try {
-            const result = await instance.post('/users/signin', body, {
-                headers: { 'Content-Type': 'application/json' },
-            });
-            if (result.status === 201) {
-                loginAuth(result.data);
-                return 'SUCCESS';
-            } else {
-                console.error('Unexpected status code:', result.status);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        return 'FAIL';
-    };
-
-    const signUpRequest = async (instance, body) => {
-        try {
-            const result = await instance.post(
-                '/users/signup',
-                body,
-                { headers: { 'Content-Type': 'application/json' } }
-            );
-            if (result.status === 201) {
-                loginAuth(result.data);
-                return 'SUCCESS';
-            } else {
-                console.error('Unexpected status code:', result.status);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            if (error.response) {
-                console.error('Response data:', error.response.data);
-                console.error('Response status:', error.response.status);
-            } else if (error.request) {
-                console.error('Request data:', error.request);
-            } else {
-                console.error('Error message:', error.message);
-            }
-        }
-        return 'FAIL';
+    const handleForgotPasswordClick = () => {
+        setPageState(Pages.passwordReset);
     };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        const instance = axios.create({
-            withCredentials: true,
-            baseURL: backendOrigin,
-        });
-
         const nameField = e.target.elements.name;
         const name = nameField ? nameField.value : '';
         const email = e.target.elements.email.value;
         const password = e.target.elements.password.value;
+        const instance = axios.create({
+            withCredentials: true,
+            baseURL: backendOrigin,
+        });
+        const data = {
+            email,
+            password,
+            type: isLogin ? 'Login' : 'Signup',
+        };
 
-        const isEmailValid = validateEmail(email);
-        const isPasswordValid = validatePassword(password);
-
-        if (isEmailValid && isPasswordValid) {
-            let result = '';
-            if (isLogin) {
-                result = await loginRequest(instance, {
-                    email: email,
-                    password: password,
-                });
-            } else {
-                result = await signUpRequest(instance, {
-                    name: name,
-                    email: email,
-                    password: password,
-                });
+        if (!isLogin) {
+            data.name = name;
+            if (name === '') {
+                setNameError("Name field can't be empty");
             }
-            if (result === 'SUCCESS') {
-                closeAuthModal();
+            const isEmailValid = validateEmail(email);
+            const isPasswordValid = validatePassword(password);
+
+            if (isEmailValid && isPasswordValid && data.name !== '') {
+                const result = await instance.post(
+                    '/users/signup',
+                    {
+                        name,
+                        email,
+                        password,
+                        isVerified: false,
+                    },
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                    }
+                );
+                if (result.status === 201) {
+                    setLoginDataState({
+                        uid: result.data.uid,
+                        userDetailsId: result.data.userDetailsId,
+                        name: result.data.name,
+                    });
+                    setAuthFormState({ ...authFormState, ...data });
+                    setPageState(Pages.emailVerify);
+                }
+            }
+        } else {
+            try {
+                const result = await instance.post(
+                    '/users/signin',
+                    { email, password },
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                    }
+                );
+                console.log("signin");
+                console.log(result);
+                if (result.status === 201) {
+                    if (result.data.isVerified) {
+                        loginAuth(result.data);
+                        setPageState(Pages.main);
+                        setAuthFormState({
+                            name: null,
+                            email: null,
+                            password: null,
+                            type: null,
+                        });
+                        closeAuthModal();
+                    }
+                    else {
+                        setAuthFormState({ ...authFormState, ...data });
+                        setLoginDataState({
+                            uid: result.data.uid,
+                            userDetailsId: result.data.userDetailsId,
+                            name: result.data.name,
+                        });
+                        setPageState(Pages.emailVerify);
+                    }
+                }
+            } catch (error) {
+                console.log(error);
             }
         }
     };
@@ -134,7 +154,9 @@ export default function AuthForm({ isLogin }) {
                             type="text"
                             placeholder="Name"
                             onChange={(e) => e.preventDefault()}
+                            error={!!nameError}
                         />
+                        {nameError && <Error>{nameError}</Error>}
                     </FormField>
                 )}
                 <FormField>
@@ -163,9 +185,19 @@ export default function AuthForm({ isLogin }) {
                         placeholder="Password"
                         error={!!passwordError}
                     />
+                    {!isLogin && !passwordError && (
+                        <FieldSubText>
+                            Password must of atleast 8 length and be
+                            alphanumeric
+                        </FieldSubText>
+                    )}
                     {passwordError && <Error>{passwordError}</Error>}
                 </FormField>
-
+                {isLogin && (
+                    <ForgotPassButton onClick={handleForgotPasswordClick}>
+                        Forgot Password ?
+                    </ForgotPassButton>
+                )}
                 <Button type="submit">{isLogin ? 'Login' : 'Signup'}</Button>
             </Form>
         </FormContainer>

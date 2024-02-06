@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Cross } from '../../../assets/ext-icon';
 import { IconProvider } from '../IconProvider/IconProvider';
+import { Theme } from '../Theme/theme';
 
 const ModalWrapper = styled.div`
     position: fixed;
@@ -19,7 +20,7 @@ const ModalWrapper = styled.div`
 
 const ModalContent = styled.div`
     background: white;
-    border-radius: 12px;
+    border-radius: ${Theme.border.radius['2xl']};
     width: ${(props) =>
         props.width === 'fit' ? 'fit-content' : props.width || '400px'};
     height: ${(props) =>

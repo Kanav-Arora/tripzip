@@ -17,6 +17,7 @@ async function addNewUser(user) {
             email: user.email,
             password: hashedPassword,
             name: user.name,
+            isVerified: user.isVerified,
         };
         const savedUser = await Users.create(newUser);
         return savedUser;
