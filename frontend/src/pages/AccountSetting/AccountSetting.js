@@ -26,6 +26,7 @@ import { DataUpdateState } from './states/DataUpdateState';
 import { useAuth } from '../../context/Auth/useAuth';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function AccountSetting() {
     const isDeleteModalVisible = useRecoilValue(ShowDeleteModalState);
     const [fetchedUserData, setUserDataState] = useRecoilState(UserDataState);
@@ -35,8 +36,7 @@ export default function AccountSetting() {
     const imageUpdatedState = useRecoilValue(ImageUpdateState);
 
     const isDataChanged =
-        imageUpdatedState.imageFile !== null ||
-        dataUpdatedState !== fetchedUserData;
+        imageUpdatedState.imageFile !== null || fetchedUserData !== dataUpdatedState;
 
     const authState = useAuth();
     const navigate = useNavigate();

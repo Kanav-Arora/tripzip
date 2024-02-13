@@ -8,22 +8,22 @@ import {
 import UserAvatar from '../../../../modules/ui/UserAvatar';
 import { useAuth } from '../../../../context/Auth/useAuth';
 import { useRecoilState } from 'recoil';
-import { DataUpdateState } from '../../states/DataUpdateState';
+import { ImageUpdateState } from '../../states/ImageUpdateState';
 import { IconProvider } from '../../../../modules/ui/IconProvider/IconProvider';
 import { ArrowUpOnSquareIcon } from '../../../../assets/ext-icon';
 
 export default function ProfileImagePicker() {
     const fileInputRef = useRef(null);
     const { authStateValue } = useAuth();
-    const [dataState, setDataUpdateState] = useRecoilState(DataUpdateState);
+    const [imageState, setImageUpdateState] = useRecoilState(ImageUpdateState);
 
     const handleFileInputChange = () => {
         const selectedFile = fileInputRef.current.files[0];
         if (selectedFile) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setDataUpdateState({
-                    ...dataState,
+                setImageUpdateState({
+                    ...imageState,
                     imageFile: selectedFile,
                     image: reader.result,
                 });
@@ -33,7 +33,7 @@ export default function ProfileImagePicker() {
     };
 
     const handleRemoveClick = () => {
-        setDataUpdateState({ ...dataState, imageFile: null, image: null });
+        setImageUpdateState({ ...imageState, imageFile: null, image: null });
     };
 
     const handleImagePickerClick = () => {

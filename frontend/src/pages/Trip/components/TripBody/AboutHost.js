@@ -10,14 +10,14 @@ import {
 import UserAvatar from '../../../../modules/ui/UserAvatar';
 import { IconProvider } from '../../../../modules/ui/IconProvider/IconProvider';
 
-const UserCard = ({ name, stars, yearsHosting, numberOfTrips, image }) => {
+const UserCard = ({ uid, name, stars, yearsHosting, numberOfTrips }) => {
     return (
         <div className="h-fit bg-white rounded-lg px-6 py-4 flex flex-row gap-10">
             <div className="basis-3/4">
                 <div className="h-full flex flex-col justify-center items-center gap-y-1">
                     <UserAvatar
-                        image="/images/src/kanav.webp"
-                        name="KA"
+                        uid={uid}
+                        name={name}
                         size={5}
                     />
                     <div className="text-lg font-bold">{name}</div>
@@ -54,13 +54,13 @@ const AboutItem = ({ Icon, Text }) => {
 };
 
 export default function AboutHost({ userData }) {
-    let location = `${userData.state}, ${userData.country}`;
+    let location = `${userData.userDetails.state}, ${userData.userDetails.country}`;
     let hobbies = 'Likes';
-    userData.hobbies.forEach((hobby) => {
+    userData.userDetails.hobbies.forEach((hobby) => {
         hobbies += ` ${hobby},`;
     });
     let languages = 'Speaks';
-    userData.language_speak.forEach((language) => {
+    userData.userDetails.language_speak.forEach((language) => {
         languages += ` ${language},`;
     });
     return (
@@ -69,19 +69,20 @@ export default function AboutHost({ userData }) {
             <div className="flex flex-col justify-center">
                 <div className="w-full bg-[#f0efe9] gap-8 rounded-lg px-28 py-10 text-black flex flex-col">
                     <UserCard
-                        name="Kanav"
-                        stars={userData.stars}
+                        uid={userData._id}
+                        name={userData.name}
+                        stars={userData.userDetails.stars}
                         yearsHosting={2}
-                        numberOfTrips={userData.tripsCreated.length}
+                        numberOfTrips={userData.userDetails.tripsCreated.length}
                     />
                     <div className="flex flex-col justify-items-start">
                         <AboutItem
                             Icon={CakeIcon}
-                            Text={`Born in ${userData.year_of_birth}`}
+                            Text={`Born in ${userData.userDetails.year_of_birth}`}
                         />
                         <AboutItem
                             Icon={MapIcon}
-                            Text={`From ${userData.birth_place}`}
+                            Text={`From ${userData.userDetails.birth_place}`}
                         />
                         <AboutItem
                             Icon={MapPinIcon}
@@ -90,7 +91,7 @@ export default function AboutHost({ userData }) {
                         <AboutItem Icon={AcademicCapIcon} Text={hobbies} />
                         <AboutItem Icon={LanguageIcon} Text={languages} />
                     </div>
-                    <div>{userData.about_yourself}</div>
+                    <div>{userData.userDetails.about_yourself}</div>
                     <button className="w-fit rounded-md bg-matteBlack text-white font-bold py-2 px-4">
                         Message Host
                     </button>

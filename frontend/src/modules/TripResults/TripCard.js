@@ -79,6 +79,7 @@ const TripCard = ({ trip }) => {
                     </div>
                     {userDetails && (
                         <UserAvatar
+                            uid={userDetails._id}
                             name={userDetails.name}
                             size={1.75}
                             image="/images/src/kanav.webp"

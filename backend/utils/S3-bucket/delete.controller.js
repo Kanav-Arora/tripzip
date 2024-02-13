@@ -8,7 +8,7 @@ async function removeImage(req, res) {
         res.status(401).send({ message: 'Unauthorised access' });
         return;
     }
-    const keyUid = req.user?.uid; // No user -> No uid -> blank key -> Error
+    const keyUid = req.user?.uid;
     const params = {
         Bucket: AwsUserProfileImagesBucketName,
         Key: keyUid,

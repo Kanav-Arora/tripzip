@@ -9,25 +9,32 @@ const userDetailSchema = new Schema({
     },
     address: {
         type: Schema.Types.String,
+        default: null,
     },
     pincode: {
         type: Schema.Types.Number,
+        default: null,
     },
     city: {
         type: Schema.Types.String,
+        default: null,
     },
     state: {
         type: Schema.Types.String,
+        default: null,
     },
     country: {
         type: Schema.Types.String,
+        default: null,
     },
     year_of_birth: {
         type: Schema.Types.Number,
+        default: null,
     },
     age: {
         type: Number,
         max: 100,
+        default: null,
     },
     gender: {
         type: Schema.Types.String,
@@ -39,6 +46,7 @@ const userDetailSchema = new Schema({
     },
     birth_place: {
         type: Schema.Types.String,
+        default: null,
     },
     hobbies: {
         type: [Schema.Types.String],
@@ -46,6 +54,7 @@ const userDetailSchema = new Schema({
     },
     about: {
         type: Schema.Types.String,
+        default: null,
     },
     stars: {
         type: Schema.Types.Number,

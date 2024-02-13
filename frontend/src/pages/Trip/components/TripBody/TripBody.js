@@ -35,7 +35,7 @@ export default function TripBody({ tripData, userData }) {
     const endDate = formatDate(tripData.tripDetails.endDate);
     const desc = tripData.tripDetails.description;
     const itinerary = tripData.tripDetails.itinerary;
-
+    console.log(userData);
     return (
         <div className="flex flex-row gap-10">
             <div className="w-3/5 overflow-y-scroll">
@@ -47,8 +47,8 @@ export default function TripBody({ tripData, userData }) {
                             <div className="font-semibold">{endDate}</div>
                         </div>
                         <UserAvatar
-                            image="/images/src/kanav.webp"
-                            name="KA"
+                            uid={userData._id}
+                            name={userData.name}
                             size={1.75}
                             hasShadow={true}
                         />
