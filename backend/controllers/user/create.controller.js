@@ -11,6 +11,9 @@ const logger = require('../../utils/logger/logger');
 const { PasswordManager } = require('../../services/passwordManager');
 const { ifUserExists, addNewUser } = require('./helper.controller');
 const { AwsUserProfileImagesBucketName, S3ClientObject } = require('../../config');
+const {
+    sendWelcomeEmail,
+} = require('../../utils/Nodemailer/NodemailerService');
 
 async function signUpUser(req, res) {
     const user = req.body;
@@ -45,11 +48,12 @@ async function signUpUser(req, res) {
         if (NodeEnv === 'production') {
             cookieOptions.domain = 'tripzip.online';
         }
-
+        sendWelcomeEmail(savedUser.email, savedUser.name);
         res.cookie('access_token', token, cookieOptions).status(201).json({
             uid: savedUser._id,
             name: savedUser.name,
             userDetailsId: savedUser.userDetails,
+            isVerified: savedUser.isVerified,
         });
 
         return true;
@@ -64,7 +68,7 @@ async function signInUser(req, res) {
     try {
         const userExists = await ifUserExists(user.email);
         if (!userExists) {
-            return res.status(400).send({ message: 'Invalid Credentails' });
+            return res.status(400).send({ message: "Email doesn't exists" });
         }
 
         const isPasswordCorrect = await PasswordManager.compare(
@@ -93,11 +97,12 @@ async function signInUser(req, res) {
         if (NodeEnv === 'production') {
             cookieOptions.domain = 'tripzip.online';
         }
-
+        sendWelcomeEmail(userExists.email, userExists.name);
         res.cookie('access_token', token, cookieOptions).status(201).json({
             uid: userExists._id,
             name: userExists.name,
             userDetailsId: userExists.userDetails,
+            isVerified: userExists.isVerified,
         });
     } catch (error) {
         logger.error(`Signin error: ${error}`);

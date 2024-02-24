@@ -23,6 +23,7 @@ const AnimatedModalContent = styled(motion.div)`
     background: white;
     border-radius: 12px;
     box-shadow: ${Theme.boxShadow.xl};
+    border-radius: ${Theme.border.radius['2xl']};
     width: ${(props) =>
         props.width === 'fit' ? 'fit-content' : props.width || '400px'};
     height: ${(props) =>

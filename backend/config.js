@@ -39,4 +39,6 @@ module.exports = {
     GoogleAuthClientID: process.env.CLIENTID,
     S3ClientObject: s3,
     AwsUserProfileImagesBucketName: AwsUserProfileImagesBucket,
+    GmailID: process.env.GMAIL_ID,
+    GmailPassword: process.env.GMAIL_PASSWORD,
 };

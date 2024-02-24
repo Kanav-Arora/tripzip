@@ -17,6 +17,10 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
+  isVerified: {
+    type: Schema.Types.Boolean,
+    default: false,
+  },
   password: {
     type: Schema.Types.String,
     minlength: 8,

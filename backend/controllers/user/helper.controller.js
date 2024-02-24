@@ -20,6 +20,7 @@ async function addNewUser(user) {
             email: user.email,
             name: user.name,
             isGoogleAuth: user.isGoogleAuth,
+            isVerified: user.isVerified,
         };
         if (user.isGoogleAuth) {
             newUser.googleID = user.googleID;

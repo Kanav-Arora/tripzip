@@ -7,7 +7,7 @@ const {
     authWithGoogle,
 } = require('../controllers/user/create.controller');
 
-const { signOutUser } = require('../controllers/user/patch.controller');
+const { signOutUser, changePassword } = require('../controllers/user/patch.controller');
 const { userData } = require('../controllers/user/fetch.controller');
 
 const userRouter = Router();
@@ -21,5 +21,6 @@ userRouter.post('/signout', signOutUser);
 userRouter.post('/authGoogle', authWithGoogle);
 
 userRouter.get('/userdata/:userID', userData);
+userRouter.patch('/changepassword', changePassword);
 
 module.exports = userRouter;

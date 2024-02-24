@@ -7,8 +7,8 @@ export const ModalBody = styled.div`
     height: 100%;
     display: flex;
     flex-direction: row;
-    border-radius: ${Theme.border.radius.xl};
-    padding: ${Theme.spacing(1)};
+    border-radius: ${Theme.border.radius['2xl']};
+    padding: ${Theme.spacing(2)};
 `;
 
 export const Image = styled.img`
@@ -103,8 +103,8 @@ export const AnimatedSideComponent = ({ index, element }) => {
 
 export const ContentContainer = styled(motion.div)`
     width: 50%;
-    padding-left: ${Theme.spacing(20)};
-    padding-right: ${Theme.spacing(20)};
+    padding-left: ${Theme.spacing(10)};
+    padding-right: ${Theme.spacing(10)};
     padding-top: ${Theme.spacing(12)};
     padding-bottom: ${Theme.spacing(12)};
     border-radius: inherit;
@@ -132,7 +132,7 @@ export const ContentBody = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: ${Theme.spacing(10)};
+    gap: ${Theme.spacing(6)};
     margin-top: ${Theme.spacing(3)};
     margin-bottom: ${Theme.spacing(3)};
 `;
@@ -167,7 +167,7 @@ export const TextDivider = styled.div`
 export const ToggleText = styled.div`
     width: 100%;
     color: ${Theme.color.gray50};
-    font-size: ${Theme.font.size.xs};
+    font-size: ${Theme.font.size.sm};
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -200,6 +200,12 @@ export const FieldLabel = styled.div`
     font-weight: ${Theme.font.weight.semibold};
 `;
 
+export const FieldSubText = styled.div`
+    font-weight: ${Theme.font.weight.light};
+    color: ${Theme.color.gray60};
+    font-size: ${Theme.font.size.xs};
+`;
+
 export const Input = styled.input`
     width: 100%;
     height: ${Theme.spacing(10)};
@@ -220,8 +226,7 @@ export const Input = styled.input`
 
 export const Error = styled.span`
     color: red;
-    font-size: 12px;
-    margin-top: 5px;
+    font-size: ${Theme.font.size.xs};
 `;
 
 export const Button = styled.button`
@@ -232,4 +237,11 @@ export const Button = styled.button`
     border: none;
     border-radius: ${Theme.border.radius.md};
     cursor: pointer;
+`;
+
+export const ForgotPassButton = styled.button`
+    margin-left: auto;
+    font-size: ${Theme.font.size.xs};
+    color: ${Theme.color.matteBlack};
+    font-weight: ${Theme.font.weight.semibold};
 `;
