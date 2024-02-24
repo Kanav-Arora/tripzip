@@ -1,12 +1,23 @@
-import React, { useState } from "react";
-import Modal from "../../../../modules/ui/Modal/Modal";
+import React, { useState } from 'react';
+import Modal from '../../../../modules/ui/Modal/Modal';
 
 function addDaysAndFormat(inputDate, numberOfDays) {
     const date = new Date(inputDate);
     date.setDate(date.getDate() + numberOfDays);
 
     const months = [
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
     ];
 
     const day = date.getDate();
@@ -16,10 +27,9 @@ function addDaysAndFormat(inputDate, numberOfDays) {
     return `${day} ${month}, ${year}`;
 }
 
-const ShowMoreModal = ({ description, itinerary, startDate,
-    endDate }) => {
+const ShowMoreModal = ({ description, itinerary, startDate, endDate }) => {
     return (
-        <div className="flex flex-col gap-y-4 w-full">
+        <div className="flex flex-col gap-y-4 w-full px-5 py-2">
             <div className="flex flex-col gap-y-2">
                 <div className="text-lg font-bold">Description</div>
                 <div className="text-sm leading-loose">{description}</div>
@@ -27,35 +37,41 @@ const ShowMoreModal = ({ description, itinerary, startDate,
             <div className="flex flex-col gap-y-2">
                 <div className="text-lg font-bold">Itinerary</div>
                 <div className="flex flex-col gap-y-6 my-4">
-                    {
-                        itinerary.map((dayItinerary, index) => {
-                            const date = addDaysAndFormat(startDate, index);
-                            return (
-                                <div className="flex flex-col">
-                                    <div className="text-sm text-gray-500 font-semibold">
-                                        {date}
+                    {itinerary.map((dayItinerary, index) => {
+                        const date = addDaysAndFormat(startDate, index);
+                        return (
+                            <div className="flex flex-col">
+                                <div className="text-sm text-gray-500 font-semibold">
+                                    {date}
+                                </div>
+                                <div className="border-b border-gray-300 my-2"></div>
+                                <div className="flex flex-col gap-2">
+                                    <div className="text-sm">
+                                        {`Est: ${
+                                            dayItinerary.amount
+                                                ? '$' + dayItinerary.amount
+                                                : '--'
+                                        }`}
                                     </div>
-                                    <div className="border-b border-gray-300 my-2"></div>
-                                    <div className="flex flex-col gap-2">
-                                        <div className="text-sm">
-                                            {`Est: ${dayItinerary.amount ? '$' + dayItinerary.amount : '--'}`}
-                                        </div>
-                                        <div className="text-sm leading-loose">
-                                            {dayItinerary.description}
-                                        </div>
+                                    <div className="text-sm leading-loose">
+                                        {dayItinerary.description}
                                     </div>
                                 </div>
-                            );
-                        })
-                    }
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>
     );
 };
 
-export default function AboutTrip({ description, itinerary, startDate,
-    endDate }) {
+export default function AboutTrip({
+    description,
+    itinerary,
+    startDate,
+    endDate,
+}) {
     const [isModalOpen, setModalOpen] = useState(false);
     const handleOpenModal = () => {
         setModalOpen(true);
@@ -82,9 +98,14 @@ export default function AboutTrip({ description, itinerary, startDate,
                 height="90%"
                 onClose={handleCloseModal}
                 scroll={true}
+                showDialogCross={true}
             >
-                <ShowMoreModal description={description} itinerary={itinerary} startDate={startDate}
-                    endDate={endDate} />
+                <ShowMoreModal
+                    description={description}
+                    itinerary={itinerary}
+                    startDate={startDate}
+                    endDate={endDate}
+                />
             </Modal>
         </div>
     );
