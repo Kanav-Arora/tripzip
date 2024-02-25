@@ -83,8 +83,8 @@ export default function TripBody({ tripData, userData }) {
                             <div className="font-semibold">{endDate}</div>
                         </div>
                         <UserAvatar
-                            image="/images/src/kanav.webp"
-                            letter="KA"
+                            uid={userData._id}
+                            name={userData.name}
                             size={1.75}
                             hasShadow={true}
                         />

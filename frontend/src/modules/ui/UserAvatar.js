@@ -1,5 +1,8 @@
-import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useAuth } from '../../context/Auth/useAuth';
+import { BucketAPI } from '../../frontend.config';
 
 const AvatarContainer = styled.div`
     width: ${(props) => `${props.size}rem`};
@@ -15,6 +18,7 @@ const AvatarContainer = styled.div`
         props.hasShadow
             ? '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)'
             : 'none'};
+    cursor: pointer;
 `;
 
 const TextInitials = styled.span`
@@ -23,14 +27,23 @@ const TextInitials = styled.span`
 `;
 
 export default function UserAvatar({
-    image,
-    letter,
+    uid,
+    name,
     size,
     backgroundColor,
     textColor,
     hasShadow,
     onClick,
 }) {
+    const [imageExists, setImageExists] = useState(true);
+    const { authStateValue } = useAuth();
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    const searchUID = uid ? uid : authStateValue.uid;
+
+    function handleImageError() {
+        setImageExists(false);
+    }
+
     return (
         <AvatarContainer
             size={size}
@@ -39,10 +52,11 @@ export default function UserAvatar({
             hasShadow={hasShadow}
             onClick={onClick}
         >
-            {image ? (
+            {imageExists ? (
                 <img
-                    src={image}
+                    src={BucketAPI + searchUID}
                     alt="User Avatar"
+                    onError={handleImageError}
                     style={{
                         width: '100%',
                         height: '100%',
@@ -52,7 +66,7 @@ export default function UserAvatar({
                 />
             ) : (
                 <TextInitials size={size}>
-                    {letter ? letter.slice(0, 2).toUpperCase() : ''}
+                    {name ? name.slice(0, 2).toUpperCase() : ''}
                 </TextInitials>
             )}
         </AvatarContainer>

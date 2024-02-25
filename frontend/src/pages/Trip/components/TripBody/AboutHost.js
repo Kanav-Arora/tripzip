@@ -114,13 +114,13 @@ const CardItem = ({ title, icon, subtitle }) => {
     );
 };
 
-const Card = ({ name, stars, yearsHosting, numberOfTrips, image }) => {
+const Card = ({ uid, name, stars, yearsHosting, numberOfTrips }) => {
     return (
         <CardContainer>
             <LeftSection>
                 <UserAvatar
-                    image="/images/src/kanav.webp"
-                    letter="KA"
+                    uid={uid}
+                    name={name}
                     size={5}
                 />
                 <div style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>
@@ -147,19 +147,20 @@ const AboutItem = ({ Icon, Text }) => {
 };
 
 export default function AboutHost({ userData }) {
-    let location = `${userData.state}, ${userData.country}`;
+    let location = `${userData.userDetails.state}, ${userData.userDetails.country}`;
     let hobbies = 'Likes';
-    userData.hobbies.forEach((hobby) => {
+    userData.userDetails.hobbies.forEach((hobby) => {
         hobbies += ` ${hobby},`;
     });
     let languages = 'Speaks';
-    userData.language_speak.forEach((language) => {
+    userData.userDetails.language_speak.forEach((language) => {
         languages += ` ${language},`;
     });
     return (
         <StyledHostCard>
             <Card
-                name="Kanav"
+                uid={userData._id}
+                name={userData.name}
                 stars={userData.stars}
                 yearsHosting={2}
                 numberOfTrips={userData.tripsCreated.length}

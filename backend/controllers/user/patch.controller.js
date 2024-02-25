@@ -3,7 +3,7 @@ const User = require('../../models/user.mongo');
 const { PasswordManager } = require('../../services/passwordManager');
 
 async function signOutUser(req, res) {
-    res.clearCookie('access_token');
+    res.clearCookie('access_token', { domain: 'localhost' });
     res.status(200).json('Logout successful');
 }
 

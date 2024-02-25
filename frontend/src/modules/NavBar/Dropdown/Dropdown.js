@@ -3,14 +3,15 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {
     DropdownContainer,
-    DropdownButton,
     DropdownList,
     DropdownItem,
 } from './DropdownStyles';
 import { backendOrigin } from '../../../frontend.config';
 import { useAuth } from '../../../context/Auth/useAuth';
+import UserAvatar from '../../../modules/ui/UserAvatar'
+import { Theme } from '../../ui/Theme/theme';
 
-export default function Dropdown({ name, isDark }) {
+export default function Dropdown({ isDark }) {
     const [open, setOpen] = useState(false);
     const { logoutAuth, authStateValue } = useAuth();
 
@@ -20,7 +21,11 @@ export default function Dropdown({ name, isDark }) {
 
     const handleSignOut = async () => {
         try {
-            const result = await axios.post(backendOrigin + '/users/signout');
+            const instance = axios.create({
+                withCredentials: true,
+                baseURL: backendOrigin,
+            });
+            const result = await instance.post('/users/signout');
             if (result.status === 200) {
                 logoutAuth();
             } else {
@@ -35,9 +40,7 @@ export default function Dropdown({ name, isDark }) {
         <DropdownContainer>
             <div>
                 <div id="dropdown">
-                    <DropdownButton isDark={isDark} onClick={openDrop}>
-                        {name[0]}
-                    </DropdownButton>
+                    <UserAvatar name={authStateValue.name} onClick={openDrop} size={2} backgroundColor={isDark ? Theme.color.matteBlack : Theme.color.gray60} />
                     {open && (
                         <DropdownList>
                             <DropdownItem
@@ -46,7 +49,8 @@ export default function Dropdown({ name, isDark }) {
                             >
                                 My Trips
                             </DropdownItem>
-                            <DropdownItem disabled={true}>Setting</DropdownItem>
+                            <DropdownItem as={Link}
+                                to={`/settings`}>Setting</DropdownItem>
                             <DropdownItem onClick={handleSignOut}>
                                 Sign Out
                             </DropdownItem>

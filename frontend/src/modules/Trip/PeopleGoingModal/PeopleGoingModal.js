@@ -15,7 +15,7 @@ const PeopleGoingModalItem = ({ name, image }) => {
             <div className="text-base font-normal">
                 {name}
             </div>
-            <UserAvatar image={image} letter={extractInitials(name)} size={2} />
+            <UserAvatar image={image} name={extractInitials(name)} size={2} />
         </div>
     );
 }

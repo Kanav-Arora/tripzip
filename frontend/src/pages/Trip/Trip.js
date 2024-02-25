@@ -58,7 +58,7 @@ export default function Trip() {
                     tripResponse.data.data.createdBy
                 ) {
                     const userDetailResponse = await instance.get(
-                        `/account/${tripResponse.data.data.createdBy}`
+                        `/users/userdata/${tripResponse.data.data.createdBy}`
                     );
                     setUserData(userDetailResponse.data.data);
                 }

@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "aws-sdk": "^2.1545.0",
         "axios": "^1.5.1",
         "bcrypt": "^5.1.1",
         "body-parser": "^1.20.2",
@@ -8,10 +9,13 @@
         "cors": "^2.8.5",
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
+        "file-type": "^16.5.4",
+        "google-auth-library": "^9.5.0",
         "jsonwebtoken": "^9.0.2",
         "method-override": "^3.0.0",
         "mongodb": "^6.1.0",
         "mongoose": "^7.5.2",
+        "multer": "^1.4.5-lts.1",
         "nodemailer": "^6.9.8",
         "winston": "^3.11.0"
     },
