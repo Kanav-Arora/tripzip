@@ -15,6 +15,26 @@ The frontend and backend are deployed on render and you can deploy the same.
 
 There are two seperate deployments with a monorepo structure with root folders as `frontend` and `backend`.
 
+## Setup
+
+To concurrently run from the root dir, use below command
+
+```bash
+  npm run start
+```
+
+In the backend folder, use below command to run server
+
+```bash
+  npm run dev
+```
+
+In the frontend folder, use below command to run server
+
+```bash
+  npm run start
+```
+
 ## Server
 
 ### Request Status Codes

@@ -1,6 +1,6 @@
 {
     "devDependencies": {
-        "concurrently": "^8.2.1",
+        "concurrently": "^8.2.2",
         "eslint": "^8.53.0",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-prettier": "^9.0.0",
@@ -19,9 +19,11 @@
         "kill-ports:server": "kill-port 8000",
         "kill-ports:front": "kill-port 3000",
         "prestart": "npm run kill-ports:both",
-        "start": "concurrently \"npm run server\" \"npm run client\"",
-        "server": "cd backend && npm start",
-        "client": "cd frontend && npm start",
+        "server:dev": "cd backend && npm run dev",
+        "client:dev": "cd frontend && npm run start",
+        "server": "cd backend && npm run start",
+        "client": "cd frontend && npm run start",
+        "start": "cross-env FORCE_COLOR=true concurrently -n \"tripzip-server,tripzip-front\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run server:dev\" \"npm run client:dev\"",
         "test": "cd infra && cd scripts && NODE_ENV=testing node cleardb.js && kill-port 8000 && cd .. && NODE_ENV=testing npx mocha --config mocha.config.js --exit",
         "setup:postman": "node backend/scripts/fetch-postman-collections.js",
         "database:reset": "cd infra && cd scripts && NODE_ENV=development node cleardb.js",
@@ -40,6 +42,7 @@
         }
     },
     "dependencies": {
+        "cross-env": "^7.0.3",
         "dotenv": "^16.3.1",
         "install": "^0.13.0",
         "jsonwebtoken": "^9.0.2",
