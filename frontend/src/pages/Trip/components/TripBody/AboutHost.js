@@ -163,7 +163,7 @@ export default function AboutHost({ userData }) {
                 name={userData.name}
                 stars={userData.stars}
                 yearsHosting={2}
-                numberOfTrips={userData.tripsCreated.length}
+                numberOfTrips={userData.tripsCreated ? userData.tripsCreated.length : 0}
             />
             <AboutContent>
                 <AboutItem
