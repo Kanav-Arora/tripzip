@@ -43,7 +43,7 @@ export default function TripBody({ tripData, userData }) {
             <RequestCard
                 startDate={startDate}
                 endDate={endDate}
-                interested={tripData.tripsInterested.length}
+                interested={tripData.tripsInterested ? tripData.tripsInterested.length : 0}
                 cost={tripData.tripDetails.cost}
             />
             <SectionContainer border={true}>

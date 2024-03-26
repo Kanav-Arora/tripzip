@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
     CalendarMini as CalendarIcon,
@@ -23,8 +23,6 @@ import { backendOrigin } from '../../frontend.config';
 
 import { useNavigate } from 'react-router-dom';
 import UserAvatar from '../ui/UserAvatar';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { UserDetailsState } from './states/UserDetailsState';
 import { IconProvider } from '../ui/IconProvider/IconProvider';
 
 const TripCard = ({ trip }) => {
@@ -38,8 +36,7 @@ const TripCard = ({ trip }) => {
         navigate(`/account/${trip.createdBy}`);
     };
 
-    const [, setUserDetails] = useRecoilState(UserDetailsState);
-    const userDetails = useRecoilValue(UserDetailsState);
+    const [userDetails, setUserDetails] = useState(null);
 
     useEffect(() => {
         const instance = axios.create({
@@ -82,7 +79,6 @@ const TripCard = ({ trip }) => {
                             uid={userDetails._id}
                             name={userDetails.name}
                             size={1.75}
-                            image="/images/src/kanav.webp"
                             onClick={onUserClickHandler}
                         />
                     )}
