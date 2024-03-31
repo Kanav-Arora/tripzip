@@ -1,5 +1,5 @@
 const logger = require('../../utils/logger/logger');
-const Users = require('../../models/user.mongo');
+const User = require('../../models/user.mongo');
 
 async function userData(req, res) {
     const { userID } = req.params;
@@ -11,7 +11,7 @@ async function userData(req, res) {
                 .send({ message: 'Invalid or missing params' });
         }
 
-        const user = await Users.findOne({ _id: userID }).populate('userDetails').exec();
+        const user = await User.findOne({ _id: userID }).populate('userDetails').exec();
 
         if (!user) {
             return res.status(404).send({ message: 'User not found' });

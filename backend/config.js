@@ -43,5 +43,6 @@ module.exports = {
     GmailID: process.env.GMAIL_ID,
     GmailPassword: process.env.GMAIL_PASSWORD,
     NovuAPI: process.env.NOVU_API,
-    NovuTriggerIdentifier: process.env.NOVU_WORKFLOW_TRIGGER_IDENTIFIER,
+    NovuIdentifierActionable: process.env.NOVU_IDENTIFIER_ACTIONABLE,
+    NovuIdentifierPlain: process.env.NOVU_IDENTIFIER_PLAIN,
 };

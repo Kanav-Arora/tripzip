@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import { Novu } from '@novu/node';
-import { AwsBucketUrl, NovuAPI } from '../../config';
+const { Novu } = require('@novu/node');
+const { AwsBucketUrl, NovuAPI } = require('../../config');
 
 const novu = new Novu(NovuAPI);
 
@@ -31,6 +31,6 @@ async function fetchSubscriber(subscriberID) {
     return response;
 }
 
-export {
+module.exports = {
     createSubscriber, updateSubscriber, deleteSubscriber, fetchSubscriber,
 };

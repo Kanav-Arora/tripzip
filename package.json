@@ -15,9 +15,9 @@
         "prettier": "^3.0.3"
     },
     "scripts": {
-        "kill-ports:both": "kill-port 3000 8000",
-        "kill-ports:server": "kill-port 8000",
-        "kill-ports:front": "kill-port 3000",
+        "kill-ports:both": "npx kill-port 3000 && npx kill-port 8000",
+        "kill-ports:server": "npx kill-port 8000",
+        "kill-ports:front": "npx kill-port 3000",
         "prestart": "npm run kill-ports:both",
         "server:dev": "cd backend && npm run dev",
         "client:dev": "cd frontend && npm run start",
@@ -26,7 +26,7 @@
         "start": "cross-env FORCE_COLOR=true concurrently -n \"tripzip-server,tripzip-front\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run server:dev\" \"npm run client:dev\"",
         "test": "cd infra && cd scripts && NODE_ENV=testing node cleardb.js && kill-port 8000 && cd .. && NODE_ENV=testing npx mocha --config mocha.config.js --exit",
         "setup:postman": "node backend/scripts/fetch-postman-collections.js",
-        "database:reset": "cd infra && cd scripts && NODE_ENV=development node cleardb.js",
+        "database:reset": "cd infra && cd scripts && NODE_ENV=development node cleardb.js && NODE_ENV=development node seedData.js",
         "database:setup": "cd infra && cd scripts && NODE_ENV=development node seedData.js",
         "custom-pre-commit": "npm run setup:postman"
     },

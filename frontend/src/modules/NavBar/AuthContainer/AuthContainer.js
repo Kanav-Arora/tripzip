@@ -16,7 +16,7 @@ export default function AuthContainer({ isDark }) {
     return (
         <Container>
             <AddTripButton isDark={isDark} />
-            <NotificationCenter />
+            <NotificationCenter isDark={isDark} />
             <Dropdown isDark={isDark} />
         </Container>
     );
