@@ -14,6 +14,7 @@ const { AwsUserProfileImagesBucketName, S3ClientObject } = require('../../config
 const {
     sendWelcomeEmail,
 } = require('../../utils/Nodemailer/NodemailerService');
+const { createSubscriber } = require('../../utils/Novu/novuSubscriber');
 
 async function signUpUser(req, res) {
     const user = req.body;
@@ -48,7 +49,27 @@ async function signUpUser(req, res) {
         if (NodeEnv === 'production') {
             cookieOptions.domain = 'tripzip.online';
         }
-        sendWelcomeEmail(savedUser.email, savedUser.name);
+        await sendWelcomeEmail(savedUser.email, savedUser.name);
+        const occurenceIndex = payload.name.lastIndexOf(' ');
+        let firstName = '';
+        let lastName = '';
+        if (occurenceIndex === -1) {
+            firstName = payload.name;
+            lastName = '';
+        } else {
+            firstName = payload.name.substring(0, occurenceIndex);
+            lastName = payload.name.substring(occurenceIndex + 1);
+        }
+        const subscriberResponse = await createSubscriber(payload.id, {
+            firstName,
+            lastName,
+            email: user.email,
+        });
+
+        if (subscriberResponse.status !== 201) {
+            return res.status(400).send({ message: 'Unable to create subscriber for this' });
+        }
+
         res.cookie('access_token', token, cookieOptions).status(201).json({
             uid: savedUser._id,
             name: savedUser.name,
@@ -144,7 +165,7 @@ async function authWithGoogle(req, res) {
             };
             if (authData.picture) {
                 const { data, headers, status } = await axios.get(authData.picture, {
-                    responseType: 'arraybuffer', // Ensure response is treated as binary data
+                    responseType: 'arraybuffer',
                 });
 
                 if (status === 200) {
@@ -156,6 +177,25 @@ async function authWithGoogle(req, res) {
                     };
                     await S3ClientObject.upload(imageParams).promise();
                 }
+            }
+            const occurenceIndex = payload.name.lastIndexOf(' ');
+            let firstName = '';
+            let lastName = '';
+            if (occurenceIndex === -1) {
+                firstName = payload.name;
+                lastName = '';
+            } else {
+                firstName = payload.name.substring(0, occurenceIndex - 1);
+                lastName = payload.name.substring(occurenceIndex + 1);
+            }
+            const subscriberResponse = await createSubscriber(payload.id, {
+                firstName,
+                lastName,
+                email: authData.email,
+            });
+
+            if (subscriberResponse.status !== 201) {
+                return res.status(400).send({ message: 'Unable to create subscriber for this' });
             }
         }
 

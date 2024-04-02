@@ -95,7 +95,7 @@ export default function Trip() {
                         <SectionContainer>
                             <TripImage image={image} />
                         </SectionContainer>
-                        <TripBody tripData={tripData} userData={userData} />
+                        <TripBody tripData={tripData} userData={userData} authUID={authUID} />
                     </StyledContainer>
                 ) : (
                     <div></div>

@@ -26,6 +26,13 @@ const tripSchema = new Schema({
         type: Schema.Types.Number,
         default: -1,
     },
+    peopleRequested: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'users',
+            default: [],
+        },
+    ],
     peopleGoing: [
         {
             type: Schema.Types.ObjectId,
