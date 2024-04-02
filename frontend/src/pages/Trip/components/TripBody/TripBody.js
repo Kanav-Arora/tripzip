@@ -32,12 +32,13 @@ function formatDate(inputDate) {
     return `${day} ${month}, ${year}`;
 }
 
-export default function TripBody({ tripData, userData }) {
+export default function TripBody({ tripData, userData, authUID }) {
     const startDate = formatDate(tripData.tripDetails.startDate);
     const endDate = formatDate(tripData.tripDetails.endDate);
     const desc = tripData.tripDetails.description;
     const itinerary = tripData.tripDetails.itinerary;
     const isMobile = useIsMobile();
+
     return isMobile ? (
         <StyledContainer>
             <RequestCard
@@ -45,6 +46,9 @@ export default function TripBody({ tripData, userData }) {
                 endDate={endDate}
                 interested={tripData.tripsInterested ? tripData.tripsInterested.length : 0}
                 cost={tripData.tripDetails.cost}
+                hasRequested={tripData.peopleRequested.includes(authUID)}
+                joinedTrip={tripData.peopleGoing.includes(authUID)}
+                tripId={tripData._id}
             />
             <SectionContainer border={true}>
                 <div className="flex flex-row justify-between">
@@ -109,6 +113,9 @@ export default function TripBody({ tripData, userData }) {
                         endDate={endDate}
                         interested={tripData.tripsInterested.length}
                         cost={tripData.tripDetails.cost}
+                        hasRequested={tripData.peopleRequested.includes(authUID)}
+                        joinedTrip={tripData.peopleGoing.includes(authUID)}
+                        tripId={tripData._id}
                     />
                 </div>
             </div>

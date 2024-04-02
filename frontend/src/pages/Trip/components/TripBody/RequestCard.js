@@ -1,8 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { FlagIcon } from '../../../../assets/ext-icon';
 import { IconProvider } from '../../../../modules/ui/IconProvider/IconProvider';
 import { Theme } from '../../../../modules/ui/Theme/theme';
+import axios from 'axios';
+import { backendOrigin } from '../../../../frontend.config';
 
 const FlexRow = styled.div`
     display: flex;
@@ -30,22 +32,22 @@ const StyledButton = styled.button`
     border-radius: ${Theme.border.radius.md};
     font-weight: bold;
     padding: ${Theme.spacing(2)} 0;
-    background-image: linear-gradient(to right, #dc2626, #d94646);
     color: white;
     cursor: pointer;
     margin-top: ${Theme.spacing(2)};
-
-    &:hover {
-        background-image: linear-gradient(to right, #c53030, #c72c2c);
-    }
+    background-image: ${props => {
+        if (props.status === "joined") return 'linear-gradient(to right, #2d4d29, #2d4d29)';
+        if (props.status === "requested") return 'linear-gradient(to right,#808080,#808080)';
+        return 'linear-gradient(to right,#d94646,#c53030)';
+    }}
 `;
 
 const StyledDiv = styled.div`
     font-weight: bold;
-    font-size: 0.875rem; /* equivalent to text-md */
+    font-size: 0.875rem;
     display: flex;
     flex-direction: row;
-    gap: 0.5rem; /* equivalent to gap-2 */
+    gap: 0.5rem;
 `;
 
 const RequestCardContainer = styled.div`
@@ -71,7 +73,28 @@ const ExpenseItem = ({ title, cost }) => {
     );
 };
 
-export default function RequestCard({ startDate, endDate, interested, cost }) {
+async function requestTrip(setStatus, tripId) {
+    const instance = axios.create({
+        withCredentials: true,
+        baseURL: backendOrigin,
+    });
+    const result = await instance.post(`/trips/request-trip/${tripId}`);
+    console.log(result);
+    if (result.status === 201) {
+        setStatus("requested");
+    }
+}
+
+const StyledRequestButton = ({ status, setStatus, tripId }) => {
+    if (status === "joined")
+        return <StyledButton status="joined">Leave</StyledButton>
+    else if (status === "requested")
+        return <StyledButton status="requested">Cancel</StyledButton>
+    return <StyledButton status="none" onClick={() => requestTrip(setStatus, tripId)}>Request Join</StyledButton>
+}
+
+export default function RequestCard({ startDate, endDate, interested, cost, hasRequested,
+    joinedTrip, tripId }) {
     const stayCost = cost.stay ? cost.stay : '-';
     const travelCost = cost.travel ? cost.travel : '-';
     const foodCost = cost.food ? cost.food : '-';
@@ -81,6 +104,19 @@ export default function RequestCard({ startDate, endDate, interested, cost }) {
         (cost.travel ?? 0) +
         (cost.food ?? 0) +
         (cost.miscellaneous ?? 0);
+
+    const [status, setStatus] = useState(() => {
+        if (joinedTrip)
+            return "joined"
+        else if (hasRequested)
+            return "requested"
+        else
+            return "none"
+    });
+
+    console.log(hasRequested);
+    console.log(joinedTrip);
+    console.log(`Status: ${status}`);
 
     return (
         <StyledWrapper>
@@ -105,7 +141,7 @@ export default function RequestCard({ startDate, endDate, interested, cost }) {
                         cost={totalCost === 0 ? '-' : totalCost}
                     />
                 </TotalItem>
-                <StyledButton>Request Join</StyledButton>
+                <StyledRequestButton status={status} setStatus={setStatus} tripId={tripId} />
                 <div className="text-xs flex flex-row justify-center">
                     We'll not charge anything
                 </div>

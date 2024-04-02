@@ -91,11 +91,21 @@ async function tripRequestResponse(req, res) {
                 .send({ message: 'Invalid or missing params' });
         }
 
-        const tripData = await Trips.findByIdAndUpdate(
+        const tripData = approved === 'true' ? await Trips.findByIdAndUpdate(
             tripID,
-            { $pull: { peopleRequested: uid } },
+            {
+                $pull: { peopleRequested: uid },
+                $push: { peopleGoing: uid },
+            },
             { new: true },
-        ).populate('tripDetails');
+        ).populate('tripDetails')
+            : await Trips.findByIdAndUpdate(
+                tripID,
+                {
+                    $pull: { peopleRequested: uid },
+                },
+                { new: true },
+            ).populate('tripDetails');
 
         const createdById = tripData.createdBy.toString();
 
