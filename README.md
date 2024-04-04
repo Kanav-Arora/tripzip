@@ -1,6 +1,8 @@
 <div align="center">
 
-# TripZip
+<div style="display: flex; align-items: center; justify-content: center">
+<div style="font-size: 4em;"> Trip</div> <img src="documentation/Bear_Logo.png" alt="Trip Page" style="height: 4em;"> <div style="font-size: 4em;"> Zip</div>
+</div>
 
 #### The open-source platform for those who like to travel
 
@@ -10,6 +12,12 @@
 <!-- <iframe width="560" height="315" src='https://dbdiagram.io/embed/650882a802bd1c4a5ecc62da'> </iframe> -->
 
 ![Trip Page](documentation/tripPage.png)
+
+
+## System Architecture
+
+![System Architecture](documentation/SystemArchitecture.png)
+
 
 The frontend and backend are deployed on render and you can deploy the same.
 
