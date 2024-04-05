@@ -9,13 +9,15 @@
 
 <!-- <iframe width="560" height="315" src='https://dbdiagram.io/embed/650882a802bd1c4a5ecc62da'> </iframe> -->
 
-![Trip Page](documentation/tripPage.png)
+<div align="center">
+<img src="documentation/tripPage.png" alt="Trip Page" style="height: 38em;">
+</div>
 
 
 ## System Architecture
 
 <div align="center">
-<img src="documentation/SystemArchitecture.png" alt="System Arch" style="height: 24em;">
+<img src="documentation/SystemArchitecture.png" alt="System Arch" style="height: 34em;">
 </div>
 
 </br>
