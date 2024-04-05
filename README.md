@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="documentation/Logo.png" alt="Trip Page" style="height: 6em;">
+<img src="documentation/Logo.png" alt="Logo" style="height: 6em;">
 
 #### The open-source platform for those who like to travel
 
@@ -14,8 +14,11 @@
 
 ## System Architecture
 
-![System Architecture](documentation/SystemArchitecture.png)
+<div align="center">
+<img src="documentation/SystemArchitecture.png" alt="System Arch" style="height: 18em;">
+</div>
 
+</br>
 
 The frontend and backend are deployed on render and you can deploy the same.
 
