@@ -15,7 +15,7 @@
 ## System Architecture
 
 <div align="center">
-<img src="documentation/SystemArchitecture.png" alt="System Arch" style="height: 18em;">
+<img src="documentation/SystemArchitecture.png" alt="System Arch" style="height: 24em;">
 </div>
 
 </br>
