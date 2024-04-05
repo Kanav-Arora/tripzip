@@ -1,8 +1,6 @@
 <div align="center">
 
-<div style="display: flex; align-items: center; justify-content: center">
-<div style="font-size: 4em;"> Trip</div> <img src="documentation/Bear_Logo.png" alt="Trip Page" style="height: 4em;"> <div style="font-size: 4em;"> Zip</div>
-</div>
+<img src="documentation/Logo.png" alt="Trip Page" style="height: 4em;">
 
 #### The open-source platform for those who like to travel
 
