@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="documentation/Logo.png" alt="Trip Page" style="height: 4em;">
+<img src="documentation/Logo.png" alt="Trip Page" style="height: 6em;">
 
 #### The open-source platform for those who like to travel
 
