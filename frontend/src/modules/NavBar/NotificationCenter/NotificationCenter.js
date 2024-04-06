@@ -52,7 +52,7 @@ const CustomNotificationCenter = () => {
                 withCredentials: true,
                 baseURL: backendOrigin,
             });
-            const result = await instance.post(`/trips/accept-trip?tripID=${payload.tripID}&uid=${payload.uid}&approved=${approved}`);
+            const result = await instance.post(`/trips/response-trip-request?tripID=${payload.tripID}&uid=${payload.uid}&approved=${approved}`);
             if (result.status !== 201) {
                 console.error('Unexpected status code:', result.status);
                 return;

@@ -1,7 +1,9 @@
 const bodyParser = require('body-parser');
 const { Router } = require('express');
 
-const { createTrip, requestTrip, tripRequestResponse } = require('../controllers/trips/create.controller');
+const {
+    createTrip, requestTrip, tripRequestResponse, leaveTrip, cancelTripRequest,
+} = require('../controllers/trips/create.controller');
 const deleteTrip = require('../controllers/trips/delete.controller');
 const {
     countTrips, filteredTrips, fetchTripByID, fetchTrending,
@@ -15,7 +17,9 @@ tripsRouter.use(bodyParser.urlencoded({ extended: true }));
 
 tripsRouter.post('/', createTrip);
 tripsRouter.post('/request-trip/:tripID', requestTrip);
-tripsRouter.post('/accept-trip', tripRequestResponse);
+tripsRouter.post('/response-trip-request', tripRequestResponse);
+tripsRouter.post('/leave-trip/:tripID', leaveTrip);
+tripsRouter.post('/cancel-trip-request/:tripID', cancelTripRequest);
 
 tripsRouter.delete('/:tripID', deleteTrip);
 
