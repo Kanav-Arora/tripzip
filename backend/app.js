@@ -5,6 +5,7 @@ const express = require('express');
 
 const config = require('./config');
 const validateUser = require('./middlewares/userAuthorisation');
+const rateLimiter = require('./middlewares/rateLimiter');
 
 const app = express();
 
@@ -17,6 +18,7 @@ const corsOptions = {
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(rateLimiter);
 app.use(validateUser);
 
 app.use('/users', require('./routes/users'));
