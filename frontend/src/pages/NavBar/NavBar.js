@@ -111,7 +111,7 @@ export default function NavBar() {
                 </div>
             )}
 
-            <div className="mobile:hidden flex-grow flex justify-center space-x-6">
+            <div className="mobile:hidden flex justify-center w-screen absolute gap-x-6">
                 <Link to="/" className="text-white">
                     Home
                 </Link>
