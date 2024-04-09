@@ -88,10 +88,6 @@ async function signInUser(req, res) {
     const user = req.body;
     try {
         const userExists = await ifUserExists(user.email);
-        
-        if (!userExists) {
-            return res.status(400).send({ message: "Email doesn't exists" });
-        }
 
         // If status = 'deleted' | 'invalid' means like user is not registered in database
         if (!userExists || userExists.status !== 'active') {

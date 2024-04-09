@@ -30,7 +30,9 @@ async function deleteUser( req, res ) {
         });
 
     } catch (error) {
-        console.error('Error updating user:', error);
+        logger.error(error);
+
+        return res.status(500).send({ message: 'Internal Server Error :(' });
     }
 }
 
