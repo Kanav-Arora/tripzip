@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { Nav, Sidebar, SidebarLink, Button, NavLink } from './Styles';
 import { useAuth } from '../../context/Auth/useAuth';
 import { Hamburger, Cross } from '../../assets/ext-icon';
 import { useAuthModal } from '../../modules/ui/LoginSignupModal/hooks/useAuthModal';
@@ -32,120 +32,58 @@ export default function NavBar() {
     };
 
     return (
-        <nav className="absolute w-full top-0 bg-transparent py-4 flex justify-between items-center z-50 px-5 mobile:px-5">
-            <div className="flex items-center text-white leading-3">
-                <div className="hidden mobile:block pr-5 ">
-                    <button onClick={toggleMenu}>
-                        {isOpen ? <Cross /> : <Hamburger />}
-                    </button>
-                </div>
+        <Nav>
+            <div>
+                <Button onClick={toggleMenu}>
+                    {isOpen ? <Cross /> : <Hamburger />}
+                </Button>
                 TripZip
             </div>
 
-            {/* In mobile view: SideBar is open */}
-            {isOpen && (
-                <div
-                    class="hidden mobile:block absolute top-full text-gray-700 pt-1"
-                    style={{
-                        width: document.getElementById('navbar-sidebar')
-                            .offsetWidth,
-                    }}
-                >
-                    <div className="flex flex-col">
-                        <Link
-                            to="/"
-                            className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
-                        >
-                            Home
-                        </Link>
-                        <Link
-                            to="/about"
-                            className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
-                        >
-                            About
-                        </Link>
-                        <Link
-                            to="/trips/search"
-                            className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
-                        >
-                            Upcoming Trips
-                        </Link>
-                        {isAuth === true ? (
-                            <>
-                                <Link
-                                    to="#"
-                                    className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
-                                >
-                                    My Trips
-                                </Link>
-                                <Link
-                                    to="#"
-                                    className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
-                                >
-                                    Setting
-                                </Link>
-                                <button
-                                    onClick={handleSignOut}
-                                    className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
-                                >
-                                    Sign Out
-                                </button>
-                            </>
-                        ) : (
-                            <>
-                                <Link
-                                    to="#"
-                                    className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
-                                >
-                                    Login
-                                </Link>
-                                <Link
-                                    to="#"
-                                    className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
-                                >
-                                    Sign Up
-                                </Link>
-                            </>
-                        )}
-                    </div>
+            <Sidebar isOpen={isOpen} width={document.getElementById('navbar-sidebar').offsetWidth}>
+                <div>
+                    <SidebarLink to="/">Home</SidebarLink>
+                    <SidebarLink to="/about">About</SidebarLink>
+                    <SidebarLink to="/trips/search">Upcoming Trips</SidebarLink>
+                    {isAuth === true ? (
+                        <>
+                            <SidebarLink to="#">My Trips</SidebarLink>
+                            <SidebarLink to="#">Setting</SidebarLink>
+                            <Button onClick={handleSignOut} rounded bgColor="#ccc" hoverColor="#ddd">
+                                Sign Out
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <SidebarLink to="#" onClick={loginModalHandler}>Login</SidebarLink>
+                            <Button onClick={signupModalHandler} rounded bgColor="#fff" textColor="#000" hoverColor="#ddd">
+                                Sign Up
+                            </Button>
+                        </>
+                    )}
                 </div>
-            )}
+            </Sidebar>
 
-            <div className="mobile:hidden flex justify-center w-screen absolute gap-x-6">
-                <Link to="/" className="text-white">
-                    Home
-                </Link>
-                <Link to="/about" className="text-white">
-                    About
-                </Link>
-                <Link to="/trips/search" className="text-white">
-                    Upcoming Trips
-                </Link>
+            <div>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/about">About</NavLink>
+                <NavLink to="/trips/search">Upcoming Trips</NavLink>
             </div>
 
             {isAuth === true ? (
-                <div className="mobile:hidden flex gap-5">
-                    <AuthContainer
-                        authName={authStateValue.name}
-                        isDark={false}
-                    />
+                <div>
+                    <AuthContainer authName={authStateValue.name} isDark={false} />
                 </div>
             ) : (
-                <div className="mobile:hidden flex items-center space-x-2">
-                    <button
-                        className="text-white bg-transparent pr-3 py-2"
-                        onClick={loginModalHandler}
-                    >
+                <div>
+                    <Button onClick={loginModalHandler} bgColor="transparent" textColor="#fff">
                         Login
-                    </button>
-                    <button
-                        className="bg-white text-black border rounded-full px-4 py-1"
-                        onClick={signupModalHandler}
-                    >
+                    </Button>
+                    <Button onClick={signupModalHandler} bgColor="#fff" textColor="#000" rounded>
                         Sign Up
-                    </button>
+                    </Button>
                 </div>
             )}
-        </nav>
+        </Nav>
     );
 }
