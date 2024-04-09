@@ -1,50 +1,139 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+
+// Styled Components
 export const Nav = styled.nav`
+  position: absolute;
+  width: 100%;
+  top: 0;
+  background-color: transparent;
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 50;
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    padding: 0rem 1rem; // Adjust for mobile padding
+  }
+`;
+
+export const LogoContainer = styled.div`
+  width: 20%;
+  display: flex;
+  align-items: center;
+  color: white;
+  line-height: 12px;
+`;
+
+export const HamburgerCross = styled.div`
+  display: none;
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    display: block;
+    padding-right: 20px;
+  }
+`;
+
+export const SideBar = styled.div`
+  display: none;
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    display: block;
     position: absolute;
-    top: 0;
-    width: 100%;
-    background-color: transparent;
-    padding: 1rem 1rem;
+    top : 100%;
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81 / var(--tw-text-opacity));
+    padding-top: 4px;
+  }
+`;
+
+export const FlexContainer = styled.div`
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 50;
+    flex-direction: column;
+  }
 `;
 
-export const Sidebar = styled.div`
-    display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
-    position: absolute;
-    top: 100%;
-    left: 0;
-    text-align: left;
-    padding-top: 1rem;
-    width: ${({ width }) => width}px;
-`;
-
-export const SidebarLink = styled(Link)`
-    background-color: #ccc;
-    color: #333;
+export const SignOut = styled.button`
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(229 231 235 / var(--tw-bg-opacity));
     padding: 0.5rem 1rem;
     display: block;
+    font-size: 0.875rem
+    line-height: 1.25rem
+    
     &:hover {
-        background-color: #ddd;
-    }
+        background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+      }
+  }
 `;
 
-export const Button = styled.button`
-    color: ${({ textColor }) => textColor};
-    background-color: ${({ bgColor }) => bgColor};
+export const SideBarStyledLink = styled(Link)`
+    --tw-bg-opacity: 1;
+    background-color: rgb(229 231 235 / var(--tw-bg-opacity));
     padding: 0.5rem 1rem;
-    border: none;
-    border-radius: ${({ rounded }) => (rounded ? '20px' : '0')};
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.25rem;  
+
+    
     &:hover {
-        background-color: ${({ hoverColor }) => hoverColor};
+        background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+      }
+`;
+
+export const ButtonsList = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    position: absolute;
+    column-gap: 1.5rem;
+    
+@media (min-width: 320px) and (max-width: 480px) {
+    display: none;
+  }
+`;
+
+export const WhiteText = styled(Link)`
+    color: white;
+`;
+
+export const AuthTrueStyles = styled.div`
+    display: flex;
+    gap: 1.25rem;
+    @media (min-width: 320px) and (max-width: 480px) {
+        display: none;
     }
 `;
 
-export const NavLink = styled(Link)`
-    color: #fff;
-    text-decoration: none;
+export const AuthFalseStyles = styled.div`
+    display: flex;
+    align-items: center;
+    margin: 0px 8px;
+    @media (min-width: 320px) and (max-width: 480px) {
+        display: none;
+    }
 `;
+
+export const StyledLogin = styled.div`
+    color: white;
+    background: transparent;
+    padding-right: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+`;
+
+export const StyledSignUp = styled.div`
+    background-color: white;
+    color: black;
+    border-width: 1px;
+    padding-right: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 9999px;
+    padding: 4px 16px;
+`;
+

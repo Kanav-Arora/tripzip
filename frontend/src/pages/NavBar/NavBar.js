@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Nav, Sidebar, SidebarLink, Button, NavLink } from './Styles';
 import { useAuth } from '../../context/Auth/useAuth';
 import { Hamburger, Cross } from '../../assets/ext-icon';
+import { Nav, LogoContainer, HamburgerCross, SideBar, FlexContainer, SignOut, SideBarStyledLink, ButtonsList, WhiteText, AuthTrueStyles, AuthFalseStyles, StyledLogin, StyledSignUp  } from './Styles'
 import { useAuthModal } from '../../modules/ui/LoginSignupModal/hooks/useAuthModal';
 import AuthContainer from '../../modules/NavBar/AuthContainer/AuthContainer';
 
@@ -33,56 +32,107 @@ export default function NavBar() {
 
     return (
         <Nav>
-            <div>
-                <Button onClick={toggleMenu}>
-                    {isOpen ? <Cross /> : <Hamburger />}
-                </Button>
+            <LogoContainer>
+                <HamburgerCross>
+                    <button onClick={toggleMenu}>
+                        {isOpen ? <Cross /> : <Hamburger />}
+                    </button>
+                </HamburgerCross>
                 TripZip
-            </div>
+            </LogoContainer>
 
-            <Sidebar isOpen={isOpen} width={document.getElementById('navbar-sidebar').offsetWidth}>
-                <div>
-                    <SidebarLink to="/">Home</SidebarLink>
-                    <SidebarLink to="/about">About</SidebarLink>
-                    <SidebarLink to="/trips/search">Upcoming Trips</SidebarLink>
-                    {isAuth === true ? (
-                        <>
-                            <SidebarLink to="#">My Trips</SidebarLink>
-                            <SidebarLink to="#">Setting</SidebarLink>
-                            <Button onClick={handleSignOut} rounded bgColor="#ccc" hoverColor="#ddd">
-                                Sign Out
-                            </Button>
-                        </>
-                    ) : (
-                        <>
-                            <SidebarLink to="#" onClick={loginModalHandler}>Login</SidebarLink>
-                            <Button onClick={signupModalHandler} rounded bgColor="#fff" textColor="#000" hoverColor="#ddd">
-                                Sign Up
-                            </Button>
-                        </>
-                    )}
-                </div>
-            </Sidebar>
+            {/* In mobile view: SideBar is open */}
+            {isOpen && (
+                <SideBar
+                    style={{
+                        width: document.getElementById('navbar-sidebar')
+                            .offsetWidth,
+                    }}
+                >
+                    <FlexContainer>
+                        <SideBarStyledLink
+                            to="/"
+                        >
+                            Home
+                        </SideBarStyledLink>
+                        <SideBarStyledLink
+                            to="/about"
+                        >
+                            About
+                        </SideBarStyledLink>
+                        <SideBarStyledLink
+                            to="/trips/search"
+                        >
+                            Upcoming Trips
+                        </SideBarStyledLink>
+                        {isAuth === true ? (
+                            <>
+                                <SideBarStyledLink
+                                    to="#"
+                                >
+                                    My Trips
+                                </SideBarStyledLink>
+                                <SideBarStyledLink
+                                    to="#"
+                                >
+                                    Setting
+                                </SideBarStyledLink>
+                                <SignOut
+                                    onClick={handleSignOut}
+                                >
+                                    Sign Out
+                                </SignOut>
+                            </>
+                        ) : (
+                            <>
+                                <SideBarStyledLink
+                                    to="#"
+                                >
+                                    Login
+                                </SideBarStyledLink>
+                                <SideBarStyledLink
+                                    to="#"
+                                >
+                                    Sign Up
+                                </SideBarStyledLink>
+                            </>
+                        )}
+                    </FlexContainer>
+                </SideBar>
+            )}
 
-            <div>
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/about">About</NavLink>
-                <NavLink to="/trips/search">Upcoming Trips</NavLink>
-            </div>
+            <ButtonsList>
+                <WhiteText to="/">
+                    Home
+                </WhiteText>
+                <WhiteText to="/about">
+                    About
+                </WhiteText>
+                <WhiteText to="/trips/search">
+                    Upcoming Trips
+                </WhiteText>
+            </ButtonsList>
 
             {isAuth === true ? (
-                <div>
-                    <AuthContainer authName={authStateValue.name} isDark={false} />
-                </div>
+                <AuthTrueStyles>
+                    <AuthContainer
+                        authName={authStateValue.name}
+                        isDark={false}
+                    />
+                </AuthTrueStyles>
             ) : (
-                <div>
-                    <Button onClick={loginModalHandler} bgColor="transparent" textColor="#fff">
+                <AuthFalseStyles>
+                    <StyledLogin
+                        onClick={loginModalHandler}
+                    >
                         Login
-                    </Button>
-                    <Button onClick={signupModalHandler} bgColor="#fff" textColor="#000" rounded>
+                    </StyledLogin>
+                    <StyledSignUp
+                        onClick={signupModalHandler}
+                    >
                         Sign Up
-                    </Button>
-                </div>
+                    </StyledSignUp>
+                </AuthFalseStyles>
             )}
         </Nav>
     );
