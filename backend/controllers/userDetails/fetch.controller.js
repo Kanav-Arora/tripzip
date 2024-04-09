@@ -135,8 +135,13 @@ async function fetchInterestedTrips(req, res) {
 }
 
 async function getUserDetails(req, res) {
+
+    
     let uid;
     if (req.route.path === '/') {
+        if (!req.isAuth) {
+            return res.status(401).send({ message: 'Unauthorised access' });
+        }
         uid = req.user.uid;
     } else if (req.route.path === '/:uid') {
         uid = req.params.uid;
