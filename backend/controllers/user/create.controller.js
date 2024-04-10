@@ -9,7 +9,7 @@ const {
 const googleClient = new OAuth2Client(GoogleAuthClientID);
 const logger = require('../../utils/logger/logger');
 const { PasswordManager } = require('../../services/passwordManager');
-const { ifUserExists, addNewUser } = require('./helper.controller');
+const { ifUserExists, addNewUser, deleteUser } = require('./helper.controller');
 const { AwsUserProfileImagesBucketName, S3ClientObject } = require('../../config');
 const {
     sendWelcomeEmail,
@@ -28,7 +28,11 @@ async function signUpUser(req, res) {
 
         const userExists = await ifUserExists(user.email);
         if (userExists) {
-            return res.status(400).send({ message: 'User already exists' });
+            if (userExists.status === 'active') return res.status(400).send({ message: 'User already exists' });
+            const deleteResponse = await deleteUser(userExists._id, userExists.userDetails);
+            if (!deleteResponse) {
+                return res.status(404).send({ message: 'Error signing up' });
+            }
         }
 
         const savedUser = await addNewUser(user);
@@ -89,7 +93,6 @@ async function signInUser(req, res) {
     try {
         const userExists = await ifUserExists(user.email);
 
-        // If status = 'deleted' | 'invalid' means like user is not registered in database
         if (!userExists || userExists.status !== 'active') {
             return res.status(400).send({ message: "Email doesn't exists" });
         }
@@ -144,6 +147,14 @@ async function authWithGoogle(req, res) {
         const authData = ticket.getPayload();
 
         const userExists = await ifUserExists(authData.email);
+
+        if (userExists || userExists.status !== 'active') {
+            const deleteResponse = await deleteUser(userExists._id, userExists.userDetails);
+            if (!deleteResponse) {
+                return res.status(404).send({ message: 'Error authorizing with Google' });
+            }
+        }
+
         let payload = {};
 
         if (userExists) {

@@ -135,8 +135,6 @@ async function fetchInterestedTrips(req, res) {
 }
 
 async function getUserDetails(req, res) {
-
-    
     let uid;
     if (req.route.path === '/') {
         if (!req.isAuth) {
