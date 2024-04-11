@@ -6,19 +6,19 @@ export default function SectionA() {
     let data = [
         {
             place: 'Switzerland',
-            url: '/images/switzerland.jpg',
+            url: '/Images/switzerland.jpg',
         },
         {
             place: 'Greece',
-            url: '/images/greece.jpg',
+            url: '/Images/greece.jpg',
         },
         {
             place: 'Ooty',
-            url: '/images/ooty.jpg',
+            url: '/Images/ooty.jpg',
         },
         {
             place: 'Switzerland',
-            url: '/images/switzerland2.jpg',
+            url: '/Images/switzerland2.jpg',
         },
     ];
 
