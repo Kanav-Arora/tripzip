@@ -75,14 +75,11 @@ export default function SectionB() {
         <div className="my-28 mx-40 flex flex-row gap-x-10">
             <div className="w-2/5 h-[400px] bg-black rounded-lg">
                 <ImgWithFallback
-                    src={
-                        'https://c0.wallpaperflare.com/preview/836/233/182/woman-female-beach-trail.jpg'
-                    }
-                    fallback={
-                        'https://c0.wallpaperflare.com/preview/836/233/182/woman-female-beach-trail.jpg'
-                    }
+                    src={'/images/beach.jpg'} // Adjusted image path
+                    fallback={'/images/beach.jpg'} // Adjusted image path
                     className="rounded-lg"
                     alt={'Beach Image'}
+                    loading="lazy" // Apply lazy loading
                 />
             </div>
             <div className="w-3/5 flex flex-col">
