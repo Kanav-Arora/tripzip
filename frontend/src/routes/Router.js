@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import LoadingBar from 'react-top-loading-bar';
 import Home from '../pages/Home';
@@ -21,7 +21,7 @@ import AccountSetting from '../pages/AccountSetting/AccountSetting';
 export default function Router() {
     const location = useLocation();
     const ref = useRef();
-    const { loginAuth, logoutAuth } = useAuth();
+    const { loginAuth, logoutAuth, isAuthenticated } = useAuth();
 
     useEffect(() => {
         initAuth(loginAuth, logoutAuth);
@@ -41,16 +41,16 @@ export default function Router() {
                     <Route exact path="/" element={<Home />} />
                     <Route exact path="/team" element={<Team />} />
                     <Route
-                        excat
+                        exact
                         path="/trips/search"
                         element={<TripResults />}
                     />
                 </Route>
-                <Route exact path="/trips" element={<TripsLayout />}>
-                    <Route exact path="/trips/:tripID" element={<Trip />} />
+                <Route exact path="/trips" element={isAuthenticated ? <TripsLayout /> : <Navigate to="/" replace />}>
+                    <Route exact path="/trips/:tripID" element={isAuthenticated ? <Trip /> : <Navigate to="/" replace />} />
                 </Route>
-                <Route path="/account/:uid" element={<UserPage />} />
-                <Route path="/settings" element={<AccountSetting />} />
+                <Route path="/account/:uid" element={isAuthenticated ? <UserPage /> : <Navigate to="/" replace />} />
+                <Route path="/settings" element={isAuthenticated ? <AccountSetting /> : <Navigate to="/" replace />} />
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </>
