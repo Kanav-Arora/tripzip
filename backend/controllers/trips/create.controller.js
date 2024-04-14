@@ -146,4 +146,78 @@ async function tripRequestResponse(req, res) {
     }
 }
 
-module.exports = { createTrip, requestTrip, tripRequestResponse };
+async function leaveTrip(req, res) {
+    if (req.isAuth === false) {
+        res.status(401).send({ message: 'Unauthorised access' });
+    }
+    try {
+        const { tripID } = req.params;
+        if (!tripID) {
+            return res
+                .status(400)
+                .send({ message: 'Invalid or missing params' });
+        }
+
+        const tripData = await Trips.findByIdAndUpdate(
+            tripID,
+            { $pull: { peopleGoing: req.user.uid } },
+            { new: true },
+        ).populate('tripDetails');
+
+        const createdById = tripData.createdBy.toString();
+
+        res.status(201).send({
+            status: 201,
+            message: 'Trip left',
+            tripId: tripID,
+            requestorId: req.user.uid,
+            approvorId: createdById,
+        });
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send({
+            status: 500,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+async function cancelTripRequest(req, res) {
+    if (req.isAuth === false) {
+        res.status(401).send({ message: 'Unauthorised access' });
+    }
+    try {
+        const { tripID } = req.params;
+        if (!tripID) {
+            return res
+                .status(400)
+                .send({ message: 'Invalid or missing params' });
+        }
+
+        const tripData = await Trips.findByIdAndUpdate(
+            tripID,
+            { $pull: { peopleRequested: req.user.uid } },
+            { new: true },
+        ).populate('tripDetails');
+
+        const createdById = tripData.createdBy.toString();
+
+        res.status(201).send({
+            status: 201,
+            message: 'Trip Request Cancelled',
+            tripId: tripID,
+            requestorId: req.user.uid,
+            approvorId: createdById,
+        });
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send({
+            status: 500,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+module.exports = {
+    createTrip, requestTrip, tripRequestResponse, leaveTrip, cancelTripRequest,
+};

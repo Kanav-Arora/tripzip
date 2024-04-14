@@ -35,4 +35,16 @@ async function addNewUser(user) {
     }
 }
 
-module.exports = { ifUserExists, addNewUser };
+async function deleteUser(userId, userDetailsId) {
+    const deletedUserDetails = await UserDetails.findByIdAndDelete(userDetailsId);
+    if (!deletedUserDetails) {
+        return null;
+    }
+    const deletedUser = await Users.findByIdAndDelete(userId);
+    if (!deletedUser) {
+        return null;
+    }
+    return { deletedUser, deletedUserDetails };
+}
+
+module.exports = { ifUserExists, addNewUser, deleteUser };

@@ -26,6 +26,12 @@ There are two seperate deployments with a monorepo structure with root folders a
 
 ## Setup
 
+Install dependencies
+
+```bash
+  npm run init-setup
+```
+
 To concurrently run from the root dir, use below command
 
 ```bash
