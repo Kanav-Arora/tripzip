@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
 import { useAuth } from '../../context/Auth/useAuth';
 import { Hamburger, Cross } from '../../assets/ext-icon';
+import { Nav, LogoContainer, HamburgerCross, SideBar, FlexContainer, SignOut, SideBarStyledLink, ButtonsList, WhiteText, AuthTrueStyles, AuthFalseStyles, StyledLogin, StyledSignUp  } from './Styles'
 import { useAuthModal } from '../../modules/ui/LoginSignupModal/hooks/useAuthModal';
 import AuthContainer from '../../modules/NavBar/AuthContainer/AuthContainer';
 
@@ -32,120 +31,109 @@ export default function NavBar() {
     };
 
     return (
-        <nav className="absolute w-full top-0 bg-transparent py-4 flex justify-between items-center z-50 px-5 mobile:px-5">
-            <div className="flex items-center text-white leading-3">
-                <div className="hidden mobile:block pr-5 ">
+        <Nav>
+            <LogoContainer>
+                <HamburgerCross>
                     <button onClick={toggleMenu}>
                         {isOpen ? <Cross /> : <Hamburger />}
                     </button>
-                </div>
+                </HamburgerCross>
                 TripZip
-            </div>
+            </LogoContainer>
 
             {/* In mobile view: SideBar is open */}
             {isOpen && (
-                <div
-                    class="hidden mobile:block absolute top-full text-gray-700 pt-1"
+                <SideBar
                     style={{
                         width: document.getElementById('navbar-sidebar')
                             .offsetWidth,
                     }}
                 >
-                    <div className="flex flex-col">
-                        <Link
+                    <FlexContainer>
+                        <SideBarStyledLink
                             to="/"
-                            className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
                         >
                             Home
-                        </Link>
-                        <Link
+                        </SideBarStyledLink>
+                        <SideBarStyledLink
                             to="/about"
-                            className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
                         >
                             About
-                        </Link>
-                        <Link
+                        </SideBarStyledLink>
+                        <SideBarStyledLink
                             to="/trips/search"
-                            className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
                         >
                             Upcoming Trips
-                        </Link>
+                        </SideBarStyledLink>
                         {isAuth === true ? (
                             <>
-                                <Link
+                                <SideBarStyledLink
                                     to="#"
-                                    className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
                                 >
                                     My Trips
-                                </Link>
-                                <Link
+                                </SideBarStyledLink>
+                                <SideBarStyledLink
                                     to="#"
-                                    className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
                                 >
                                     Setting
-                                </Link>
-                                <button
+                                </SideBarStyledLink>
+                                <SignOut
                                     onClick={handleSignOut}
-                                    className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
                                 >
                                     Sign Out
-                                </button>
+                                </SignOut>
                             </>
                         ) : (
                             <>
-                                <Link
+                                <SideBarStyledLink
                                     to="#"
-                                    className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
                                 >
                                     Login
-                                </Link>
-                                <Link
+                                </SideBarStyledLink>
+                                <SideBarStyledLink
                                     to="#"
-                                    className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-sm"
                                 >
                                     Sign Up
-                                </Link>
+                                </SideBarStyledLink>
                             </>
                         )}
-                    </div>
-                </div>
+                    </FlexContainer>
+                </SideBar>
             )}
 
-            <div className="mobile:hidden flex-grow flex justify-center space-x-6">
-                <Link to="/" className="text-white">
+            <ButtonsList>
+                <WhiteText to="/">
                     Home
-                </Link>
-                <Link to="/about" className="text-white">
+                </WhiteText>
+                <WhiteText to="/about">
                     About
-                </Link>
-                <Link to="/trips/search" className="text-white">
+                </WhiteText>
+                <WhiteText to="/trips/search">
                     Upcoming Trips
-                </Link>
-            </div>
+                </WhiteText>
+            </ButtonsList>
 
             {isAuth === true ? (
-                <div className="mobile:hidden flex gap-5">
+                <AuthTrueStyles>
                     <AuthContainer
                         authName={authStateValue.name}
                         isDark={false}
                     />
-                </div>
+                </AuthTrueStyles>
             ) : (
-                <div className="mobile:hidden flex items-center space-x-2">
-                    <button
-                        className="text-white bg-transparent pr-3 py-2"
+                <AuthFalseStyles>
+                    <StyledLogin
                         onClick={loginModalHandler}
                     >
                         Login
-                    </button>
-                    <button
-                        className="bg-white text-black border rounded-full px-4 py-1"
+                    </StyledLogin>
+                    <StyledSignUp
                         onClick={signupModalHandler}
                     >
                         Sign Up
-                    </button>
-                </div>
+                    </StyledSignUp>
+                </AuthFalseStyles>
             )}
-        </nav>
+        </Nav>
     );
 }
