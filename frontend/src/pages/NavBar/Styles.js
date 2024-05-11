@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // Styled Components
 export const Nav = styled.nav`
     position: absolute;
-    width: 100%;
+    width: 100%; /* Ensure the navbar spans the full width of its container */
     top: 0;
     background-color: transparent;
     padding: 1rem 1.25rem;
@@ -12,6 +12,8 @@ export const Nav = styled.nav`
     justify-content: space-between;
     align-items: center;
     z-index: 50;
+    overflow-x: hidden; /* Hide horizontal overflow if any */
+    white-space: nowrap; /* Prevent line breaks in child elements */
 
     @media (min-width: 320px) and (max-width: 480px) {
       padding: 0rem 1rem; // Adjust for mobile padding
@@ -123,10 +125,6 @@ export const StyledLogin = styled(Link)`
     padding: 8px;
     padding-bottom: 8px;
     position: relative;
-
-    &:hover {
-        color: rgb(230, 230, 230 / var(--tw-bg-opacity));
-    }
 `;
 
 export const StyledSignUp = styled(Link)`
@@ -139,8 +137,4 @@ export const StyledSignUp = styled(Link)`
     border-radius: 9999px;
     padding: 4px 16px;
     position: relative;
-
-    &:hover {
-        color: rgb(230, 230, 230 / var(--tw-bg-opacity));
-    }
 `;
