@@ -25,7 +25,6 @@ export default function SectionC() {
                     setTrending(response.data.data);
                 }
                 if (response.status === 204 || response.data.status === 204) {
-
                 }
                 setLoading(false);
             } catch (error) {
@@ -49,29 +48,26 @@ export default function SectionC() {
                         <TripContainer>
                             {loading ? (
                                 <SkeletonCard cards={3} />
+                            ) : trending.length === 0 ? (
+                                <></>
                             ) : (
-                                trending.length === 0
-                                    ?
-                                    <></>
-                                    :
-                                    trending.map((trip, index) => {
-                                        return <TripCard trip={trip} />;
-                                    })
+                                trending.map((trip, index) => {
+                                    return <TripCard key={index} trip={trip} />;
+                                })
                             )}
                         </TripContainer>
                     </div>
                 </div>
-                {
-                    trending.length > 0
-                        ?
-                        <button
-                            className="mx-auto bg-black text-white rounded-xl w-fit py-1 px-4"
-                            onClick={exploreMoreClick}
-                        >
-                            Explore more
-                        </button>
-                        : <></>
-                }
+                {trending.length > 0 ? (
+                    <button
+                        className='mx-auto bg-black text-white rounded-xl w-fit py-1 px-4'
+                        onClick={exploreMoreClick}
+                    >
+                        Explore more
+                    </button>
+                ) : (
+                    <></>
+                )}
             </div>
         </SectionLayout>
     );

@@ -10,6 +10,7 @@ const Container = styled.div`
     justify-content: end;
     align-items: center;
     gap: ${Theme.spacing(4)};
+    position: relative;
 `;
 
 export default function AuthContainer({ isDark }) {
