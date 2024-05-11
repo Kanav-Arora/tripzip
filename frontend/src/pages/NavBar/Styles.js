@@ -12,8 +12,6 @@ export const Nav = styled.nav`
     justify-content: space-between;
     align-items: center;
     z-index: 50;
-    overflow-x: hidden; /* Hide horizontal overflow if any */
-    white-space: nowrap; /* Prevent line breaks in child elements */
 
     @media (min-width: 320px) and (max-width: 480px) {
       padding: 0rem 1rem; // Adjust for mobile padding
@@ -21,7 +19,7 @@ export const Nav = styled.nav`
 `;
 
 export const LogoContainer = styled.div`
-    width: 20%;
+    width: 10%;
     display: flex;
     align-items: center;
     color: white;
@@ -86,8 +84,8 @@ export const SideBarStyledLink = styled(Link)`
 export const ButtonsList = styled.div`
     display: flex;
     justify-content: center;
-    width: 100vw;
-    position: absolute;
+    width: 90%;
+    /* position: absolute; */
     column-gap: 1.5rem;
 
     @media (min-width: 320px) and (max-width: 480px) {
