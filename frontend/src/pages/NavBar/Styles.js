@@ -84,7 +84,7 @@ export const SideBarStyledLink = styled(Link)`
 export const ButtonsList = styled.div`
     display: flex;
     justify-content: center;
-    width: 90%;
+    width: 100%;
     /* position: absolute; */
     column-gap: 1.5rem;
 
@@ -135,4 +135,5 @@ export const StyledSignUp = styled(Link)`
     border-radius: 9999px;
     padding: 4px 16px;
     position: relative;
+    width: max-content;
 `;
