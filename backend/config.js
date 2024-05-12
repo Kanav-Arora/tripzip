@@ -45,4 +45,5 @@ module.exports = {
     NovuAPI: process.env.NOVU_API,
     NovuIdentifierActionable: process.env.NOVU_IDENTIFIER_ACTIONABLE,
     NovuIdentifierPlain: process.env.NOVU_IDENTIFIER_PLAIN,
+    HereAPI: process.env.HERE_API_KEY,
 };

@@ -27,6 +27,7 @@ app.use('/trips', require('./routes/trips'));
 app.use('/account-image', require('./routes/account_image'));
 app.use('/emailVerify', require('./routes/emailVerify'));
 app.use('/passwordVerify', require('./routes/passwordVerify'));
+app.use('/locations', require('./routes/locations'));
 
 app.get('/', (req, res) => {
     const isAuthenticated = req.isAuth;
