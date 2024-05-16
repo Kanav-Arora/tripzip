@@ -1,11 +1,16 @@
 const axios = require('axios');
 const { HereAPI } = require('../../config');
+const logger = require('../../utils/logger/logger');
 
 async function fetchLocations(req, res) {
     try {
         const {
             location,
         } = req.query;
+
+        if (!location) {
+            throw new Error('Location parameter is required');
+        }
 
         const response = await axios.get('https://autocomplete.search.hereapi.com/v1/autocomplete', {
             params: {
@@ -25,7 +30,7 @@ async function fetchLocations(req, res) {
             throw new Error('No locations found');
         }
     } catch (error) {
-        console.error('Error fetching locations:', error);
+        logger.error('Error fetching locations:', error);
         return res.status(500).json({
             status: 500,
             error: 'Internal Server Error',
