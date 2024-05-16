@@ -1,12 +1,39 @@
+import React, { useState } from 'react';
 import Heading from '../../../modules/ui/Heading';
 import Title from '../../../modules/ui/Title';
 import './Page1.css';
+import { backendOrigin } from '../../../frontend.config';
 import { useAddTrip } from '../useAddTrip';
+import axios from 'axios';
 
 export default function Page1(props) {
     const { updateLocation, updateDescription, getAddTripState } = useAddTrip();
-    const inputValueHandler = (e) => {
-        updateLocation(e.target.value);
+    const [suggestions, setSuggestions] = useState([]);
+    const [selectedLocation, setSelectedLocation] = useState('');
+
+    const inputValueHandler = async (e) => {
+        const inputLocation = e.target.value;
+        updateLocation(inputLocation);
+        if (inputLocation.trim() === '') {
+            setSelectedLocation('');
+        } else {
+            try {
+                const response = await axios.get(backendOrigin + '/locations', {
+                    params: {
+                        location: inputLocation,
+                    },
+                });
+                setSuggestions(response.data.address);
+            } catch (error) {
+                console.error('Error fetching location suggestions:', error);
+            }
+        }
+    };
+
+    const selectLocation = (location) => {
+        setSelectedLocation(location.label);
+        updateLocation(location.label);
+        setSuggestions([]);
     };
 
     const textAreaValueHandler = (e) => {
@@ -26,7 +53,7 @@ export default function Page1(props) {
                 <input
                     type="text"
                     className="w-2/4 border border-gray-300 p-2 rounded-md mb-8 text-sm location-input"
-                    value={getAddTripState.location}
+                    value={selectedLocation || getAddTripState.location} // Use selected location if available
                     onChange={inputValueHandler}
                     placeholder="Delhi"
                 />
@@ -46,6 +73,13 @@ export default function Page1(props) {
                     />
                 </div>
             </div>
+            {suggestions.length > 0 && (
+                <ul className="suggestions-list">
+                    {suggestions.map((location, index) => (
+                        <li key={index} onClick={() => selectLocation(location)}>{location.label}</li>
+                    ))}
+                </ul>
+            )}
             <Heading
                 text="Description"
                 className="font-medium mb-2"
